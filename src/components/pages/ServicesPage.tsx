@@ -55,8 +55,7 @@ const ServicesPage = memo(() => {
         ],
         image:
           "https://plus.unsplash.com/premium_photo-1661873243927-ac13c13485eb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SW5mcmFzdHJ1Y3R1cmUlMjBEZXZlbG9wbWVudHxlbnwwfHwwfHx8MA%3D%3D",
-        projects: "210+",
-        averageValue: "R45M",
+        projects: "5+", 
         completionTime: "18 months avg",
       },
       {
@@ -75,8 +74,7 @@ const ServicesPage = memo(() => {
         ],
         image:
           "https://images.unsplash.com/photo-1740485132839-3edd43060988?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyb2FkJTIwY29uc3RydWN0aW9uJTIwaGVhdnklMjBtYWNoaW5lcnl8ZW58MXx8fHwxNzU1NjU3MTgzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-        projects: "140+",
-        averageValue: "R25M",
+        projects: "5+", 
         completionTime: "12 months avg",
       },
       {
@@ -95,8 +93,7 @@ const ServicesPage = memo(() => {
         ],
         image:
           "https://images.unsplash.com/photo-1581674662583-5e89b374fae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXZpbCUyMGVuZ2luZWVyaW5nJTIwYmx1ZXByaW50cyUyMHBsYW5uaW5nfGVufDF8fHx8MTc1NTY1ODI0MXww&ixlib=rb-4.1.0&q=80&w=1080",
-        projects: "150+",
-        averageValue: "R35M",
+        projects: "5+", 
         completionTime: "15 months avg",
       },
       {
@@ -114,9 +111,8 @@ const ServicesPage = memo(() => {
           "Performance Monitoring",
         ],
         image:
-          "https://plus.unsplash.com/premium_photo-1682126164389-6780333faee5?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        projects: "300+",
-        averageValue: "R8M",
+          "https://images.unsplash.com/photo-1625722662233-297060231b85?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070&auto=format&fit=crop",
+        projects: "5+", 
         completionTime: "6 months avg",
       },
     ],
@@ -140,14 +136,14 @@ const ServicesPage = memo(() => {
       {
         icon: Zap,
         title: "Innovation",
-        description: "Advanced BIM systems and sustainable construction practices",
+        description: "Advanced IMS systems and sustainable construction practices",
         metric: "25% efficiency gain",
       },
       {
         icon: Users,
         title: "Expert Team",
         description: "Professional engineers and certified specialists",
-        metric: "15+ years avg experience",
+        metric: "6+ years avg experience",
       },
     ],
     [],
@@ -198,7 +194,7 @@ const ServicesPage = memo(() => {
   const headerStats = useMemo(
     () => [
       { value: "4", label: "Core Services", icon: Settings },
-      { value: "80+", label: "Projects Delivered", icon: Building2 },
+      { value: "25+", label: "Projects Delivered", icon: Building2 },
       { value: "100%", label: "Success Rate", icon: Award },
       { value: "24/7", label: "Support Available", icon: Clock },
     ],
@@ -303,10 +299,6 @@ const ServicesPage = memo(() => {
                         <div className="text-xs text-gray-600">Projects</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-lg font-bold text-blue-600">{service.averageValue}</div>
-                        <div className="text-xs text-gray-600">Avg Value</div>
-                      </div>
-                      <div className="text-center">
                         <div className="text-lg font-bold text-green-600">{service.completionTime}</div>
                         <div className="text-xs text-gray-600">Timeline</div>
                       </div>
@@ -316,13 +308,7 @@ const ServicesPage = memo(() => {
                     <div className="flex space-x-3">
                       <Dialog>
                         <DialogTrigger asChild>
-                          <Button
-                            className="flex-1 bg-orange-500 hover:bg-orange-600 text-white"
-                            onClick={() => setSelectedService(service.id)}
-                          >
-                            <Target className="mr-2 w-4 h-4" />
-                            Learn More
-                          </Button>
+                          
                         </DialogTrigger>
                         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                           <DialogHeader>
@@ -380,26 +366,13 @@ const ServicesPage = memo(() => {
                             </div>
 
                             <div className="mt-8 text-center">
-                              <Button
-                                onClick={() => setCurrentPage("contact")}
-                                className="bg-[#d27015] hover:bg-[#b8621a] text-white px-8 py-3"
-                              >
-                                <Phone className="mr-2 w-5 h-5" />
-                                Get Quote for This Service
-                              </Button>
+                              
                             </div>
                           </div>
                         </DialogContent>
                       </Dialog>
 
-                      <Button
-                        variant="outline"
-                        onClick={() => setCurrentPage("contact")}
-                        className="border-[#d27015] text-[#d27015] hover:bg-[#d27015]/5"
-                      >
-                        <Calendar className="mr-2 w-4 h-4" />
-                        Get Quote
-                      </Button>
+                     
                     </div>
                   </div>
                 </CardContent>
@@ -410,39 +383,7 @@ const ServicesPage = memo(() => {
       </section>
 
       {/* Capabilities Section */}
-      <section ref={capabilitiesSection.ref} className="section-padding bg-gray-100">
-        <div className="max-w-7xl mx-auto container-padding">
-          <div className={`text-center mb-20 animate-on-scroll ${capabilitiesSection.isVisible ? "is-visible" : ""}`}>
-            <Badge className="mb-8 bg-blue-600 text-white text-lg px-6 py-3 font-semibold">
-              <Zap className="w-5 h-5 mr-2" />
-              Our Capabilities
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">What Sets Us Apart</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Advanced capabilities and proven expertise that ensure exceptional project delivery
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {capabilities.map((capability, index) => (
-              <Card
-                key={index}
-                className={`card-professional text-center group animate-on-scroll ${capabilitiesSection.isVisible ? "is-visible" : ""}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <capability.icon className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{capability.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{capability.description}</p>
-                  <div className="text-lg font-bold text-[#d27015]">{capability.metric}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
       {/* Construction Process */}
       <section ref={processSection.ref} className="section-padding bg-white">
@@ -482,35 +423,7 @@ const ServicesPage = memo(() => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="section-padding bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto container-padding text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-8">Ready to Start Your Project?</h2>
-          <p className="text-xl mb-16 max-w-4xl mx-auto text-gray-300 leading-relaxed">
-            Get expert consultation and detailed project estimates. Our team is ready to transform your construction
-            vision into reality with precision and excellence.
-          </p>
-
-          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            <Button
-              onClick={() => setCurrentPage("contact")}
-              className="bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-6 text-xl shadow-lg"
-            >
-              <Phone className="mr-3 w-7 h-7" />
-              Get Free Consultation
-              <ArrowRight className="ml-3 w-7 h-7" />
-            </Button>
-
-            <Button
-              onClick={() => setCurrentPage("projects")}
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-slate-900 font-semibold px-12 py-6 text-xl"
-            >
-              <Building2 className="mr-3 w-7 h-7" />
-              View Our Portfolio
-            </Button>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 });

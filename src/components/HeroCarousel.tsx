@@ -27,10 +27,6 @@ interface CarouselSlide {
   image?: string;
   videoId?: string;
   badge: string;
-  cta: {
-    primary: { text: string; action: string };
-    secondary: { text: string; action: string };
-  };
   type: "image" | "video";
 }
 
@@ -48,16 +44,12 @@ const HeroCarousel = memo(() => {
       subtitle: "Construction Excellence",
       description:
         "Premier construction and maintanance solutions across South Africa. From substations to specialized civil construction, we deliver world-class infrastructure that stands the test of time.",
-      videoId: "CG5D2NHdq7A", // Construction & Construction video
+      videoId: "4BzjUq921Y4", // Construction & Construction video
       badge: "Featured: Construction Process",
       type: "video",
-      cta: {
-        primary: { text: "Our Construction", action: "services" },
-        secondary: { text: "Watch More", action: "projects" },
-      },
     },
   ];
-
+ 
   // Auto-advance slides
   useEffect(() => {
     if (!isPlaying) return;
@@ -100,10 +92,6 @@ const HeroCarousel = memo(() => {
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
-  };
-
-  const handleCTA = (action: string) => {
-    setCurrentPage(action as any);
   };
 
   const currentSlideData = slides[currentSlide];
@@ -181,27 +169,6 @@ const HeroCarousel = memo(() => {
                 <p className="text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-2xl">
                   {currentSlideData.description}
                 </p>
-
-                <div className="flex flex-col sm:flex-row gap-6 pt-8">
-                  <Button
-                    size="lg"
-                    onClick={() => handleCTA(currentSlideData.cta.primary.action)}
-                    className="bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    <Building2 className="mr-3 w-6 h-6" />
-                    {currentSlideData.cta.primary.text}
-                    <ArrowRight className="ml-3 w-6 h-6" />
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    onClick={() => handleCTA(currentSlideData.cta.secondary.action)}
-                    className="border-2 border-white text-white hover:bg-white hover:text-slate-900 font-semibold px-10 py-6 text-lg backdrop-blur-sm bg-white/10 transition-all duration-300"
-                  >
-                    <Target className="mr-3 w-6 h-6" />
-                    {currentSlideData.cta.secondary.text}
-                  </Button>
-                </div>
               </div>
             </div>
 

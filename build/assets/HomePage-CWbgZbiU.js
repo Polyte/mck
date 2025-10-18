@@ -1,37 +1,1137 @@
-import{c as j,r as i,u as Y,j as e,B as v,S as B,a as w,b as N,T as O,C as $,U as E,A as k,P as F}from"./index-B5pdoKEE.js";import{I as M,A as y,S as A,C as H,a as T,b as I,u as C,c as G,d as L,e as K}from"./useScrollAnimation-DgykiPAu.js";import{V as z,C as Q}from"./video-DacA3GZn.js";import{T as ee}from"./trending-up-Blr9p_PK.js";import{D as P,a as D}from"./dialog-Tj7_9H7O.js";import{H as te,Z as V}from"./zap-my6MKtb3.js";import{T as se,C as R,W as ae}from"./wrench-DxnD3ZLt.js";import{S as ie}from"./settings-BVI8YmtE.js";/**
+import {
+    c as j,
+    r as i,
+    u as Y,
+    j as e,
+    B as v,
+    S as B,
+    a as w,
+    b as N,
+    T as O,
+    C as $,
+    U as E,
+    A as k,
+    P as F
+} from "./index-B5pdoKEE.js";
+import {
+    I as M,
+    A as y,
+    S as A,
+    C as H,
+    a as T,
+    b as I,
+    u as C,
+    c as G,
+    d as L,
+    e as K
+} from "./useScrollAnimation-DgykiPAu.js";
+import {
+    V as z,
+    C as Q
+} from "./video-DacA3GZn.js";
+import {
+    T as ee
+} from "./trending-up-Blr9p_PK.js";
+import {
+    D as P,
+    a as D
+} from "./dialog-Tj7_9H7O.js";
+import {
+    H as te,
+    Z as V
+} from "./zap-my6MKtb3.js";
+import {
+    T as se,
+    C as R,
+    W as ae
+} from "./wrench-DxnD3ZLt.js";
+import {
+    S as ie
+} from "./settings-BVI8YmtE.js";
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const le=[["path",{d:"m15 18-6-6 6-6",key:"1wnfg3"}]],W=j("chevron-left",le);/**
+ */
+const le = [
+        ["path", {
+            d: "m15 18-6-6 6-6",
+            key: "1wnfg3"
+        }]
+    ],
+    W = j("chevron-left", le);
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const re=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polygon",{points:"10 8 16 12 10 16 10 8",key:"1cimsy"}]],J=j("circle-play",re);/**
+ */
+const re = [
+        ["circle", {
+            cx: "12",
+            cy: "12",
+            r: "10",
+            key: "1mglay"
+        }],
+        ["polygon", {
+            points: "10 8 16 12 10 16 10 8",
+            key: "1cimsy"
+        }]
+    ],
+    J = j("circle-play", re);
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const ne=[["rect",{x:"14",y:"4",width:"4",height:"16",rx:"1",key:"zuxfzm"}],["rect",{x:"6",y:"4",width:"4",height:"16",rx:"1",key:"1okwgv"}]],oe=j("pause",ne);/**
+ */
+const ne = [
+        ["rect", {
+            x: "14",
+            y: "4",
+            width: "4",
+            height: "16",
+            rx: "1",
+            key: "zuxfzm"
+        }],
+        ["rect", {
+            x: "6",
+            y: "4",
+            width: "4",
+            height: "16",
+            rx: "1",
+            key: "1okwgv"
+        }]
+    ],
+    oe = j("pause", ne);
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const ce=[["polygon",{points:"6 3 20 12 6 21 6 3",key:"1oa8hb"}]],de=j("play",ce);/**
+ */
+const ce = [
+        ["polygon", {
+            points: "6 3 20 12 6 21 6 3",
+            key: "1oa8hb"
+        }]
+    ],
+    de = j("play", ce);
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const me=[["path",{d:"M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z",key:"rib7q0"}],["path",{d:"M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z",key:"1ymkrd"}]],X=j("quote",me);/**
+ */
+const me = [
+        ["path", {
+            d: "M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z",
+            key: "rib7q0"
+        }],
+        ["path", {
+            d: "M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z",
+            key: "1ymkrd"
+        }]
+    ],
+    X = j("quote", me);
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const xe=[["path",{d:"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z",key:"uqj9uw"}],["path",{d:"M16 9a5 5 0 0 1 0 6",key:"1q6k2b"}],["path",{d:"M19.364 18.364a9 9 0 0 0 0-12.728",key:"ijwkga"}]],he=j("volume-2",xe);/**
+ */
+const xe = [
+        ["path", {
+            d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z",
+            key: "uqj9uw"
+        }],
+        ["path", {
+            d: "M16 9a5 5 0 0 1 0 6",
+            key: "1q6k2b"
+        }],
+        ["path", {
+            d: "M19.364 18.364a9 9 0 0 0 0-12.728",
+            key: "ijwkga"
+        }]
+    ],
+    he = j("volume-2", xe);
+/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const ge=[["path",{d:"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z",key:"uqj9uw"}],["line",{x1:"22",x2:"16",y1:"9",y2:"15",key:"1ewh16"}],["line",{x1:"16",x2:"22",y1:"9",y2:"15",key:"5ykzw1"}]],ue=j("volume-x",ge),_=i.memo(()=>{const{setCurrentPage:b}=Y(),[a,u]=i.useState(0),[m,d]=i.useState(!0),[n,f]=i.useState(!0),p=i.useRef(null),r=[{id:2,title:"Building Tomorrow's Infrastructure",subtitle:"Construction Excellence",description:"Premier construction and Construction solutions across South Africa. From highways to bridges, we deliver world-class infrastructure that stands the test of time.",image:"https://images.unsplash.com/photo-1635338340243-c53b2ae2631f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwY3JhbmUlMjBidWlsZGluZ3xlbnwxfHx8fDE3NTU2MzIxODF8MA&ixlib=rb-4.1.0&q=80&w=1080",badge:"Level 1 BBBEE • 100% Black-Owned",type:"image",cta:{primary:{text:"Explore Projects",action:"projects"},secondary:{text:"Learn More",action:"about"}}},{id:1,title:"Building Tomorrow's Infrastructure",subtitle:"Construction Excellence",description:"Premier construction and Construction solutions across South Africa. From highways to bridges, we deliver world-class infrastructure that stands the test of time.",videoId:"CG5D2NHdq7A",badge:"Featured: Construction Process",type:"video",cta:{primary:{text:"Our Construction",action:"services"},secondary:{text:"Watch More",action:"projects"}}}];i.useEffect(()=>{if(!m)return;const g=r[a].type==="video"?3e4:7e3,U=setInterval(()=>{u(Z=>(Z+1)%r.length)},g);return()=>clearInterval(U)},[m,r.length,a]),i.useEffect(()=>{const s=r[a];if(s.type==="video"&&p.current){const g=`https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=${n?1:0}&loop=1&playlist=${s.videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`;p.current.src=g}},[a,n]);const l=s=>{u(s)},t=()=>{u(s=>(s+1)%r.length)},o=()=>{u(s=>(s-1+r.length)%r.length)},S=()=>{d(!m)},c=()=>{f(!n)},x=s=>{b(s)},h=r[a];return e.jsxs("div",{className:"relative min-h-screen overflow-hidden",children:[e.jsx("div",{className:"absolute inset-0",children:r.map((s,g)=>e.jsx("div",{className:`absolute inset-0 transition-opacity duration-1000 ${g===a?"opacity-100":"opacity-0"}`,children:s.type==="image"?e.jsxs(e.Fragment,{children:[e.jsx(M,{src:s.image,alt:s.title,className:"w-full h-full object-cover"}),e.jsx("div",{className:"absolute inset-0 bg-gradient-to-r from-orange-900/90 via-slate-800/80 to-orange-500/70"})]}):e.jsxs(e.Fragment,{children:[e.jsx("div",{className:"w-full h-full",children:e.jsx("iframe",{ref:g===a?p:null,className:"w-full h-full object-cover scale-150 transform translate-y-[-10%]",src:g===a?`https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=${n?1:0}&loop=1&playlist=${s.videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=0`:"",title:s.title,frameBorder:"0",allow:"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",allowFullScreen:!0})}),e.jsx("div",{className:"absolute inset-0 bg-gradient-to-r from-orange-900/85 via-slate-800/70 to-orange-500/60"})]})},s.id))}),e.jsx("div",{className:"absolute inset-0 professional-grid opacity-10"}),e.jsx("div",{className:"relative z-10 min-h-screen flex items-center",children:e.jsx("div",{className:"max-w-7xl mx-auto container-padding w-full",children:e.jsx("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",children:e.jsx("div",{className:"text-white",children:e.jsxs("div",{className:"animate-fade-in-left space-y-8",children:[e.jsxs(v,{className:`bg-orange-500/20 text-orange-400 border border-orange-500/30 text-lg px-6 py-3 font-semibold ${h.type==="video"?"animate-pulse":""}`,children:[h.type==="video"?e.jsx(z,{className:"w-5 h-5 mr-2"}):e.jsx(B,{className:"w-5 h-5 mr-2"}),h.badge]}),e.jsxs("div",{className:"space-y-4",children:[e.jsx("h2",{className:"text-2xl font-semibold text-orange-400 tracking-wide",children:h.subtitle}),e.jsx("h1",{className:"text-5xl md:text-6xl lg:text-7xl font-bold leading-tight",children:h.title})]}),e.jsx("p",{className:"text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-2xl",children:h.description}),e.jsxs("div",{className:"flex flex-col sm:flex-row gap-6 pt-8",children:[e.jsxs(w,{size:"lg",onClick:()=>x(h.cta.primary.action),className:"bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300",children:[e.jsx(N,{className:"mr-3 w-6 h-6"}),h.cta.primary.text,e.jsx(y,{className:"ml-3 w-6 h-6"})]}),e.jsxs(w,{size:"lg",variant:"outline",onClick:()=>x(h.cta.secondary.action),className:"border-2 border-white text-white hover:bg-white hover:text-slate-900 font-semibold px-10 py-6 text-lg backdrop-blur-sm bg-white/10 transition-all duration-300",children:[e.jsx(O,{className:"mr-3 w-6 h-6"}),h.cta.secondary.text]})]})]},a)})})})}),e.jsx("div",{className:"absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20",children:e.jsxs("div",{className:`flex items-center space-x-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-2 
-         shadow-lg`,children:[e.jsx("button",{onClick:S,className:"text-white hover:text-orange-400 transition-colors p-2 hover:scale-110",title:m?"Pause slideshow":"Play slideshow",children:m?e.jsx(oe,{className:"w-5 h-5"}):e.jsx(de,{className:"w-5 h-5"})}),h.type==="video"&&e.jsx("button",{onClick:c,className:"text-white hover:text-orange-400 transition-colors p-2 hover:scale-110",title:n?"Unmute video":"Mute video",children:n?e.jsx(ue,{className:"w-5 h-5"}):e.jsx(he,{className:"w-5 h-5"})}),e.jsx("div",{className:"flex space-x-3",children:r.map((s,g)=>e.jsx("button",{onClick:()=>l(g),className:`w-3 h-3 rounded-full transition-all duration-300 relative ${g===a?"bg-orange-500 scale-125 shadow-lg":"bg-white/40 hover:bg-white/70"}`,title:`Go to slide ${g+1}: ${s.title}`,children:s.type==="video"&&e.jsx(z,{className:"w-2 h-2 absolute -top-3 left-1/2 transform -translate-x-1/2 text-orange-400"})},g))}),e.jsxs("div",{className:"text-white/80 text-sm font-mono",children:[String(a+1).padStart(2,"0")," / ",String(r.length).padStart(2,"0")]}),h.type==="video"&&e.jsxs("div",{className:"text-orange-400 text-xs font-semibold flex items-center animate-pulse",children:[e.jsx(z,{className:"w-3 h-3 mr-1"}),"LIVE"]})]})}),e.jsx("button",{onClick:o,className:"absolute left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-full text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 hover:bg-white/20",title:"Previous slide",children:e.jsx(W,{className:"w-6 h-6"})}),e.jsx("button",{onClick:t,className:"absolute right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-full text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 hover:bg-white/20",title:"Next slide",children:e.jsx($,{className:"w-6 h-6"})}),e.jsx("div",{className:"absolute bottom-8 right-8 z-20 animate-bounce",children:e.jsx("div",{className:"w-8 h-12 border-2 border-white/50 rounded-full flex justify-center bg-white/10 backdrop-blur-sm",children:e.jsx("div",{className:"w-1 h-4 bg-orange-400 rounded-full mt-3 animate-pulse"})})})]})});_.displayName="HeroCarousel";const q=i.memo(()=>{const[b,a]=i.useState(0),[u,m]=i.useState(!0),d=[{id:1,name:"Sarah Johnson",title:"Municipal Manager",company:"City of Johannesburg",image:"https://images.unsplash.com/photo-1494790108755-2616b6fc3b7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzU1NjU3MTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",rating:5,testimonial:"McKeywa Projects transformed our infrastructure vision into reality. Their Level 1 BBBEE status and exceptional Construction expertise made them our preferred partner.",projectType:"Bridge Construction",projectValue:"R47.5M",completionTime:"16 months",results:["Completed ahead of schedule","Zero safety incidents","15% under budget"],videoTestimonial:!0},{id:2,name:"Michael Chen",title:"Infrastructure Director",company:"KwaZulu-Natal Provincial Government",image:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NTY1NzE4OHww&ixlib=rb-4.1.0&q=80&w=1080",rating:5,testimonial:"Outstanding water treatment facility construction. McKeywa's innovative approach and advanced Construction solutions delivered a world-class facility that serves 65,000 residents.",projectType:"Water Infrastructure",projectValue:"R78.2M",completionTime:"24 months",results:["Serves 65,000 residents","Advanced filtration tech","Sustainable design"],videoTestimonial:!1},{id:3,name:"Nomsa Mthembu",title:"Roads & Transport Manager",company:"Mpumalanga Department of Transport",image:"https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwYWZyaWNhbnxlbnwxfHx8fDE3NTU2NTcxOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",rating:5,testimonial:"The provincial road rehabilitation exceeded all expectations. McKeywa's team demonstrated exceptional professionalism and advanced construction techniques.",projectType:"Road Construction",projectValue:"R32.8M",completionTime:"14 months",results:["28km road rehabilitation","Smart road technology","Local skills development"],videoTestimonial:!0},{id:4,name:"David Wilson",title:"Development Manager",company:"Private Sector Client",image:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHN1aXR8ZW58MXx8fHwxNzU1NjU3MTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",rating:5,testimonial:"McKeywa Projects consistently delivers excellence. Their CIDB PE 5CE rating speaks to their capability, but their results speak even louder.",projectType:"Commercial Development",projectValue:"R125M",completionTime:"18 months",results:["Premium construction quality","Innovative design solutions","Excellent project management"],videoTestimonial:!1}],n=[{label:"Client Satisfaction",value:"100%",icon:E},{label:"Projects Completed",value:"500+",icon:N},{label:"Average Rating",value:"5.0",icon:A},{label:"Repeat Clients",value:"89%",icon:ee}];i.useEffect(()=>{if(!u)return;const t=setInterval(()=>{a(o=>(o+1)%d.length)},8e3);return()=>clearInterval(t)},[u,d.length]);const f=t=>{a(t),m(!1),setTimeout(()=>m(!0),1e4)},p=()=>{a(t=>(t+1)%d.length)},r=()=>{a(t=>(t-1+d.length)%d.length)},l=d[b];return e.jsxs("div",{className:"max-w-7xl mx-auto space-y-8",children:[e.jsx("div",{className:"grid grid-cols-2 lg:grid-cols-4 gap-4",children:n.map((t,o)=>e.jsx(H,{className:"relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-2xl hover:border-[#14184c]/40 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 group overflow-hidden",children:e.jsxs(T,{className:"p-4",children:[e.jsx("div",{className:"w-8 h-8 bg-gradient-to-r from-[#14184c] to-[#0f1340] rounded-lg flex items-center justify-center text-white mx-auto mb-2",children:e.jsx(t.icon,{className:"w-4 h-4"})}),e.jsx("div",{className:"text-lg font-bold text-[#14184c] mb-1",children:t.value}),e.jsx("div",{className:"text-xs font-medium text-gray-600",children:t.label})]})},o))}),e.jsxs("div",{className:"relative h-[200px]",children:[e.jsx(H,{className:"card-professional overflow-hidden h-full",children:e.jsx(T,{className:"p-0 h-full",children:e.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-5 h-full",children:[e.jsxs("div",{className:"lg:col-span-2 relative h-[200px]",children:[e.jsx(M,{src:l.image,alt:l.name,className:"w-full h-full object-cover"}),l.videoTestimonial&&e.jsx("div",{className:"absolute inset-0 flex items-center justify-center bg-black/20",children:e.jsx("div",{className:"w-12 h-12 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer",children:e.jsx(J,{className:"w-8 h-8 text-orange-500"})})}),e.jsx("div",{className:"absolute top-3 left-3",children:e.jsx(v,{className:"bg-orange-500 text-white font-bold px-2 py-1 text-xs",children:l.projectValue})})]}),e.jsx("div",{className:"lg:col-span-3 p-4 h-[200px] overflow-hidden",children:e.jsxs("div",{className:"h-full flex flex-col justify-between",children:[e.jsxs("div",{className:"flex items-center justify-between mb-2",children:[e.jsx(X,{className:"w-6 h-6 text-yellow-500"}),e.jsx("div",{className:"flex space-x-1",children:[...Array(l.rating)].map((t,o)=>e.jsx(A,{className:"w-3 h-3 fill-yellow-500 text-yellow-500"},o))})]}),e.jsxs("blockquote",{className:"text-sm text-gray-600 leading-tight mb-2 italic line-clamp-3",children:['"',l.testimonial,'"']}),e.jsxs("div",{className:"mb-2",children:[e.jsx("div",{className:"font-bold text-sm text-gray-900",children:l.name}),e.jsx("div",{className:"text-xs text-orange-500 font-medium",children:l.title}),e.jsx("div",{className:"text-xs text-gray-500",children:l.company})]}),e.jsxs("div",{className:"grid grid-cols-3 gap-2 text-xs",children:[e.jsx("div",{children:e.jsx("div",{className:"font-semibold text-gray-900",children:l.projectType})}),e.jsx("div",{children:e.jsx("div",{className:"text-gray-600",children:l.projectValue})}),e.jsx("div",{children:e.jsx("div",{className:"text-gray-600",children:l.completionTime})})]}),e.jsx("div",{className:"flex items-center space-x-4 text-xs",children:l.results.slice(0,2).map((t,o)=>e.jsxs("div",{className:"flex items-center space-x-1",children:[e.jsx(I,{className:"w-3 h-3 text-green-600 flex-shrink-0"}),e.jsx("span",{className:"text-gray-600 truncate",children:t})]},o))})]})})]})})}),e.jsx("button",{onClick:r,className:"absolute left-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 shadow-lg",children:e.jsx(W,{className:"w-4 h-4"})}),e.jsx("button",{onClick:p,className:"absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 shadow-lg",children:e.jsx($,{className:"w-4 h-4"})})]}),e.jsx("div",{className:"flex justify-center items-center space-x-3",children:d.map((t,o)=>e.jsxs("button",{onClick:()=>f(o),className:`flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ${o===b?"bg-orange-500 text-white":"bg-gray-100 text-gray-600 hover:bg-orange-100"}`,children:[e.jsx("div",{className:"w-6 h-6 rounded-full overflow-hidden",children:e.jsx(M,{src:t.image,alt:t.name,className:"w-full h-full object-cover"})}),e.jsxs("div",{className:"hidden sm:block text-left",children:[e.jsx("div",{className:"font-semibold text-xs",children:t.name}),e.jsx("div",{className:"text-xs opacity-80 truncate max-w-[100px]",children:t.company})]}),t.videoTestimonial&&e.jsx(J,{className:"w-3 h-3"})]},t.id))}),e.jsxs("div",{className:"bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-6 text-white text-center",children:[e.jsx("h3",{className:"text-lg font-bold mb-4",children:"Trusted by Leading Organizations"}),e.jsx("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-4",children:[{name:"City of Johannesburg",logo:"🏛️"},{name:"KZN Provincial Gov",logo:"🏛️"},{name:"Mpumalanga Transport",logo:"🚛"},{name:"Private Sector",logo:"🏢"}].map((t,o)=>e.jsxs("div",{className:"flex flex-col items-center",children:[e.jsx("div",{className:"text-2xl mb-1",children:t.logo}),e.jsx("div",{className:"font-medium text-xs",children:t.name})]},o))}),e.jsxs("div",{className:"mt-4 flex justify-center space-x-6",children:[e.jsxs("div",{className:"flex items-center space-x-1",children:[e.jsx(k,{className:"w-4 h-4 text-yellow-500"}),e.jsx("span",{className:"text-xs font-medium",children:"Level 1 BBBEE"})]}),e.jsxs("div",{className:"flex items-center space-x-1",children:[e.jsx(I,{className:"w-4 h-4 text-green-500"}),e.jsx("span",{className:"text-xs font-medium",children:"CIDB PE 5CE"})]})]})]})]})});q.displayName="TestimonialsCarousel";const pe=i.memo(({end:b,suffix:a="",prefix:u="",duration:m=2e3})=>{const{ref:d,isVisible:n}=C({threshold:.5}),{count:f,startAnimation:p}=K(b,m);return i.useEffect(()=>{n&&p()},[n,p]),e.jsxs("div",{ref:d,className:"animate-count-up",children:[u,f.toLocaleString(),a]})});pe.displayName="AnimatedCounter";const be=i.memo(()=>{const{setCurrentPage:b}=Y(),[a,u]=i.useState(!1),[m,d]=i.useState(!1),n=C({threshold:.2}),f=C({threshold:.1}),p=C({threshold:.1}),r=C({threshold:.1});i.useMemo(()=>[{icon:N,value:500,suffix:"+",label:"Projects Completed",color:"text-[#d27015]"},{icon:E,value:75,suffix:"+",label:"Expert Engineers",color:"text-blue-600"},{icon:k,value:100,suffix:"%",label:"Client Satisfaction",color:"text-green-600"},{icon:B,value:1,prefix:"Level ",label:"BBBEE Status",color:"text-[#b8621a]"}],[]);const l=i.useMemo(()=>[{icon:te,title:"Safety Excellence",description:"Zero-incident safety protocols with continuous monitoring and industry-leading safety standards across all construction sites.",metric:"0 incidents in 2024",color:"text-orange-600",image:"https://plus.unsplash.com/premium_photo-1677529102407-0d075eb2cbb9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{icon:k,title:"Quality Assurance",description:"ISO 9001 certified processes ensuring superior construction standards that exceed client expectations every time.",metric:"98.5% quality score",color:"text-blue-600",image:"https://images.unsplash.com/photo-1714765445826-582769cf22ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBpbmZyYXN0cnVjdHVyZSUyMGRldmVsb3BtZW50JTIwcHJvamVjdHxlbnwxfHx8fDE3NTU2NTgyMzR8MA&ixlib=rb-4.1.0&q=80&w=1080"},{icon:V,title:"Innovation",description:"Cutting-edge construction technologies and sustainable building practices that set new industry benchmarks.",metric:"25% efficiency gain",color:"text-[#d27015]",image:"https://images.unsplash.com/photo-1707405644831-fdd2e6506083?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwYWVyaWFsJTIwdmlldyUyMHByb2dyZXNzfGVufDF8fHx8MTc1NTY1ODIzOHww&ixlib=rb-4.1.0&q=80&w=1080"},{icon:E,title:"Expert Team",description:"Professional engineers and certified construction specialists with decades of combined experience.",metric:"15+ years avg experience",color:"text-green-600",image:"https://images.unsplash.com/photo-1581674662583-5e89b374fae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXZpbCUyMGVuZ2luZWVyaW5nJTIwYmx1ZXByaW50cyUyMHBsYW5uaW5nfGVufDF8fHx8MTc1NTY1ODI0MXww&ixlib=rb-4.1.0&q=80&w=1080"}],[]),t=i.useMemo(()=>[{icon:N,title:"Infrastructure Development",description:"Comprehensive infrastructure solutions including bridges, highways, and municipal projects.",projects:"210+"},{icon:se,title:"Road Construction",description:"Advanced road Construction and rehabilitation using state-of-the-art equipment and techniques.",projects:"140+"},{icon:R,title:"Civil Construction",description:"Complete civil Construction services from planning to project completion and maintenance.",projects:"150+"},{icon:ae,title:"Maintenance Services",description:"Ongoing maintenance and repair services ensuring long-term infrastructure reliability.",projects:"300+"}],[]),{visibleItems:o,setRef:S}=G(l,200);return e.jsxs("div",{className:"min-h-screen font-['Josefin_Sans'] relative overflow-x-hidden bg-gray-50",children:[e.jsx(_,{}),e.jsxs("section",{className:"section-padding bg-white relative",children:[e.jsx("div",{className:"absolute inset-0 professional-grid opacity-30"}),e.jsx("div",{className:"relative max-w-7xl mx-auto container-padding",children:e.jsxs("div",{className:"text-center mb-20",children:[e.jsxs(v,{className:"mb-8 bg-[#d27015] text-white text-lg px-6 py-3 font-semibold",children:[e.jsx(k,{className:"w-5 h-5 mr-2"}),"#No.1 Architectural Developers"]}),e.jsxs("h2",{className:"text-4xl lg:text-5xl font-bold text-gray-900 mb-6",children:["Welcome to ",e.jsx("span",{className:"text-[#d27015] font-bold",children:"Mckeywa"})," Projects"]}),e.jsx("p",{className:"text-xl text-gray-600 max-w-6xl mx-auto",children:"We create Measurable results that demonstrate our commitment to superior construction and Construction standards, we deliver world-class civil construction and infrastructure solutions that exceed client expectations while contributing to South Africa's economic transformation through skills development, local procurement, and sustainable construction practices."})]})})]}),e.jsxs("section",{ref:n.ref,className:`section-padding bg-slate-900 text-white relative overflow-hidden animate-on-scroll ${n.isVisible?"is-visible":""}`,children:[e.jsx("div",{className:"absolute inset-0 professional-grid opacity-10"}),e.jsx("div",{className:"relative max-w-7xl mx-auto container-padding",children:e.jsxs("div",{className:"grid grid-cols-1 lg:grid-cols-2 gap-20 items-center",children:[e.jsxs("div",{className:`animate-on-scroll-left ${n.isVisible?"is-visible":""}`,children:[e.jsxs(v,{className:"mb-8 bg-[#d27015]/20 text-[#f2b777] border border-[#d27015]/30 text-lg px-6 py-3 font-semibold",children:[e.jsx(N,{className:"w-5 h-5 mr-2"}),"CONSTRUCTION LEADERSHIP"]}),e.jsxs("h2",{className:"text-4xl lg:text-5xl font-bold mb-8",children:["Pioneering South Africa's",e.jsx("span",{className:"block text-[#f2b777]",children:"Infrastructure Future"})]}),e.jsx("p",{className:"text-xl mb-10 leading-relaxed text-gray-300",children:"McKeywa Projects (Pty) Ltd stands as South Africa's premier construction innovator, combining advanced Construction methodologies with sustainable construction practices. Our Level 1 BBBEE status and CIDB PE 5CE rating position us to deliver transformative infrastructure projects across multiple sectors."}),e.jsx("div",{className:"space-y-6 mb-12",children:["Advanced BIM and 3D modeling capabilities","Certified project management professionals","Comprehensive quality assurance systems","Environmental sustainability compliance","Continuous safety monitoring protocols"].map((c,x)=>e.jsxs("div",{className:"flex items-center space-x-4",children:[e.jsx(I,{className:"w-6 h-6 text-green-400 flex-shrink-0"}),e.jsx("span",{className:"text-white font-medium text-lg",children:c})]},x))}),e.jsxs(w,{onClick:()=>b("about"),className:"bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-10 py-4 text-lg",children:[e.jsx(ie,{className:"mr-3 w-6 h-6"}),"Discover Our Capabilities",e.jsx(y,{className:"ml-3 w-6 h-6"})]})]}),e.jsx("div",{className:`animate-on-scroll-right ${n.isVisible?"is-visible":""}`,children:e.jsxs("div",{className:"relative",children:[e.jsx(M,{src:"https://images.unsplash.com/photo-1664728796715-465b06b19050?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBlbmdpbmVlcmluZyUyMHRlYW0lMjBoYXJkaGF0JTIwc2FmZXR5fGVufDF8fHx8MTc1NTY1Njk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",alt:"Construction Construction excellence and safety",className:"w-full rounded-2xl shadow-2xl"}),e.jsx("div",{className:"absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg",children:e.jsxs("div",{className:"flex items-center space-x-3",children:[e.jsx(B,{className:"w-6 h-6 text-[#d27015]"}),e.jsx("span",{className:"font-bold text-gray-900",children:"Safety First"})]})}),e.jsx("div",{className:"absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg",children:e.jsxs("div",{className:"text-center",children:[e.jsx(L,{className:"w-8 h-8 text-blue-600 mx-auto mb-2"}),e.jsx("div",{className:"text-lg font-bold text-gray-900",children:"24/7"}),e.jsx("div",{className:"text-sm text-gray-600 font-semibold",children:"Monitoring"})]})})]})})]})})]}),e.jsxs("section",{ref:f.ref,className:"section-padding bg-white relative overflow-hidden",children:[e.jsx("div",{className:"absolute inset-0 professional-grid opacity-30"}),e.jsxs("div",{className:"relative max-w-7xl mx-auto container-padding",children:[e.jsxs("div",{className:`text-center mb-20 animate-on-scroll ${f.isVisible?"is-visible":""}`,children:[e.jsxs(v,{className:"mb-8 bg-blue-600 text-white text-lg px-6 py-3 font-semibold",children:[e.jsx(V,{className:"w-5 h-5 mr-2"}),"Core Capabilities"]}),e.jsx("h2",{className:"text-4xl lg:text-5xl font-bold text-gray-900 mb-6",children:"Advanced Construction Expertise"}),e.jsx("p",{className:"text-xl text-gray-600 max-w-4xl mx-auto",children:"Cutting-edge technical expertise across multiple construction and Construction disciplines"})]}),e.jsx("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-10",children:l.map((c,x)=>e.jsx(H,{ref:S(x),className:`relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:border-[#d27015]/40 group transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] overflow-hidden ${o.has(x)?"animate-fade-in-up":"opacity-0"}`,style:{animationDelay:`${x*.2}s`},children:e.jsxs(T,{className:"p-0 overflow-hidden",children:[e.jsxs("div",{className:"relative",children:[e.jsx(M,{src:c.image,alt:c.title,className:"w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"}),e.jsx("div",{className:"absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"}),e.jsx("div",{className:"absolute bottom-4 left-4",children:e.jsx("div",{className:"w-12 h-12 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-xl flex items-center justify-center text-white shadow-lg",children:e.jsx(c.icon,{className:"w-6 h-6"})})})]}),e.jsxs("div",{className:"p-8",children:[e.jsx("h3",{className:"text-2xl font-bold text-orange-900 mb-4",children:c.title}),e.jsx("p",{className:"text-white leading-relaxed mb-6 text-lg",children:c.description}),e.jsxs("div",{className:"flex items-center justify-between",children:[e.jsx("span",{className:"text-lg font-semibold text-[#d27015]",children:c.metric}),e.jsx(y,{className:"w-5 h-5 text-gray-400 group-hover:text-[#d27015] group-hover:translate-x-2 transition-all duration-300"})]})]})]})},x))})]})]}),e.jsxs("section",{ref:p.ref,className:`section-padding bg-gray-100 relative animate-on-scroll ${p.isVisible?"is-visible":""}`,children:[e.jsx("div",{className:"absolute inset-0 professional-grid opacity-20"}),e.jsxs("div",{className:"relative max-w-7xl mx-auto container-padding",children:[e.jsxs("div",{className:"text-center mb-20",children:[e.jsxs(v,{className:"mb-8 bg-green-600 text-white text-lg px-6 py-3 font-semibold",children:[e.jsx(X,{className:"w-5 h-5 mr-2"}),"Client Success Stories"]}),e.jsx("h2",{className:"text-4xl lg:text-5xl font-bold text-gray-900 mb-6",children:"What Our Clients Say"}),e.jsx("p",{className:"text-xl text-gray-600 max-w-4xl mx-auto",children:"Real testimonials from satisfied clients who trusted us with their construction projects"})]}),e.jsx("div",{children:e.jsx(q,{})})]})]}),e.jsxs("section",{ref:r.ref,className:"section-padding bg-white relative",children:[e.jsx("div",{className:"absolute inset-0 professional-grid opacity-30"}),e.jsxs("div",{className:"relative max-w-7xl mx-auto container-padding",children:[e.jsxs("div",{className:`text-center mb-20 animate-on-scroll ${r.isVisible?"is-visible":""}`,children:[e.jsxs(v,{className:"mb-8 bg-[#d27015] text-white text-lg px-6 py-3 font-semibold",children:[e.jsx(R,{className:"w-5 h-5 mr-2"}),"Our Services"]}),e.jsx("h2",{className:"text-4xl lg:text-5xl font-bold text-gray-900 mb-6",children:"Complete Construction Solutions"}),e.jsx("p",{className:"text-xl text-gray-600 max-w-4xl mx-auto",children:"End-to-end construction services from initial planning to project completion and ongoing maintenance"})]}),e.jsx("div",{className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8",children:t.map((c,x)=>e.jsx(H,{className:`relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-2xl hover:border-[#d27015]/30 group text-center transition-all duration-300 text-white hover:-translate-y-2 hover:scale-[1.02] ${r.isVisible?"animate-fade-in-up":""}`,style:{animationDelay:`${x*.1}s`},children:e.jsxs(T,{className:"p-8",children:[e.jsx("div",{className:"w-16 h-16 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300",children:e.jsx(c.icon,{className:"w-8 h-8"})}),e.jsx("h3",{className:"text-xl font-bold text-white mb-4",children:c.title}),e.jsx("p",{className:"text-white mb-6 leading-relaxed",children:c.description}),e.jsxs("div",{className:"text-sm font-semibold text-[#d27015]",children:[c.projects," projects completed"]})]})},x))}),e.jsx("div",{className:"text-center mt-16",children:e.jsxs(w,{onClick:()=>b("services"),className:"bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-4 text-lg",children:[e.jsx(N,{className:"mr-3 w-6 h-6"}),"View All Services",e.jsx(y,{className:"ml-3 w-6 h-6"})]})})]})]}),e.jsxs("section",{className:"section-padding bg-slate-900 text-white relative overflow-hidden",children:[e.jsx("div",{className:"absolute inset-0 professional-grid opacity-10"}),e.jsxs("div",{className:"relative max-w-7xl mx-auto container-padding text-center",children:[e.jsx("h2",{className:"text-4xl lg:text-5xl font-bold mb-8",children:"Ready to Build Your Vision?"}),e.jsx("p",{className:"text-xl mb-16 max-w-4xl mx-auto text-gray-300 leading-relaxed",children:"Partner with South Africa's leading construction Construction firm. Let's transform your infrastructure vision into reality with precision, innovation, and excellence."}),e.jsxs("div",{className:"flex flex-col lg:flex-row gap-8 justify-center items-center",children:[e.jsx(P,{open:a,onOpenChange:u,children:e.jsx(D,{asChild:!0,children:e.jsxs(w,{className:"bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-6 text-xl shadow-lg",children:[e.jsx(Q,{className:"mr-3 w-7 h-7"}),"Get Instant Quote",e.jsx(y,{className:"ml-3 w-7 h-7"})]})})}),e.jsx(P,{open:m,onOpenChange:d,children:e.jsx(D,{asChild:!0,children:e.jsxs(w,{variant:"outline",className:"border-2 border-white text-white hover:bg-white hover:text-slate-900 font-semibold px-12 py-6 text-xl",children:[e.jsx(F,{className:"mr-3 w-7 h-7"}),"Call Now: (012) 322 6786"]})})})]})]})]})]})});be.displayName="HomePage";export{be as HomePage};
+ */
+const ge = [
+        ["path", {
+            d: "M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z",
+            key: "uqj9uw"
+        }],
+        ["line", {
+            x1: "22",
+            x2: "16",
+            y1: "9",
+            y2: "15",
+            key: "1ewh16"
+        }],
+        ["line", {
+            x1: "16",
+            x2: "22",
+            y1: "9",
+            y2: "15",
+            key: "5ykzw1"
+        }]
+    ],
+    ue = j("volume-x", ge),
+    _ = i.memo(() => {
+        const {
+            setCurrentPage: b
+        } = Y(), [a, u] = i.useState(0), [m, d] = i.useState(!0), [n, f] = i.useState(!0), p = i.useRef(null), r = [{
+            id: 2,
+            title: "Building Tomorrow's Infrastructure",
+            subtitle: "Construction Excellence",
+            description: "Premier construction and Construction solutions across South Africa. From highways to bridges, we deliver world-class infrastructure that stands the test of time.",
+            image: "https://images.unsplash.com/photo-1635338340243-c53b2ae2631f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwY3JhbmUlMjBidWlsZGluZ3xlbnwxfHx8fDE3NTU2MzIxODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+            badge: "Level 1 BBBEE • 100% Black-Owned",
+            type: "image",
+            cta: {
+                primary: {
+                    text: "Explore Projects",
+                    action: "projects"
+                },
+                secondary: {
+                    text: "Learn More",
+                    action: "about"
+                }
+            }
+        }, {
+            id: 1,
+            title: "Building Tomorrow's Infrastructure",
+            subtitle: "Construction Excellence",
+            description: "Premier construction and Construction solutions across South Africa. From highways to bridges, we deliver world-class infrastructure that stands the test of time.",
+            videoId: "CG5D2NHdq7A",
+            badge: "Featured: Construction Process",
+            type: "video",
+            cta: {
+                primary: {
+                    text: "Our Construction",
+                    action: "services"
+                },
+                secondary: {
+                    text: "Watch More",
+                    action: "projects"
+                }
+            }
+        }];
+        i.useEffect(() => {
+            if (!m) return;
+            const g = r[a].type === "video" ? 3e4 : 7e3,
+                U = setInterval(() => {
+                    u(Z => (Z + 1) % r.length)
+                }, g);
+            return () => clearInterval(U)
+        }, [m, r.length, a]), i.useEffect(() => {
+            const s = r[a];
+            if (s.type === "video" && p.current) {
+                const g = `https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=${n?1:0}&loop=1&playlist=${s.videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`;
+                p.current.src = g
+            }
+        }, [a, n]);
+        const l = s => {
+                u(s)
+            },
+            t = () => {
+                u(s => (s + 1) % r.length)
+            },
+            o = () => {
+                u(s => (s - 1 + r.length) % r.length)
+            },
+            S = () => {
+                d(!m)
+            },
+            c = () => {
+                f(!n)
+            },
+            x = s => {
+                b(s)
+            },
+            h = r[a];
+        return e.jsxs("div", {
+            className: "relative min-h-screen overflow-hidden",
+            children: [e.jsx("div", {
+                className: "absolute inset-0",
+                children: r.map((s, g) => e.jsx("div", {
+                    className: `absolute inset-0 transition-opacity duration-1000 ${g===a?"opacity-100":"opacity-0"}`,
+                    children: s.type === "image" ? e.jsxs(e.Fragment, {
+                        children: [e.jsx(M, {
+                            src: s.image,
+                            alt: s.title,
+                            className: "w-full h-full object-cover"
+                        }), e.jsx("div", {
+                            className: "absolute inset-0 bg-gradient-to-r from-orange-900/90 via-slate-800/80 to-orange-500/70"
+                        })]
+                    }) : e.jsxs(e.Fragment, {
+                        children: [e.jsx("div", {
+                            className: "w-full h-full",
+                            children: e.jsx("iframe", {
+                                ref: g === a ? p : null,
+                                className: "w-full h-full object-cover scale-150 transform translate-y-[-10%]",
+                                src: g === a ? `https://www.youtube.com/embed/${s.videoId}?autoplay=1&mute=${n?1:0}&loop=1&playlist=${s.videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&start=0` : "",
+                                title: s.title,
+                                frameBorder: "0",
+                                allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                                allowFullScreen: !0
+                            })
+                        }), e.jsx("div", {
+                            className: "absolute inset-0 bg-gradient-to-r from-orange-900/85 via-slate-800/70 to-orange-500/60"
+                        })]
+                    })
+                }, s.id))
+            }), e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-10"
+            }), e.jsx("div", {
+                className: "relative z-10 min-h-screen flex items-center",
+                children: e.jsx("div", {
+                    className: "max-w-7xl mx-auto container-padding w-full",
+                    children: e.jsx("div", {
+                        className: "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
+                        children: e.jsx("div", {
+                            className: "text-white",
+                            children: e.jsxs("div", {
+                                className: "animate-fade-in-left space-y-8",
+                                children: [e.jsxs(v, {
+                                    className: `bg-orange-500/20 text-orange-400 border border-orange-500/30 text-lg px-6 py-3 font-semibold ${h.type==="video"?"animate-pulse":""}`,
+                                    children: [h.type === "video" ? e.jsx(z, {
+                                        className: "w-5 h-5 mr-2"
+                                    }) : e.jsx(B, {
+                                        className: "w-5 h-5 mr-2"
+                                    }), h.badge]
+                                }), e.jsxs("div", {
+                                    className: "space-y-4",
+                                    children: [e.jsx("h2", {
+                                        className: "text-2xl font-semibold text-orange-400 tracking-wide",
+                                        children: h.subtitle
+                                    }), e.jsx("h1", {
+                                        className: "text-5xl md:text-6xl lg:text-7xl font-bold leading-tight",
+                                        children: h.title
+                                    })]
+                                }), e.jsx("p", {
+                                    className: "text-xl lg:text-2xl text-gray-200 leading-relaxed max-w-2xl",
+                                    children: h.description
+                                }), e.jsxs("div", {
+                                    className: "flex flex-col sm:flex-row gap-6 pt-8",
+                                    children: [e.jsxs(w, {
+                                        size: "lg",
+                                        onClick: () => x(h.cta.primary.action),
+                                        className: "bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300",
+                                        children: [e.jsx(N, {
+                                            className: "mr-3 w-6 h-6"
+                                        }), h.cta.primary.text, e.jsx(y, {
+                                            className: "ml-3 w-6 h-6"
+                                        })]
+                                    }), e.jsxs(w, {
+                                        size: "lg",
+                                        variant: "outline",
+                                        onClick: () => x(h.cta.secondary.action),
+                                        className: "border-2 border-white text-white hover:bg-white hover:text-slate-900 font-semibold px-10 py-6 text-lg backdrop-blur-sm bg-white/10 transition-all duration-300",
+                                        children: [e.jsx(O, {
+                                            className: "mr-3 w-6 h-6"
+                                        }), h.cta.secondary.text]
+                                    })]
+                                })]
+                            }, a)
+                        })
+                    })
+                })
+            }), e.jsx("div", {
+                className: "absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20",
+                children: e.jsxs("div", {
+                    className: `flex items-center space-x-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-2 
+         shadow-lg`,
+                    children: [e.jsx("button", {
+                        onClick: S,
+                        className: "text-white hover:text-orange-400 transition-colors p-2 hover:scale-110",
+                        title: m ? "Pause slideshow" : "Play slideshow",
+                        children: m ? e.jsx(oe, {
+                            className: "w-5 h-5"
+                        }) : e.jsx(de, {
+                            className: "w-5 h-5"
+                        })
+                    }), h.type === "video" && e.jsx("button", {
+                        onClick: c,
+                        className: "text-white hover:text-orange-400 transition-colors p-2 hover:scale-110",
+                        title: n ? "Unmute video" : "Mute video",
+                        children: n ? e.jsx(ue, {
+                            className: "w-5 h-5"
+                        }) : e.jsx(he, {
+                            className: "w-5 h-5"
+                        })
+                    }), e.jsx("div", {
+                        className: "flex space-x-3",
+                        children: r.map((s, g) => e.jsx("button", {
+                            onClick: () => l(g),
+                            className: `w-3 h-3 rounded-full transition-all duration-300 relative ${g===a?"bg-orange-500 scale-125 shadow-lg":"bg-white/40 hover:bg-white/70"}`,
+                            title: `Go to slide ${g+1}: ${s.title}`,
+                            children: s.type === "video" && e.jsx(z, {
+                                className: "w-2 h-2 absolute -top-3 left-1/2 transform -translate-x-1/2 text-orange-400"
+                            })
+                        }, g))
+                    }), e.jsxs("div", {
+                        className: "text-white/80 text-sm font-mono",
+                        children: [String(a + 1).padStart(2, "0"), " / ", String(r.length).padStart(2, "0")]
+                    }), h.type === "video" && e.jsxs("div", {
+                        className: "text-orange-400 text-xs font-semibold flex items-center animate-pulse",
+                        children: [e.jsx(z, {
+                            className: "w-3 h-3 mr-1"
+                        }), "LIVE"]
+                    })]
+                })
+            }), e.jsx("button", {
+                onClick: o,
+                className: "absolute left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-full text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 hover:bg-white/20",
+                title: "Previous slide",
+                children: e.jsx(W, {
+                    className: "w-6 h-6"
+                })
+            }), e.jsx("button", {
+                onClick: t,
+                className: "absolute right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-full text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 hover:bg-white/20",
+                title: "Next slide",
+                children: e.jsx($, {
+                    className: "w-6 h-6"
+                })
+            }), e.jsx("div", {
+                className: "absolute bottom-8 right-8 z-20 animate-bounce",
+                children: e.jsx("div", {
+                    className: "w-8 h-12 border-2 border-white/50 rounded-full flex justify-center bg-white/10 backdrop-blur-sm",
+                    children: e.jsx("div", {
+                        className: "w-1 h-4 bg-orange-400 rounded-full mt-3 animate-pulse"
+                    })
+                })
+            })]
+        })
+    });
+_.displayName = "HeroCarousel";
+const q = i.memo(() => {
+    const [b, a] = i.useState(0), [u, m] = i.useState(!0), d = [{
+        id: 1,
+        name: "Sarah Johnson",
+        title: "Municipal Manager",
+        company: "City of Johannesburg",
+        image: "https://images.unsplash.com/photo-1494790108755-2616b6fc3b7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzU1NjU3MTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        rating: 5,
+        testimonial: "McKeywa Projects transformed our infrastructure vision into reality. Their Level 1 BBBEE status and exceptional Construction expertise made them our preferred partner.",
+        projectType: "Bridge Construction",
+        projectValue: "R47.5M",
+        completionTime: "16 months",
+        results: ["Completed ahead of schedule", "Zero safety incidents", "15% under budget"],
+        videoTestimonial: !0
+    }, {
+        id: 2,
+        name: "Michael Chen",
+        title: "Infrastructure Director",
+        company: "KwaZulu-Natal Provincial Government",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NTY1NzE4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        rating: 5,
+        testimonial: "Outstanding water treatment facility construction. McKeywa's innovative approach and advanced Construction solutions delivered a world-class facility that serves 65,000 residents.",
+        projectType: "Water Infrastructure",
+        projectValue: "R78.2M",
+        completionTime: "24 months",
+        results: ["Serves 65,000 residents", "Advanced filtration tech", "Sustainable design"],
+        videoTestimonial: !1
+    }, {
+        id: 3,
+        name: "Nomsa Mthembu",
+        title: "Roads & Transport Manager",
+        company: "Mpumalanga Department of Transport",
+        image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwYWZyaWNhbnxlbnwxfHx8fDE3NTU2NTcxOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        rating: 5,
+        testimonial: "The provincial road rehabilitation exceeded all expectations. McKeywa's team demonstrated exceptional professionalism and advanced construction techniques.",
+        projectType: "Road Construction",
+        projectValue: "R32.8M",
+        completionTime: "14 months",
+        results: ["28km road rehabilitation", "Smart road technology", "Local skills development"],
+        videoTestimonial: !0
+    }, {
+        id: 4,
+        name: "David Wilson",
+        title: "Development Manager",
+        company: "Private Sector Client",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHN1aXR8ZW58MXx8fHwxNzU1NjU3MTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        rating: 5,
+        testimonial: "McKeywa Projects consistently delivers excellence. Their CIDB PE 5CE rating speaks to their capability, but their results speak even louder.",
+        projectType: "Commercial Development",
+        projectValue: "R125M",
+        completionTime: "18 months",
+        results: ["Premium construction quality", "Innovative design solutions", "Excellent project management"],
+        videoTestimonial: !1
+    }], n = [{
+        label: "Client Satisfaction",
+        value: "100%",
+        icon: E
+    }, {
+        label: "Projects Completed",
+        value: "500+",
+        icon: N
+    }, {
+        label: "Average Rating",
+        value: "5.0",
+        icon: A
+    }, {
+        label: "Repeat Clients",
+        value: "89%",
+        icon: ee
+    }];
+    i.useEffect(() => {
+        if (!u) return;
+        const t = setInterval(() => {
+            a(o => (o + 1) % d.length)
+        }, 8e3);
+        return () => clearInterval(t)
+    }, [u, d.length]);
+    const f = t => {
+            a(t), m(!1), setTimeout(() => m(!0), 1e4)
+        },
+        p = () => {
+            a(t => (t + 1) % d.length)
+        },
+        r = () => {
+            a(t => (t - 1 + d.length) % d.length)
+        },
+        l = d[b];
+    return e.jsxs("div", {
+        className: "max-w-7xl mx-auto space-y-8",
+        children: [e.jsx("div", {
+            className: "grid grid-cols-2 lg:grid-cols-4 gap-4",
+            children: n.map((t, o) => e.jsx(H, {
+                className: "relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-2xl hover:border-[#14184c]/40 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 group overflow-hidden",
+                children: e.jsxs(T, {
+                    className: "p-4",
+                    children: [e.jsx("div", {
+                        className: "w-8 h-8 bg-gradient-to-r from-[#14184c] to-[#0f1340] rounded-lg flex items-center justify-center text-white mx-auto mb-2",
+                        children: e.jsx(t.icon, {
+                            className: "w-4 h-4"
+                        })
+                    }), e.jsx("div", {
+                        className: "text-lg font-bold text-[#14184c] mb-1",
+                        children: t.value
+                    }), e.jsx("div", {
+                        className: "text-xs font-medium text-gray-600",
+                        children: t.label
+                    })]
+                })
+            }, o))
+        }), e.jsxs("div", {
+            className: "relative h-[200px]",
+            children: [e.jsx(H, {
+                className: "card-professional overflow-hidden h-full",
+                children: e.jsx(T, {
+                    className: "p-0 h-full",
+                    children: e.jsxs("div", {
+                        className: "grid grid-cols-1 lg:grid-cols-5 h-full",
+                        children: [e.jsxs("div", {
+                            className: "lg:col-span-2 relative h-[200px]",
+                            children: [e.jsx(M, {
+                                src: l.image,
+                                alt: l.name,
+                                className: "w-full h-full object-cover"
+                            }), l.videoTestimonial && e.jsx("div", {
+                                className: "absolute inset-0 flex items-center justify-center bg-black/20",
+                                children: e.jsx("div", {
+                                    className: "w-12 h-12 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer",
+                                    children: e.jsx(J, {
+                                        className: "w-8 h-8 text-orange-500"
+                                    })
+                                })
+                            }), e.jsx("div", {
+                                className: "absolute top-3 left-3",
+                                children: e.jsx(v, {
+                                    className: "bg-orange-500 text-white font-bold px-2 py-1 text-xs",
+                                    children: l.projectValue
+                                })
+                            })]
+                        }), e.jsx("div", {
+                            className: "lg:col-span-3 p-4 h-[200px] overflow-hidden",
+                            children: e.jsxs("div", {
+                                className: "h-full flex flex-col justify-between",
+                                children: [e.jsxs("div", {
+                                    className: "flex items-center justify-between mb-2",
+                                    children: [e.jsx(X, {
+                                        className: "w-6 h-6 text-yellow-500"
+                                    }), e.jsx("div", {
+                                        className: "flex space-x-1",
+                                        children: [...Array(l.rating)].map((t, o) => e.jsx(A, {
+                                            className: "w-3 h-3 fill-yellow-500 text-yellow-500"
+                                        }, o))
+                                    })]
+                                }), e.jsxs("blockquote", {
+                                    className: "text-sm text-gray-600 leading-tight mb-2 italic line-clamp-3",
+                                    children: ['"', l.testimonial, '"']
+                                }), e.jsxs("div", {
+                                    className: "mb-2",
+                                    children: [e.jsx("div", {
+                                        className: "font-bold text-sm text-gray-900",
+                                        children: l.name
+                                    }), e.jsx("div", {
+                                        className: "text-xs text-orange-500 font-medium",
+                                        children: l.title
+                                    }), e.jsx("div", {
+                                        className: "text-xs text-gray-500",
+                                        children: l.company
+                                    })]
+                                }), e.jsxs("div", {
+                                    className: "grid grid-cols-3 gap-2 text-xs",
+                                    children: [e.jsx("div", {
+                                        children: e.jsx("div", {
+                                            className: "font-semibold text-gray-900",
+                                            children: l.projectType
+                                        })
+                                    }), e.jsx("div", {
+                                        children: e.jsx("div", {
+                                            className: "text-gray-600",
+                                            children: l.projectValue
+                                        })
+                                    }), e.jsx("div", {
+                                        children: e.jsx("div", {
+                                            className: "text-gray-600",
+                                            children: l.completionTime
+                                        })
+                                    })]
+                                }), e.jsx("div", {
+                                    className: "flex items-center space-x-4 text-xs",
+                                    children: l.results.slice(0, 2).map((t, o) => e.jsxs("div", {
+                                        className: "flex items-center space-x-1",
+                                        children: [e.jsx(I, {
+                                            className: "w-3 h-3 text-green-600 flex-shrink-0"
+                                        }), e.jsx("span", {
+                                            className: "text-gray-600 truncate",
+                                            children: t
+                                        })]
+                                    }, o))
+                                })]
+                            })
+                        })]
+                    })
+                })
+            }), e.jsx("button", {
+                onClick: r,
+                className: "absolute left-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 shadow-lg",
+                children: e.jsx(W, {
+                    className: "w-4 h-4"
+                })
+            }), e.jsx("button", {
+                onClick: p,
+                className: "absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 shadow-lg",
+                children: e.jsx($, {
+                    className: "w-4 h-4"
+                })
+            })]
+        }), e.jsx("div", {
+            className: "flex justify-center items-center space-x-3",
+            children: d.map((t, o) => e.jsxs("button", {
+                onClick: () => f(o),
+                className: `flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ${o===b?"bg-orange-500 text-white":"bg-gray-100 text-gray-600 hover:bg-orange-100"}`,
+                children: [e.jsx("div", {
+                    className: "w-6 h-6 rounded-full overflow-hidden",
+                    children: e.jsx(M, {
+                        src: t.image,
+                        alt: t.name,
+                        className: "w-full h-full object-cover"
+                    })
+                }), e.jsxs("div", {
+                    className: "hidden sm:block text-left",
+                    children: [e.jsx("div", {
+                        className: "font-semibold text-xs",
+                        children: t.name
+                    }), e.jsx("div", {
+                        className: "text-xs opacity-80 truncate max-w-[100px]",
+                        children: t.company
+                    })]
+                }), t.videoTestimonial && e.jsx(J, {
+                    className: "w-3 h-3"
+                })]
+            }, t.id))
+        }), e.jsxs("div", {
+            className: "bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-6 text-white text-center",
+            children: [e.jsx("h3", {
+                className: "text-lg font-bold mb-4",
+                children: "Trusted by Leading Organizations"
+            }), e.jsx("div", {
+                className: "grid grid-cols-2 md:grid-cols-4 gap-4",
+                children: [{
+                    name: "City of Johannesburg",
+                    logo: "🏛️"
+                }, {
+                    name: "KZN Provincial Gov",
+                    logo: "🏛️"
+                }, {
+                    name: "Mpumalanga Transport",
+                    logo: "🚛"
+                }, {
+                    name: "Private Sector",
+                    logo: "🏢"
+                }].map((t, o) => e.jsxs("div", {
+                    className: "flex flex-col items-center",
+                    children: [e.jsx("div", {
+                        className: "text-2xl mb-1",
+                        children: t.logo
+                    }), e.jsx("div", {
+                        className: "font-medium text-xs",
+                        children: t.name
+                    })]
+                }, o))
+            }), e.jsxs("div", {
+                className: "mt-4 flex justify-center space-x-6",
+                children: [e.jsxs("div", {
+                    className: "flex items-center space-x-1",
+                    children: [e.jsx(k, {
+                        className: "w-4 h-4 text-yellow-500"
+                    }), e.jsx("span", {
+                        className: "text-xs font-medium",
+                        children: "Level 1 BBBEE"
+                    })]
+                }), e.jsxs("div", {
+                    className: "flex items-center space-x-1",
+                    children: [e.jsx(I, {
+                        className: "w-4 h-4 text-green-500"
+                    }), e.jsx("span", {
+                        className: "text-xs font-medium",
+                        children: "CIDB PE 5CE"
+                    })]
+                })]
+            })]
+        })]
+    })
+});
+q.displayName = "TestimonialsCarousel";
+const pe = i.memo(({
+    end: b,
+    suffix: a = "",
+    prefix: u = "",
+    duration: m = 2e3
+}) => {
+    const {
+        ref: d,
+        isVisible: n
+    } = C({
+        threshold: .5
+    }), {
+        count: f,
+        startAnimation: p
+    } = K(b, m);
+    return i.useEffect(() => {
+        n && p()
+    }, [n, p]), e.jsxs("div", {
+        ref: d,
+        className: "animate-count-up",
+        children: [u, f.toLocaleString(), a]
+    })
+});
+pe.displayName = "AnimatedCounter";
+const be = i.memo(() => {
+    const {
+        setCurrentPage: b
+    } = Y(), [a, u] = i.useState(!1), [m, d] = i.useState(!1), n = C({
+        threshold: .2
+    }), f = C({
+        threshold: .1
+    }), p = C({
+        threshold: .1
+    }), r = C({
+        threshold: .1
+    });
+    i.useMemo(() => [{
+        icon: N,
+        value: 500,
+        suffix: "+",
+        label: "Projects Completed",
+        color: "text-[#d27015]"
+    }, {
+        icon: E,
+        value: 75,
+        suffix: "+",
+        label: "Expert Engineers",
+        color: "text-blue-600"
+    }, {
+        icon: k,
+        value: 100,
+        suffix: "%",
+        label: "Client Satisfaction",
+        color: "text-green-600"
+    }, {
+        icon: B,
+        value: 1,
+        prefix: "Level ",
+        label: "BBBEE Status",
+        color: "text-[#b8621a]"
+    }], []);
+    const l = i.useMemo(() => [{
+            icon: te,
+            title: "Safety Excellence",
+            description: "Zero-incident safety protocols with continuous monitoring and industry-leading safety standards across all construction sites.",
+            metric: "0 incidents in 2024",
+            color: "text-orange-600",
+            image: "https://plus.unsplash.com/premium_photo-1677529102407-0d075eb2cbb9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }, {
+            icon: k,
+            title: "Quality Assurance",
+            description: "ISO 9001 certified processes ensuring superior construction standards that exceed client expectations every time.",
+            metric: "98.5% quality score",
+            color: "text-blue-600",
+            image: "https://images.unsplash.com/photo-1714765445826-582769cf22ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBpbmZyYXN0cnVjdHVyZSUyMGRldmVsb3BtZW50JTIwcHJvamVjdHxlbnwxfHx8fDE3NTU2NTgyMzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+        }, {
+            icon: V,
+            title: "Innovation",
+            description: "Cutting-edge construction technologies and sustainable building practices that set new industry benchmarks.",
+            metric: "25% efficiency gain",
+            color: "text-[#d27015]",
+            image: "https://images.unsplash.com/photo-1707405644831-fdd2e6506083?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwYWVyaWFsJTIwdmlldyUyMHByb2dyZXNzfGVufDF8fHx8MTc1NTY1ODIzOHww&ixlib=rb-4.1.0&q=80&w=1080"
+        }, {
+            icon: E,
+            title: "Expert Team",
+            description: "Professional engineers and certified construction specialists with decades of combined experience.",
+            metric: "6+ years avg experience",
+            color: "text-green-600",
+            image: "https://images.unsplash.com/photo-1581674662583-5e89b374fae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXZpbCUyMGVuZ2luZWVyaW5nJTIwYmx1ZXByaW50cyUyMHBsYW5uaW5nfGVufDF8fHx8MTc1NTY1ODI0MXww&ixlib=rb-4.1.0&q=80&w=1080"
+        }], []),
+        t = i.useMemo(() => [{
+            icon: N,
+            title: "Infrastructure Development",
+            description: "Comprehensive infrastructure solutions including bridges, highways, and municipal projects.",
+            projects: "210+"
+        }, {
+            icon: se,
+            title: "Road Construction",
+            description: "Advanced road Construction and rehabilitation using state-of-the-art equipment and techniques.",
+            projects: "140+"
+        }, {
+            icon: R,
+            title: "Civil Construction",
+            description: "Complete civil Construction services from planning to project completion and maintenance.",
+            projects: "150+"
+        }, {
+            icon: ae,
+            title: "Maintenance Services",
+            description: "Ongoing maintenance and repair services ensuring long-term infrastructure reliability.",
+            projects: "300+"
+        }], []),
+        {
+            visibleItems: o,
+            setRef: S
+        } = G(l, 200);
+    return e.jsxs("div", {
+        className: "min-h-screen font-['Josefin_Sans'] relative overflow-x-hidden bg-gray-50",
+        children: [e.jsx(_, {}), e.jsxs("section", {
+            className: "section-padding bg-white relative",
+            children: [e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-30"
+            }), e.jsx("div", {
+                className: "relative max-w-7xl mx-auto container-padding",
+                children: e.jsxs("div", {
+                    className: "text-center mb-20",
+                    children: [e.jsxs(v, {
+                        className: "mb-8 bg-[#d27015] text-white text-lg px-6 py-3 font-semibold",
+                        children: [e.jsx(k, {
+                            className: "w-5 h-5 mr-2"
+                        }), "#No.1 Architectural Developers"]
+                    }), e.jsxs("h2", {
+                        className: "text-4xl lg:text-5xl font-bold text-gray-900 mb-6",
+                        children: ["Welcome to ", e.jsx("span", {
+                            className: "text-[#d27015] font-bold",
+                            children: "Mckeywa"
+                        }), " Projects"]
+                    }), e.jsx("p", {
+                        className: "text-xl text-gray-600 max-w-6xl mx-auto",
+                        children: "We create Measurable results that demonstrate our commitment to superior construction and Construction standards, we deliver world-class civil construction and infrastructure solutions that exceed client expectations while contributing to South Africa's economic transformation through skills development, local procurement, and sustainable construction practices."
+                    })]
+                })
+            })]
+        }), e.jsxs("section", {
+            ref: n.ref,
+            className: `section-padding bg-slate-900 text-white relative overflow-hidden animate-on-scroll ${n.isVisible?"is-visible":""}`,
+            children: [e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-10"
+            }), e.jsx("div", {
+                className: "relative max-w-7xl mx-auto container-padding",
+                children: e.jsxs("div", {
+                    className: "grid grid-cols-1 lg:grid-cols-2 gap-20 items-center",
+                    children: [e.jsxs("div", {
+                        className: `animate-on-scroll-left ${n.isVisible?"is-visible":""}`,
+                        children: [e.jsxs(v, {
+                            className: "mb-8 bg-[#d27015]/20 text-[#f2b777] border border-[#d27015]/30 text-lg px-6 py-3 font-semibold",
+                            children: [e.jsx(N, {
+                                className: "w-5 h-5 mr-2"
+                            }), "CONSTRUCTION LEADERSHIP"]
+                        }), e.jsxs("h2", {
+                            className: "text-4xl lg:text-5xl font-bold mb-8",
+                            children: ["Pioneering South Africa's", e.jsx("span", {
+                                className: "block text-[#f2b777]",
+                                children: "Infrastructure Future"
+                            })]
+                        }), e.jsx("p", {
+                            className: "text-xl mb-10 leading-relaxed text-gray-300",
+                            children: "McKeywa Projects (Pty) Ltd stands as South Africa's premier construction innovator, combining advanced Construction methodologies with sustainable construction practices. Our Level 1 BBBEE status and CIDB PE 5CE rating position us to deliver transformative infrastructure projects across multiple sectors."
+                        }), e.jsx("div", {
+                            className: "space-y-6 mb-12",
+                            children: ["Advanced BIM and 3D modeling capabilities", "Certified project management professionals", "Comprehensive quality assurance systems", "Environmental sustainability compliance", "Continuous safety monitoring protocols"].map((c, x) => e.jsxs("div", {
+                                className: "flex items-center space-x-4",
+                                children: [e.jsx(I, {
+                                    className: "w-6 h-6 text-green-400 flex-shrink-0"
+                                }), e.jsx("span", {
+                                    className: "text-white font-medium text-lg",
+                                    children: c
+                                })]
+                            }, x))
+                        }), e.jsxs(w, {
+                            onClick: () => b("about"),
+                            className: "bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-10 py-4 text-lg",
+                            children: [e.jsx(ie, {
+                                className: "mr-3 w-6 h-6"
+                            }), "Discover Our Capabilities", e.jsx(y, {
+                                className: "ml-3 w-6 h-6"
+                            })]
+                        })]
+                    }), e.jsx("div", {
+                        className: `animate-on-scroll-right ${n.isVisible?"is-visible":""}`,
+                        children: e.jsxs("div", {
+                            className: "relative",
+                            children: [e.jsx(M, {
+                                src: "https://images.unsplash.com/photo-1664728796715-465b06b19050?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBlbmdpbmVlcmluZyUyMHRlYW0lMjBoYXJkaGF0JTIwc2FmZXR5fGVufDF8fHx8MTc1NTY1Njk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+                                alt: "Construction Construction excellence and safety",
+                                className: "w-full rounded-2xl shadow-2xl"
+                            }), e.jsx("div", {
+                                className: "absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg",
+                                children: e.jsxs("div", {
+                                    className: "flex items-center space-x-3",
+                                    children: [e.jsx(B, {
+                                        className: "w-6 h-6 text-[#d27015]"
+                                    }), e.jsx("span", {
+                                        className: "font-bold text-gray-900",
+                                        children: "Safety First"
+                                    })]
+                                })
+                            }), e.jsx("div", {
+                                className: "absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg",
+                                children: e.jsxs("div", {
+                                    className: "text-center",
+                                    children: [e.jsx(L, {
+                                        className: "w-8 h-8 text-blue-600 mx-auto mb-2"
+                                    }), e.jsx("div", {
+                                        className: "text-lg font-bold text-gray-900",
+                                        children: "24/7"
+                                    }), e.jsx("div", {
+                                        className: "text-sm text-gray-600 font-semibold",
+                                        children: "Monitoring"
+                                    })]
+                                })
+                            })]
+                        })
+                    })]
+                })
+            })]
+        }), e.jsxs("section", {
+            ref: f.ref,
+            className: "section-padding bg-white relative overflow-hidden",
+            children: [e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-30"
+            }), e.jsxs("div", {
+                className: "relative max-w-7xl mx-auto container-padding",
+                children: [e.jsxs("div", {
+                    className: `text-center mb-20 animate-on-scroll ${f.isVisible?"is-visible":""}`,
+                    children: [e.jsxs(v, {
+                        className: "mb-8 bg-blue-600 text-white text-lg px-6 py-3 font-semibold",
+                        children: [e.jsx(V, {
+                            className: "w-5 h-5 mr-2"
+                        }), "Core Capabilities"]
+                    }), e.jsx("h2", {
+                        className: "text-4xl lg:text-5xl font-bold text-gray-900 mb-6",
+                        children: "Advanced Construction Expertise"
+                    }), e.jsx("p", {
+                        className: "text-xl text-gray-600 max-w-4xl mx-auto",
+                        children: "Cutting-edge technical expertise across multiple construction and Construction disciplines"
+                    })]
+                }), e.jsx("div", {
+                    className: "grid grid-cols-1 md:grid-cols-2 gap-10",
+                    children: l.map((c, x) => e.jsx(H, {
+                        ref: S(x),
+                        className: `relative bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] hover:border-[#d27015]/40 group transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] overflow-hidden ${o.has(x)?"animate-fade-in-up":"opacity-0"}`,
+                        style: {
+                            animationDelay: `${x*.2}s`
+                        },
+                        children: e.jsxs(T, {
+                            className: "p-0 overflow-hidden",
+                            children: [e.jsxs("div", {
+                                className: "relative",
+                                children: [e.jsx(M, {
+                                    src: c.image,
+                                    alt: c.title,
+                                    className: "w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                                }), e.jsx("div", {
+                                    className: "absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                                }), e.jsx("div", {
+                                    className: "absolute bottom-4 left-4",
+                                    children: e.jsx("div", {
+                                        className: "w-12 h-12 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-xl flex items-center justify-center text-white shadow-lg",
+                                        children: e.jsx(c.icon, {
+                                            className: "w-6 h-6"
+                                        })
+                                    })
+                                })]
+                            }), e.jsxs("div", {
+                                className: "p-8",
+                                children: [e.jsx("h3", {
+                                    className: "text-2xl font-bold text-orange-900 mb-4",
+                                    children: c.title
+                                }), e.jsx("p", {
+                                    className: "text-white leading-relaxed mb-6 text-lg",
+                                    children: c.description
+                                }), e.jsxs("div", {
+                                    className: "flex items-center justify-between",
+                                    children: [e.jsx("span", {
+                                        className: "text-lg font-semibold text-[#d27015]",
+                                        children: c.metric
+                                    }), e.jsx(y, {
+                                        className: "w-5 h-5 text-gray-400 group-hover:text-[#d27015] group-hover:translate-x-2 transition-all duration-300"
+                                    })]
+                                })]
+                            })]
+                        })
+                    }, x))
+                })]
+            })]
+        }), e.jsxs("section", {
+            ref: p.ref,
+            className: `section-padding bg-gray-100 relative animate-on-scroll ${p.isVisible?"is-visible":""}`,
+            children: [e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-20"
+            }), e.jsxs("div", {
+                className: "relative max-w-7xl mx-auto container-padding",
+                children: [e.jsxs("div", {
+                    className: "text-center mb-20",
+                    children: [e.jsxs(v, {
+                        className: "mb-8 bg-green-600 text-white text-lg px-6 py-3 font-semibold",
+                        children: [e.jsx(X, {
+                            className: "w-5 h-5 mr-2"
+                        }), "Client Success Stories"]
+                    }), e.jsx("h2", {
+                        className: "text-4xl lg:text-5xl font-bold text-gray-900 mb-6",
+                        children: "What Our Clients Say"
+                    }), e.jsx("p", {
+                        className: "text-xl text-gray-600 max-w-4xl mx-auto",
+                        children: "Real testimonials from satisfied clients who trusted us with their construction projects"
+                    })]
+                }), e.jsx("div", {
+                    children: e.jsx(q, {})
+                })]
+            })]
+        }), e.jsxs("section", {
+            ref: r.ref,
+            className: "section-padding bg-white relative",
+            children: [e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-30"
+            }), e.jsxs("div", {
+                className: "relative max-w-7xl mx-auto container-padding",
+                children: [e.jsxs("div", {
+                    className: `text-center mb-20 animate-on-scroll ${r.isVisible?"is-visible":""}`,
+                    children: [e.jsxs(v, {
+                        className: "mb-8 bg-[#d27015] text-white text-lg px-6 py-3 font-semibold",
+                        children: [e.jsx(R, {
+                            className: "w-5 h-5 mr-2"
+                        }), "Our Services"]
+                    }), e.jsx("h2", {
+                        className: "text-4xl lg:text-5xl font-bold text-gray-900 mb-6",
+                        children: "Complete Construction Solutions"
+                    }), e.jsx("p", {
+                        className: "text-xl text-gray-600 max-w-4xl mx-auto",
+                        children: "End-to-end construction services from initial planning to project completion and ongoing maintenance"
+                    })]
+                }), e.jsx("div", {
+                    className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8",
+                    children: t.map((c, x) => e.jsx(H, {
+                        className: `relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-2xl hover:border-[#d27015]/30 group text-center transition-all duration-300 text-white hover:-translate-y-2 hover:scale-[1.02] ${r.isVisible?"animate-fade-in-up":""}`,
+                        style: {
+                            animationDelay: `${x*.1}s`
+                        },
+                        children: e.jsxs(T, {
+                            className: "p-8",
+                            children: [e.jsx("div", {
+                                className: "w-16 h-16 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300",
+                                children: e.jsx(c.icon, {
+                                    className: "w-8 h-8"
+                                })
+                            }), e.jsx("h3", {
+                                className: "text-xl font-bold text-white mb-4",
+                                children: c.title
+                            }), e.jsx("p", {
+                                className: "text-white mb-6 leading-relaxed",
+                                children: c.description
+                            }), e.jsxs("div", {
+                                className: "text-sm font-semibold text-[#d27015]",
+                                children: [c.projects, " projects completed"]
+                            })]
+                        })
+                    }, x))
+                }), e.jsx("div", {
+                    className: "text-center mt-16",
+                    children: e.jsxs(w, {
+                        onClick: () => b("services"),
+                        className: "bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-4 text-lg",
+                        children: [e.jsx(N, {
+                            className: "mr-3 w-6 h-6"
+                        }), "View All Services", e.jsx(y, {
+                            className: "ml-3 w-6 h-6"
+                        })]
+                    })
+                })]
+            })]
+        }), e.jsxs("section", {
+            className: "section-padding bg-slate-900 text-white relative overflow-hidden",
+            children: [e.jsx("div", {
+                className: "absolute inset-0 professional-grid opacity-10"
+            }), e.jsxs("div", {
+                className: "relative max-w-7xl mx-auto container-padding text-center",
+                children: [e.jsx("h2", {
+                    className: "text-4xl lg:text-5xl font-bold mb-8",
+                    children: "Ready to Build Your Vision?"
+                }), e.jsx("p", {
+                    className: "text-xl mb-16 max-w-4xl mx-auto text-gray-300 leading-relaxed",
+                    children: "Partner with South Africa's leading construction Construction firm. Let's transform your infrastructure vision into reality with precision, innovation, and excellence."
+                }), e.jsxs("div", {
+                    className: "flex flex-col lg:flex-row gap-8 justify-center items-center",
+                    children: [e.jsx(P, {
+                        open: a,
+                        onOpenChange: u,
+                        children: e.jsx(D, {
+                            asChild: !0,
+                            children: e.jsxs(w, {
+                                className: "bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-6 text-xl shadow-lg",
+                                children: [e.jsx(Q, {
+                                    className: "mr-3 w-7 h-7"
+                                }), "Get Instant Quote", e.jsx(y, {
+                                    className: "ml-3 w-7 h-7"
+                                })]
+                            })
+                        })
+                    }), e.jsx(P, {
+                        open: m,
+                        onOpenChange: d,
+                        children: e.jsx(D, {
+                            asChild: !0,
+                            children: e.jsxs(w, {
+                                variant: "outline",
+                                className: "border-2 border-white text-white hover:bg-white hover:text-slate-900 font-semibold px-12 py-6 text-xl",
+                                children: [e.jsx(F, {
+                                    className: "mr-3 w-7 h-7"
+                                }), "Call Now: (012) 322 6786"]
+                            })
+                        })
+                    })]
+                })]
+            })]
+        })]
+    })
+});
+be.displayName = "HomePage";
+export {
+    be as HomePage
+};

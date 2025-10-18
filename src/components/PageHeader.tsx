@@ -248,40 +248,7 @@ const PageHeader = memo(
               <div className="lg:col-span-4 hidden lg:block">
                 <div className="relative">
                   {/* Main side image */}
-                  <div className="w-full h-80 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 backdrop-blur-sm pb-10">
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1659353589462-d407d429a4df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb25zdHJ1Y3Rpb24lMjB0ZWFtJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc1NjE5NDcwM3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                      alt="Professional construction team"
-                      className="w-full h-full object-cover"
-                    />
-
-                    {/* Professional overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-
-                    {/* Quality badges */}
-                    <div className="absolute top-4 left-4 space-y-2">
-                      <div className="bg-green-500/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-2">
-                        <Shield className="w-4 h-4 text-white" />
-                        <span className="text-white text-sm font-bold">
-                          CIDB PE 5CE
-                        </span>
-                      </div>
-                      <div className="bg-orange-500/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-2">
-                        <Award className="w-4 h-4 text-white" />
-                        <span className="text-white text-sm font-bold">
-                          Level 1 BBBEE
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Rating badge */}
-                    <div className="absolute bottom-4 right-4 bg-yellow-500/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-1">
-                      <Star className="w-4 h-4 text-white fill-white" />
-                      <span className="text-white text-sm font-bold">
-                        5.0 Rating
-                      </span>
-                    </div>
-                  </div>
+                  
 
                   {/* Small decorative images */}
                   <div className="absolute -top-6 -left-6 w-20 h-20 rounded-xl overflow-hidden shadow-xl opacity-80">

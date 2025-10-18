@@ -314,7 +314,7 @@ const AppContent = memo(() => {
                   Resources
                 </h5>
                 <ul className="space-y-2">
-                  {["Safety Standards", "Quality Policy", "Environmental Compliance", "Career Opportunities"].map(
+                  {["Safety Standards", "Quality Policy", "Environmental Compliance"].map(
                     (item, index) => (
                       <motion.li
                         key={item}
@@ -429,20 +429,14 @@ const AppContent = memo(() => {
           <div className="border-t border-gray-700 pt-8">
             <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
               <div className="text-center lg:text-left">
-                <p className="text-gray-400 text-sm">© 2024 McKeywa Projects (Pty) Ltd. All rights reserved.</p>
+                <p className="text-gray-400 text-sm">© 2025 McKeywa Projects (Pty) Ltd. All rights reserved.</p>
                 <div className="text-gray-500 text-xs mt-1">
                   REG: 2018/632727/07 • VAT: 4310309382 • CIDB: PE 5CE (CR 10400028)
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-6">
-                <div className="flex space-x-4 text-xs">
-                  {["Privacy Policy", "Terms of Service", "Safety Standards"].map((link) => (
-                    <button key={link} className="text-gray-400 hover:text-gray-300 transition-colors">
-                      {link}
-                    </button>
-                  ))}
-                </div>
+              
 
                 <div className="flex items-center space-x-2">
                   <Badge variant="secondary" className="bg-green-900/20 text-green-400 border-green-800/30 text-xs">

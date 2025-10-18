@@ -46,7 +46,7 @@ const AboutPage = memo(() => {
         icon: Award,
         title: "Quality Excellence",
         description:
-          "ISO 9001:2015 certified processes ensuring superior construction standards that exceed expectations.",
+          "We follow ISO 9001-certified processes to deliver construction excellence that consistently surpasses client expectations.",
         color: "text-blue-600",
       },
       {
@@ -93,37 +93,37 @@ const AboutPage = memo(() => {
         title: "CIDB Certification",
         description:
           "Achieved CIDB PE 5CE rating, qualifying for major infrastructure projects across multiple sectors.",
-        milestone: "First major municipal project completed",
+        
       },
       {
         year: "2020",
         title: "Regional Expansion",
         description: "Expanded operations to Western Cape, establishing regional presence and local partnerships.",
-        milestone: "50+ projects completed successfully",
+        milestone: "25+ projects completed successfully",
       },
       {
         year: "2021",
         title: "Technology Integration",
-        description: "Implemented advanced BIM systems and digital project management across all operations.",
-        milestone: "ISO 9001:2015 certification obtained",
+        description: "Implemented advanced iMS systems and digital project management across all operations.",
+       
       },
       {
         year: "2022",
         title: "Sustainability Focus",
         description: "Launched comprehensive environmental compliance and sustainable construction initiatives.",
-        milestone: "200+ projects milestone reached",
+       
       },
       {
         year: "2023",
         title: "Excellence Recognition",
         description: "Recognized as leading Black-owned construction company with outstanding safety record.",
-        milestone: "500+ projects completed with zero incidents",
+       
       },
       {
         year: "2024",
         title: "Future Innovation",
         description: "Pioneering smart infrastructure solutions and advancing digital construction methodologies.",
-        milestone: "Ongoing commitment to excellence",
+        
       },
     ],
     [],
@@ -132,7 +132,7 @@ const AboutPage = memo(() => {
   const headerStats = useMemo(
     () => [
       { value: "25+", label: "Projects Completed", icon: Building2 },
-      { value: "12+", label: "Years Excellence", icon: Award },
+      { value: "6+", label: "Years Excellence", icon: Award },
       { value: "5+", label: "Management Teams", icon: Users },
       { value: "8+", label: "Support Teams", icon: Users },
     ],
@@ -155,22 +155,6 @@ const AboutPage = memo(() => {
         description="A premier, 100% Black-owned construction company specializing in multi-disciplinary civil construction and infrastructure development across South Africa."
         backgroundImage="https://images.unsplash.com/photo-1610264146566-c233419fb1c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjb25zdHJ1Y3Rpb24lMjB0ZWFtJTIwb2ZmaWNlfGVufDF8fHx8MTc1NzQ1Mzc5Mnww&ixlib=rb-4.1.0&q=80&w=1080"
         breadcrumbs={[{ label: "Home", href: "home" }, { label: "About Us" }]}
-        badge={{
-          text: "CIDB PE 5CE • Level 1 BBBEE",
-          icon: Shield,
-        }}
-        ctaButtons={{
-          primary: {
-            text: "Book An Appointment",
-            action: () => setCurrentPage("contact"),
-            icon: Phone,
-          },
-          secondary: {
-            text: "View Projects",
-            action: () => setCurrentPage("projects"),
-            icon: Building2,
-          },
-        }}
         stats={headerStats}
         decorativeImages={decorativeImages}
       />
@@ -228,14 +212,8 @@ const AboutPage = memo(() => {
 
                 {/* Professional badges */}
                 <div className="absolute top-4 left-4 space-y-2">
-                  <div className="bg-green-500/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-2">
-                    <Shield className="w-4 h-4 text-white" />
-                    <span className="text-white text-sm font-bold">100% Black Owned</span>
-                  </div>
-                  <div className="bg-blue-500/90 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center space-x-2">
-                    <Award className="w-4 h-4 text-white" />
-                    <span className="text-white text-sm font-bold">ISO 9001:2015</span>
-                  </div>
+                  
+                   
                 </div>
               </div>
 
@@ -376,7 +354,7 @@ const AboutPage = memo(() => {
               {
                 name: "Construction Team",
                 role: "Technical Excellence",
-                experience: "15+ years average experience",
+                experience: "6+ years average experience",
                 specialization: "Civil Construction & Infrastructure Development",
               },
               {
@@ -418,35 +396,11 @@ const AboutPage = memo(() => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="section-padding bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-        <div className="max-w-7xl mx-auto container-padding text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-8">Ready to Work With Excellence?</h2>
-          <p className="text-xl mb-16 max-w-4xl mx-auto text-white/90 leading-relaxed">
-            Partner with a company that combines experience, innovation, and unwavering commitment to quality. Let's
-            build your vision together.
-          </p>
+     <div className="section-padding bg-gradient-to-r ">
 
-          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            <Button
-              onClick={() => setCurrentPage("contact")}
-              className="bg-white text-orange-600 hover:bg-gray-100 font-semibold px-12 py-6 text-xl shadow-lg"
-            >
-              <Phone className="mr-3 w-7 h-7" />
-              Get Free Consultation
-              <ArrowRight className="ml-3 w-7 h-7" />
-            </Button>
 
-            <Button
-              onClick={() => setCurrentPage("projects")}
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-orange-600 font-semibold px-12 py-6 text-xl"
-            >
-              <Building2 className="mr-3 w-7 h-7" />
-              View Our Projects
-            </Button>
-          </div>
-        </div>
-      </section>
+      
+     </div>
     </div>
   );
 });

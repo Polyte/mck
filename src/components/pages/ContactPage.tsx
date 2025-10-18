@@ -76,10 +76,10 @@ const ContactPage = memo(() => {
         icon: MapPin,
         title: "Visit Us",
         primary: "Unit 489 Silverwood",
-        secondary: "51 Nikkel Street, Monavoni",
+        secondary: "51 Nickel Street, Monavoni",
         description: "Centurion 0157, Gauteng",
         available: "Mon-Fri: 8AM-5PM",
-        action: () => window.open("https://maps.google.com/?q=Unit+489+Silverwood+51+Nikkel+Street+Monavoni+Centurion"),
+        action: () => window.open("https://maps.google.com/?q=51+Nickel+Street+Monavoni+Centurion"),
       },
       {
         icon: Headphones,
@@ -142,7 +142,7 @@ const ContactPage = memo(() => {
     "Urgent (Within 3 months)",
     "Short term (3-6 months)",
     "Medium term (6-12 months)",
-    "Long term (12+ months)",
+    "Long term (6+ months)",
     "Planning phase",
   ];
 
@@ -173,7 +173,7 @@ const ContactPage = memo(() => {
     () => [
       { value: "24/7", label: "Support Available", icon: Headphones },
       { value: "2hrs", label: "Response Time", icon: Clock },
-      { value: "9", label: "Provinces Served", icon: MapPin },
+      { value: "5", label: "Provinces Served", icon: MapPin },
       { value: "100%", label: "Free Consultations", icon: CheckCircle },
     ],
     [],
@@ -197,12 +197,7 @@ const ContactPage = memo(() => {
             text: "Call Now",
             action: () => window.open("tel:0123226786"),
             icon: Phone,
-          },
-          secondary: {
-            text: "Calculate Project Cost",
-            action: () => setShowCalculator(true),
-            icon: Calculator,
-          },
+          }, 
         }}
         stats={headerStats}
       />
@@ -474,7 +469,7 @@ const ContactPage = memo(() => {
                     <div className="flex items-center space-x-3">
                       <CheckCircle className="w-6 h-6 text-orange-500" />
                       <div>
-                        <div className="font-semibold text-gray-900">500+ Projects</div>
+                        <div className="font-semibold text-gray-900">25+ Projects</div>
                         <div className="text-sm text-gray-600">Successfully Completed</div>
                       </div>
                     </div>
@@ -482,7 +477,7 @@ const ContactPage = memo(() => {
                       <Users className="w-6 h-6 text-purple-600" />
                       <div>
                         <div className="font-semibold text-gray-900">Expert Team</div>
-                        <div className="text-sm text-gray-600">15+ Years Experience</div>
+                        <div className="text-sm text-gray-600">6+ years Experience</div>
                       </div>
                     </div>
                   </div>
@@ -577,26 +572,7 @@ const ContactPage = memo(() => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="section-padding bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto container-padding text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-8">Ready to Start Your Project?</h2>
-          <p className="text-xl mb-16 max-w-4xl mx-auto text-gray-300 leading-relaxed">
-            Don't wait - contact our expert team today for immediate consultation and detailed project planning. We're
-            here to make your construction vision a reality.
-          </p>
-
-          <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            <Button
-              onClick={() => window.open("tel:0123226786")}
-              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-12 py-6 text-xl shadow-lg"
-            >
-              <Phone className="mr-3 w-7 h-7" />
-              Call Now: (012) 322 6786
-              <ArrowRight className="ml-3 w-7 h-7" />
-            </Button>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 });

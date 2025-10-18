@@ -91,14 +91,14 @@ const HomePage = memo(() => {
     () => [
       {
         icon: Building2,
-        value: 500,
+        value: 5,
         suffix: "+",
         label: "Projects Completed",
         color: "text-[#d27015]",
       },
       {
         icon: Users,
-        value: 75,
+        value: 5,
         suffix: "+",
         label: "Expert Engineers",
         color: "text-blue-600",
@@ -137,7 +137,7 @@ const HomePage = memo(() => {
         icon: Award,
         title: "Quality Assurance",
         description:
-          "ISO 9001 certified processes ensuring superior construction standards that exceed client expectations every time.",
+          "We follow ISO 9001-certified processes to deliver construction excellence that consistently surpasses client expectations.",
         metric: "98.5% quality score",
         color: "text-blue-600",
         image:
@@ -158,7 +158,7 @@ const HomePage = memo(() => {
         title: "Expert Team",
         description:
           "Professional engineers and certified construction specialists with decades of combined experience.",
-        metric: "15+ years avg experience",
+        metric: "6+ years avg experience",
         color: "text-green-600",
         image:
           "https://images.unsplash.com/photo-1581674662583-5e89b374fae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXZpbCUyMGVuZ2luZWVyaW5nJTIwYmx1ZXByaW50cyUyMHBsYW5uaW5nfGVufDF8fHx8MTc1NTY1ODI0MXww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -173,25 +173,25 @@ const HomePage = memo(() => {
         icon: Building2,
         title: "Infrastructure Development",
         description: "Comprehensive infrastructure solutions including bridges, highways, and municipal projects.",
-        projects: "210+",
+        projects: "5+",
       },
       {
         icon: Truck,
         title: "Road Construction",
         description: "Advanced road Construction and rehabilitation using state-of-the-art equipment and techniques.",
-        projects: "140+",
+        projects: "5+",
       },
       {
         icon: Construction,
         title: "Civil Construction",
         description: "Complete civil Construction services from planning to project completion and maintenance.",
-        projects: "150+",
+        projects: "5+",
       },
       {
         icon: Wrench,
         title: "Maintenance Services",
         description: "Ongoing maintenance and repair services ensuring long-term infrastructure reliability.",
-        projects: "300+",
+        projects: "5+",
       },
     ],
     [],
@@ -254,7 +254,7 @@ const HomePage = memo(() => {
 
               <div className="space-y-6 mb-12">
                 {[
-                  "Advanced BIM and 3D modeling capabilities",
+                  "Advanced IMS and 3D modeling capabilities",
                   "Certified project management professionals",
                   "Comprehensive quality assurance systems",
                   "Environmental sustainability compliance",
@@ -267,14 +267,7 @@ const HomePage = memo(() => {
                 ))}
               </div>
 
-              <Button
-                onClick={() => setCurrentPage("about")}
-                className="bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-10 py-4 text-lg"
-              >
-                <Settings className="mr-3 w-6 h-6" />
-                Discover Our Capabilities
-                <ArrowRight className="ml-3 w-6 h-6" />
-              </Button>
+               
             </div>
 
             <div className={`animate-on-scroll-right ${aboutSection.isVisible ? "is-visible" : ""}`}>
@@ -416,17 +409,7 @@ const HomePage = memo(() => {
               </Card>
             ))}
           </div>
-
-          <div className="text-center mt-16">
-            <Button
-              onClick={() => setCurrentPage("services")}
-              className="bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-4 text-lg"
-            >
-              <Building2 className="mr-3 w-6 h-6" />
-              View All Services
-              <ArrowRight className="ml-3 w-6 h-6" />
-            </Button>
-          </div>
+ 
         </div>
       </section>
 
@@ -442,15 +425,7 @@ const HomePage = memo(() => {
           </p>
 
           <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
-            <Dialog open={showCalculator} onOpenChange={setShowCalculator}>
-              <DialogTrigger asChild>
-                <Button className="bg-[#d27015] hover:bg-[#b8621a] text-white font-semibold px-12 py-6 text-xl shadow-lg">
-                  <Calculator className="mr-3 w-7 h-7" />
-                  Get Instant Quote
-                  <ArrowRight className="ml-3 w-7 h-7" />
-                </Button>
-              </DialogTrigger>
-            </Dialog>
+            
 
             <Dialog open={showBooking} onOpenChange={setShowBooking}>
               <DialogTrigger asChild>

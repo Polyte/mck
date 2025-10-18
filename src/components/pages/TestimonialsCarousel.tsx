@@ -13,8 +13,6 @@ import {
   TrendingUp,
   Users,
   PlayCircle,
-  ArrowLeft,
-  ArrowRight,
 } from "lucide-react";
 
 const TestimonialsCarousel = memo(() => {
@@ -321,90 +319,31 @@ const TestimonialsCarousel = memo(() => {
         ))}
       </div>
 
-      {/* Trusted Organizations Marquee */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-6 text-white overflow-hidden relative">
-        <h3 className="text-lg font-bold mb-6 text-center">
+      {/* Compact Trust Indicators */}
+      <div className="bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-6 text-white text-center">
+        <h3 className="text-lg font-bold mb-4">
           Trusted by Leading Organizations
         </h3>
-        
-        {/* Navigation Arrows */}
-        <div className="absolute top-1/2 left-4 -translate-y-1/2 z-20">
-          <button 
-            onClick={() => {
-              const container = document.querySelector('.marquee-container');
-              if (container) container.scrollBy({ left: -300, behavior: 'smooth' });
-            }}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="absolute top-1/2 right-4 -translate-y-1/2 z-20">
-          <button 
-            onClick={() => {
-              const container = document.querySelector('.marquee-container');
-              if (container) container.scrollBy({ left: 300, behavior: 'smooth' });
-            }}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
-            aria-label="Next"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="relative w-full overflow-hidden marquee-container">
-          {/* Single row of logos */}
-          <div className="flex w-max animate-marquee whitespace-nowrap py-8">
-            {[
-              { name: "Eskom Holdings", logo: "⚡" },
-              { name: "Inter Southern Power", logo: "🔌" },
-              { name: "City Power", logo: "🏙️" },
-              { name: "MTS Infraco", logo: "�" },
-              { name: "Noratec", logo: "🔧" },
-              { name: "Rotek Engineering", logo: "⚙️" },
-            ].map((client, index) => (
-              <div 
-                key={`logo-${index}`} 
-                className="mx-8 flex flex-col items-center justify-center min-w-[160px] px-6 py-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
-              >
-                <div className="text-5xl mb-3">{client.logo}</div>
-                <div className="font-medium text-sm text-center text-white/90">{client.name}</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { name: "City of Johannesburg", logo: "🏛️" },
+            { name: "KZN Provincial Gov", logo: "🏛️" },
+            { name: "Mpumalanga Transport", logo: "🚛" },
+            { name: "Private Sector", logo: "🏢" },
+          ].map((client, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center"
+            >
+              <div className="text-2xl mb-1">{client.logo}</div>
+              <div className="font-medium text-xs">
+                {client.name}
               </div>
-            ))}
-          </div>
-          
-          {/* Gradient fades */}
-          <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-slate-900 via-slate-900/90 to-transparent z-10 pointer-events-none"></div>
+            </div>
+          ))}
         </div>
-        
-        {/* Add the animation keyframes to your global CSS or use a style tag */}
-        <style jsx global>{`
-          @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          @keyframes marquee-reverse {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
-          }
-          .animate-marquee {
-            animation: marquee 40s linear infinite;
-            scroll-behavior: smooth;
-          }
-          .animate-marquee:hover {
-            animation-play-state: paused;
-          }
-          .marquee-container {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-          }
-          .marquee-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-          }
-        `}</style>
+
+    
       </div>
     </div>
   );
