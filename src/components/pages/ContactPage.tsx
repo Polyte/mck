@@ -415,25 +415,7 @@ const ContactPage = memo(() => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h3>
                   <div className="space-y-4">
-                    <Dialog open={showBooking} onOpenChange={setShowBooking}>
-                      <DialogTrigger asChild>
-                        <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4">
-                          <Calendar className="mr-2 w-5 h-5" />
-                          Book Consultation
-                          <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-                        <DialogHeader>
-                          <DialogTitle>Book Free Consultation</DialogTitle>
-                          <DialogDescription>
-                            Schedule a free consultation with our construction experts to discuss your project
-                            requirements and get professional advice.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <ConsultationBooking onBooking={() => setShowBooking(false)} />
-                      </DialogContent>
-                    </Dialog>
+                     
 
                     <Button
                       onClick={() => window.open("tel:0823169297")}

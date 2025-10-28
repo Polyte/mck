@@ -103,19 +103,19 @@ const ConsultationBooking = memo(({ onBooking }: ConsultationBookingProps) => {
   const selectedConsultation = consultationTypes.find(c => c.id === bookingData.consultationType)
 
   return (
-    <Card className="card-construction max-w-4xl mx-auto">
+    <Card className="card-construction max-w-4xl mx-auto bg-black/5 shadow-2xl border-0">
       <CardContent className="p-10">
         {step !== 4 && (
           <>
             {/* Header */}
-            <div className="text-center mb-10">
-              <div className="w-20 h-20 gradient-construction rounded-2xl flex items-center justify-center text-white mx-auto mb-6">
+            <div className="text-center mb-10 bg-black p-6 rounded-2xl">
+              <div className="w-20 h-20 gradient-construction bg-black rounded-2xl flex items-center justify-center text-black mx-auto mb-6">
                 <Calendar className="w-10 h-10" />
               </div>
-              <h2 className="text-4xl font-bold text-construction-navy mb-4">
+              <h2 className="text-4xl font-bold text-construction-navy bg-black mb-4">
                 Book Your FREE Consultation
               </h2>
-              <p className="text-xl text-construction-steel">
+              <p className="text-xl text-construction-steel text">
                 Get expert construction advice from our certified engineers
               </p>
               
