@@ -54,7 +54,7 @@ const ServicesPage = memo(() => {
           "Industrial Facilities",
         ],
         image:
-          "https://plus.unsplash.com/premium_photo-1661873243927-ac13c13485eb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SW5mcmFzdHJ1Y3R1cmUlMjBEZXZlbG9wbWVudHxlbnwwfHwwfHx8MA%3D%3D",
+          "https://plus.unsplash.com/premium_photo-1661873243927-ac13c13485eb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SW5mcmFzdHJ1Y3R1Y2V8ZW58MHx8fHwxMjA3MjY0MjA4fDA&auto=format&fit=crop",
         projects: "5+", 
         completionTime: "18 months avg",
       },
@@ -203,16 +203,131 @@ const ServicesPage = memo(() => {
 
   // Enhanced decorative images for Services page
   const decorativeImages = [
-    "https://images.unsplash.com/photo-1754373218882-a9fbc0921e0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwYWVyaWFsJTIwdmlld3xlbnwxfHx8fDE3NTc0Mjc5OTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1729551610640-e8adee1172e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbmdpbmVlcmluZyUyMGJsdWVwcmludHMlMjBwbGFuc3xlbnwxfHx8fDE3NTc0NTM4MDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzYWZldHklMjBlcXVpcG1lbnR8ZW58MXx8fHwxNzU3NDUzODA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    // Wind farm and solar projects
+    "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=1080",
+    
+    // Substations and electrical infrastructure
+    "https://images.unsplash.com/photo-1605190587727-1e4632cc2c5c?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1594818379496-da1e345b0ded?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&q=80&w=1080",
+    
+    // Maintenance and industrial sites
+    "https://images.unsplash.com/photo-1581093458791-9d15482741a9?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1080",
+    
+    // Construction and civil works
+    "https://www.spmsa.co.za/wp-content/uploads/WEBP/our-services/sub@2x.webp",
+    "https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?auto=format&fit=crop&q=80&w=1080",
+    "https://images.unsplash.com/photo-1521661488642-d86e85b99b92?auto=format&fit=crop&q=80&w=1080"
+  ];
+  
+  // Projects list added from user input
+  const projects = useMemo(
+    () => [
+      {
+        id: "garob-windfarm",
+        title: "GAROB WINDFARM",
+        client: "Consolidated Power Projects",
+        contractor: "Mckeywa Projects",
+        description:
+          "Civil Works Construction of Garob Windfarm’s IPP Substation at Prieska, Northern Cape",
+        value: "R3,657,650.00",
+        duration: "6 months",
+        period: "20 July 2019 - 30 January 2020",
+      },
+      {
+        id: "boshof-solar",
+        title: "BOSHOF SOLAR PARK",
+        client: "Consolidated Power Maintenance",
+        contractor: "Mckeywa Projects",
+        description:
+          "Refurbishment of the facilities at Boshoff Solar Park at Boshoff in the Prieska, Northern Cape",
+        value: "R2,126,500.00",
+        duration: "4 months",
+        period: "20 March 2020 - 30 August 2020",
+      },
+      {
+        id: "city-power",
+        title: "CITY POWER EMERGENCIES AND MAINTENANCE PROJECTS",
+        client: "City Power",
+        contractor: "Mckeywa Projects",
+        description:
+          "Refurbishment of the MV System at various City Power substations in the Gauteng Region",
+        value: "R6,326,550.56",
+        duration: "4 months",
+        period: "05 December 2020 - 30 November 2021",
+      },
+      {
+        id: "various-maintenance",
+        title: "VARIOUS MAINTENANCE PROJECTS",
+        client: "Inter Southern Power",
+        contractor: "Mckeywa Projects",
+        description:
+          "Refurbishment and Maintenance of civil infrastructure for various substations",
+        value: "R1,256,656.60",
+        duration: "4 months",
+        period: "05 February 2022 - 30 December 2022",
+      },
+      {
+        id: "eri-refurbishment",
+        title: "ERI SUBSTATION REFURBISHMENT PROJECTS",
+        client: "Eskom Rotek Industries",
+        contractor: "Mckeywa Projects",
+        description:
+          "Refurbishment of various Eskom Substations at Various Eskom Regions",
+        value: "R3,954,111.00",
+        duration: "4 months",
+        period: "20 February 2023 - 30 March 2024",
+      },
+      {
+        id: "ntcsa-maintenance",
+        title: "NTCSA SUBSTATION MAINTENANCE PROJECTS",
+        client: "MTS INFRACO",
+        contractor: "Mckeywa Projects (Sub-Contractor)",
+        description:
+          "Refurbishment of various NTCSA Substations in the Northern Cape Region",
+        value: "R3,125,111.00",
+        duration: "4 months",
+        period: "20 October 2024 - 30 March 2025",
+      },
+    ],
+    [],
+  );
+
+  // path for the site logo (place the attached PNG here)
+  const siteLogo = "../assets/logo/site-logo.png";
+
+  // Partner / client logos (place these files in public/assets/logos/)
+  const partnerLogos = [
+    "../assets/logos/consolidated-power-maintenance.png",
+    "../assets/logos/consolidated-power-projects.png",
+    "../assets/logos/spm.png",
+    "../assets/logos/mts-infraco.png",
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Enhanced Page Header with decorative images */}
+      {/* Inline header logo (ensures logo always renders even if PageHeader doesn't accept a logo prop) */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center">
+          <a href="/" aria-label="Home" className="inline-flex items-center">
+            <img
+              src={siteLogo}
+              alt="Mckeywa Projects"
+              className="h-14 w-auto object-contain"
+              onError={(e: any) => { e.currentTarget.style.display = 'none'; }}
+            />
+          </a>
+        </div>
+      </header>
+
+      {/* existing PageHeader (kept in case it provides extra layout) */}
       <PageHeader
         title="Our Construction Services"
+        className="page-header-services"
         subtitle="Complete Solutions"
         description="Comprehensive civil construction and infrastructure development services across South Africa. From highways to bridges, we deliver world-class projects with precision and excellence."
         backgroundImage="https://images.unsplash.com/photo-1604225318415-20fddd721f35?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzZXJ2aWNlcyUyMGVxdWlwbWVudCUyMGhlYXZ5JTIwbWFjaGluZXJ5fGVufDF8fHx8MTc1NzQ1Mzc5NXww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -235,7 +350,30 @@ const ServicesPage = memo(() => {
         }}
         stats={headerStats}
         decorativeImages={decorativeImages}
+        logo={siteLogo} // add this prop so the header uses the new logo
       />
+
+      {/* Partner logos - horizontal scroll, grayscale -> color on hover */}
+      {/* <section className="py-6 bg-white">
+        <div className="max-w-7xl mx-auto container-padding">
+          <div className="overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-6 py-4 px-2 w-max">
+              {partnerLogos.map((src, idx) => (
+                <div
+                  key={src}
+                  className="group flex-shrink-0 w-44 h-20 bg-white rounded-md flex items-center justify-center p-2 shadow-sm"
+                >
+                  <ImageWithFallback
+                    src={src}
+                    alt={`partner-logo-${idx}`}
+                    className="w-full h-full object-contain filter grayscale contrast-75 opacity-80 transition duration-300 transform group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section> */}
 
       {/* Main Services Section */}
       <section ref={servicesSection.ref} className="section-padding bg-white">
@@ -383,7 +521,100 @@ const ServicesPage = memo(() => {
       </section>
 
       {/* Capabilities Section */}
-     
+      <section className="section-padding bg-gray-50">
+        <div className="max-w-7xl mx-auto container-padding">
+          <div className="text-center mb-12">
+            <Badge className="mb-6 bg-[#1f2937] text-white text-lg px-5 py-2 font-semibold">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Selected Projects
+            </Badge>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">Representative Projects</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto">
+              A selection of civil and refurbishment projects delivered by Mckeywa Projects across South Africa.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((p, i) => (
+              <Card
+                key={p.id}
+                className="transform perspective-1000 transition duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl group overflow-hidden"
+                style={{ willChange: "transform", transformOrigin: "center", animationDelay: `${i * 0.05}s` }}
+              >
+                <CardContent className="p-0">
+                  <div className="relative h-44 overflow-hidden bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800">
+                    <ImageWithFallback
+                      src={decorativeImages[i % decorativeImages.length]}
+                      alt={p.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-orange-600 text-white font-semibold">{p.duration}</Badge>
+                    </div>
+                    <div className="absolute top-4 right-4">
+                      <div className="text-xs text-white bg-black/30 px-3 py-1 rounded">{p.value}</div>
+                    </div>
+                  </div>
+
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{p.title}</h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3">{p.description}</p>
+
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs text-gray-500">
+                        <div><strong>Client:</strong> {p.client}</div>
+                        <div><strong>Contractor:</strong> {p.contractor}</div>
+                      </div>
+
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button className="px-3 py-2 bg-[#d27015] hover:bg-[#b8621a] text-white">View Details</Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle>{p.title}</DialogTitle>
+                            <DialogDescription>
+                              Project details and period information
+                            </DialogDescription>
+                          </DialogHeader>
+
+                          <div className="p-6 space-y-4">
+                            <div className="flex items-start space-x-4">
+                              <div className="w-14 h-14 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold">
+                                {p.title.split(" ").slice(0,2).map(s=>s[0]).join("")}
+                              </div>
+                              <div>
+                                <h4 className="text-xl font-semibold">{p.title}</h4>
+                                <div className="text-sm text-gray-600">{p.period}</div>
+                              </div>
+                            </div>
+
+                            <div>
+                              <p className="text-gray-700">{p.description}</p>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="bg-gray-50 p-4 rounded">
+                                <div className="text-sm text-gray-500">Project Value</div>
+                                <div className="text-lg font-bold text-[#d27015]">{p.value}</div>
+                              </div>
+                              <div className="bg-gray-50 p-4 rounded">
+                                <div className="text-sm text-gray-500">Duration</div>
+                                <div className="text-lg font-bold text-green-600">{p.duration}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Construction Process */}
       <section ref={processSection.ref} className="section-padding bg-white">

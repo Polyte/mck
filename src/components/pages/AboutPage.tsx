@@ -382,16 +382,7 @@ const AboutPage = memo(() => {
             ))}
           </div>
 
-          <div className="text-center mt-16">
-            <Button
-              onClick={() => setCurrentPage("contact")}
-              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-12 py-4 text-lg"
-            >
-              <Users className="mr-3 w-6 h-6" />
-              Meet Our Team
-              <ArrowRight className="ml-3 w-6 h-6" />
-            </Button>
-          </div>
+          
         </div>
       </section>
 

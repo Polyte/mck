@@ -1,9 +1,11 @@
 import { memo, useState, useEffect } from "react";
+import * as React from 'react';
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { useRouter } from "./Router";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu, X, Building2, Phone, Shield, Award } from "lucide-react";
+import Logo from '../assets/logo/site-logo.png';
 
 const Navigation = memo(() => {
   const { currentPage, setCurrentPage } = useRouter();
@@ -59,7 +61,7 @@ const Navigation = memo(() => {
               </div> */}
               <div>
                 <h1 className="text-lg font-bold text-orange-900 dark:text-white">
-                  <span class="text-lg">MC</span>KEYWA
+                 <img src={Logo} alt="Company Logo" className="h-10 w-auto logo" />
                 </h1>
                 <p className="text-xs text-gray-600 dark:text-gray-400 font-medium"></p>
               </div>
