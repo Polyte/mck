@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { motion } from 'motion/react'
 import { Building2 } from 'lucide-react'
+import Logo from '../assets/logo/site-logo.png';
 
 const PageLoader = memo(() => {
   return (
@@ -24,7 +25,7 @@ const PageLoader = memo(() => {
             ease: "easeInOut"
           }}
         >
-          <Building2 className="w-8 h-8" />
+         <Logo />
         </motion.div>
         
         <motion.div
