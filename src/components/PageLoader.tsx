@@ -14,7 +14,7 @@ const PageLoader = memo(() => {
     >
       <div className="text-center">
         <motion.div
-          className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white shadow-lg mb-6 mx-auto"
+          className="w-16 h-16  flex items-center justify-center text-white shadow-lg mb-6 mx-auto"
           animate={{ 
             scale: [1, 1.1, 1],
             rotate: [0, 5, -5, 0]
@@ -25,7 +25,8 @@ const PageLoader = memo(() => {
             ease: "easeInOut"
           }}
         >
-         <Logo />
+        
+        <img src={Logo} alt="Logo" />
         </motion.div>
         
         <motion.div
