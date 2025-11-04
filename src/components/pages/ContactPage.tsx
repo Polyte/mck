@@ -189,7 +189,7 @@ const ContactPage = memo(() => {
         backgroundImage="https://images.unsplash.com/photo-1725772498434-7265ec19fc92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBjb250YWN0JTIwb2ZmaWNlJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzU3NDUzODAwfDA&ixlib=rb-4.1.0&q=80&w=1080"
         breadcrumbs={[{ label: "Home", href: "home" }, { label: "Contact Us" }]}
         badge={{
-          text: "Free Consultation & Project Estimates",
+          text: "..",
           icon: Calculator,
         }}
         ctaButtons={{

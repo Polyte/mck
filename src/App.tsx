@@ -232,7 +232,7 @@ const AppContent = memo(() => {
                   <Button
                     onClick={() => window.open("tel:0823169297")}
                     variant="outline"
-                    className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-gray-500 px-6 py-3 rounded-lg font-medium transition-all duration-200"
+                    className="border-gray-400 text-gray-800 hover:bg-gray-200 hover:text-black dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-800 dark:hover:text-white dark:hover:border-gray-500 px-6 py-3 rounded-lg font-medium transition-all duration-200"
                   >
                     <Headphones className="mr-2 w-4 h-4" />
                     24/7 Support
@@ -250,7 +250,7 @@ const AppContent = memo(() => {
               >
                 <div className="flex items-center space-x-2 text-sm text-gray-400">
                   <Users className="w-4 h-4 text-blue-400" />
-                  <span>500+ Happy Clients</span>
+                  <span>50+ Happy Clients</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-gray-400">
                   <Heart className="w-4 h-4 text-red-400" />

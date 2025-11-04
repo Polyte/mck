@@ -45,7 +45,7 @@ const HeroCarousel = memo(() => {
       description:
         "Premier construction and maintanance solutions across South Africa. From substations to specialized civil construction, we deliver world-class infrastructure that stands the test of time.",
       videoId: "4BzjUq921Y4", // Construction & Construction video
-      badge: "Featured: Construction Process",
+      badge: "",
       type: "video",
     },
   ];
@@ -202,7 +202,7 @@ const HeroCarousel = memo(() => {
       </div>
 
       {/* Navigation Controls */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+      <div className="absolute bottom-8 right-8 z-20">
         <div className="flex items-center space-x-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-2 
          shadow-lg">
           {/* Play/Pause */}
@@ -225,28 +225,7 @@ const HeroCarousel = memo(() => {
             </button>
           )}
 
-          {/* Slide indicators */}
-          <div className="flex space-x-3">
-            {slides.map((slide, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 relative ${
-                  index === currentSlide ? "bg-orange-500 scale-125 shadow-lg" : "bg-white/40 hover:bg-white/70"
-                }`}
-                title={`Go to slide ${index + 1}: ${slide.title}`}
-              >
-                {slide.type === "video" && (
-                  <Video className="w-2 h-2 absolute -top-3 left-1/2 transform -translate-x-1/2 text-orange-400" />
-                )}
-              </button>
-            ))}
-          </div>
 
-          {/* Slide counter */}
-          <div className="text-white/80 text-sm font-mono">
-            {String(currentSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-          </div>
 
           {/* Video indicator */}
           {currentSlideData.type === "video" && (
@@ -258,29 +237,9 @@ const HeroCarousel = memo(() => {
         </div>
       </div>
 
-      {/* Side Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-full text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 hover:bg-white/20"
-        title="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
 
-      <button
-        onClick={nextSlide}
-        className="absolute right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-full text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 hover:bg-white/20"
-        title="Next slide"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 right-8 z-20 animate-bounce">
-        <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center bg-white/10 backdrop-blur-sm">
-          <div className="w-1 h-4 bg-orange-400 rounded-full mt-3 animate-pulse"></div>
-        </div>
-      </div>
+
     </div>
   );
 });

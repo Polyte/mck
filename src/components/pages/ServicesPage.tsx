@@ -1,4 +1,19 @@
 import { memo, useMemo, useState } from "react";
+import { X } from "lucide-react";
+
+// Import all project images
+import IMG3335 from "../../assets/images/IMG_3335.jpeg";
+import IMG3340 from "../../assets/images/IMG_3340.jpeg";
+import IMG3346 from "../../assets/images/IMG_3346.jpeg";
+import IMG3356 from "../../assets/images/IMG_3356.jpeg";
+import IMG3362 from "../../assets/images/IMG_3362.jpeg";
+import IMG3364 from "../../assets/images/IMG_3364.jpeg";
+import IMG3415 from "../../assets/images/IMG_3415.jpeg";
+import IMG3424 from "../../assets/images/IMG_3424.jpeg";
+import IMG3426 from "../../assets/images/IMG_3426.jpeg";
+import IMG3435 from "../../assets/images/IMG_3435.jpeg";
+import IMG3442 from "../../assets/images/IMG_3442.webp";
+import IMG3447 from "../../assets/images/IMG_3447.webp";
 import { PageHeader } from "../PageHeader";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { Card, CardContent } from "../ui/card";
@@ -31,6 +46,36 @@ import {
 const ServicesPage = memo(() => {
   const { setCurrentPage } = useRouter();
   const [selectedService, setSelectedService] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // All project images with categories
+  const projectImages = [
+    { id: 'img1', src: IMG3335, title: 'Commercial Complex', category: 'Commercial' },
+    { id: 'img2', src: IMG3340, title: 'Residential Development', category: 'Residential' },
+    { id: 'img3', src: IMG3346, title: 'Infrastructure Project', category: 'Infrastructure' },
+    { id: 'img4', src: IMG3356, title: 'Industrial Facility', category: 'Industrial' },
+    { id: 'img5', src: IMG3362, title: 'Construction Site A', category: 'Construction' },
+    { id: 'img6', src: IMG3364, title: 'Construction Site B', category: 'Construction' },
+    { id: 'img7', src: IMG3415, title: 'Modern Architecture', category: 'Commercial' },
+    { id: 'img8', src: IMG3424, title: 'Urban Development', category: 'Urban' },
+    { id: 'img9', src: IMG3426, title: 'Landscaping Project', category: 'Landscaping' },
+    { id: 'img10', src: IMG3435, title: 'Renovation Work', category: 'Renovation' },
+    { id: 'img11', src: IMG3442, title: 'Project Planning', category: 'Planning' },
+    { id: 'img12', src: IMG3447, title: 'Construction Site C', category: 'Construction' },
+  ];
+
+  const openModal = (imageSrc: string) => {
+    setSelectedImage(imageSrc);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+    document.body.style.overflow = 'unset';
+  };
 
   // Scroll animations
   const servicesSection = useScrollAnimation({ threshold: 0.1 });
@@ -204,14 +249,14 @@ const ServicesPage = memo(() => {
   // Enhanced decorative images for Services page
   const decorativeImages = [
     // Wind farm and solar projects
-    "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80&w=1080",
-    "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=1080",
-    "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&q=80&w=1080",
+    IMG3346,
+    IMG3447,
+    IMG3442,
     
     // Substations and electrical infrastructure
-    "https://images.unsplash.com/photo-1605190587727-1e4632cc2c5c?auto=format&fit=crop&q=80&w=1080",
-    "https://images.unsplash.com/photo-1594818379496-da1e345b0ded?auto=format&fit=crop&q=80&w=1080",
-    "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&q=80&w=1080",
+    IMG3447,
+    IMG3435,
+    IMG3364,
     
     // Maintenance and industrial sites
     "https://images.unsplash.com/photo-1581093458791-9d15482741a9?auto=format&fit=crop&q=80&w=1080",
@@ -330,22 +375,12 @@ const ServicesPage = memo(() => {
         className="page-header-services"
         subtitle="Complete Solutions"
         description="Comprehensive civil construction and infrastructure development services across South Africa. From highways to bridges, we deliver world-class projects with precision and excellence."
-        backgroundImage="https://images.unsplash.com/photo-1604225318415-20fddd721f35?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzZXJ2aWNlcyUyMGVxdWlwbWVudCUyMGhlYXZ5JTIwbWFjaGluZXJ5fGVufDF8fHx8MTc1NzQ1Mzc5NXww&ixlib=rb-4.1.0&q=80&w=1080"
+        backgroundImage={IMG3447}
         breadcrumbs={[{ label: "Home", href: "home" }, { label: "Services" }]}
-        badge={{
-          text: "Multi-Disciplinary Construction",
-          icon: Construction,
-        }}
-        ctaButtons={{
-          primary: {
+        ctaButtons={{          primary: {
             text: "Visit Us",
             action: () => setCurrentPage("contact"),
             icon: Phone,
-          },
-          secondary: {
-            text: "View Projects",
-            action: () => setCurrentPage("projects"),
-            icon: Building2,
           },
         }}
         stats={headerStats}
@@ -393,7 +428,7 @@ const ServicesPage = memo(() => {
             {mainServices.map((service, index) => (
               <Card
                 key={service.id}
-                className={`card-professional group overflow-hidden animate-on-scroll ${servicesSection.isVisible ? "is-visible" : ""}`}
+                className={`group overflow-hidden animate-on-scroll bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300 ${servicesSection.isVisible ? "is-visible" : ""}`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-0">
@@ -411,14 +446,17 @@ const ServicesPage = memo(() => {
                       </div>
                     </div>
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-[#d27015] text-white font-bold">{service.projects} Projects</Badge>
+                      <Badge className="bg-[#d27015] hover:bg-[#c46917] text-white font-bold transition-colors">
+                        {service.projects} Projects
+                      </Badge>
                     </div>
                   </div>
 
                   {/* Service Content */}
                   <div className="p-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                    <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#d27015] to-[#b8621a]"></div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{service.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">{service.description}</p>
 
                     {/* Key Features */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
@@ -524,11 +562,7 @@ const ServicesPage = memo(() => {
       <section className="section-padding bg-gray-50">
         <div className="max-w-7xl mx-auto container-padding">
           <div className="text-center mb-12">
-            <Badge className="mb-6 bg-[#1f2937] text-white text-lg px-5 py-2 font-semibold">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Selected Projects
-            </Badge>
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">Representative Projects</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">Refurbishment Projects</h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
               A selection of civil and refurbishment projects delivered by Mckeywa Projects across South Africa.
             </p>
@@ -546,15 +580,10 @@ const ServicesPage = memo(() => {
                     <ImageWithFallback
                       src={decorativeImages[i % decorativeImages.length]}
                       alt={p.title}
-                      className="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover 
+                     group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-orange-600 text-white font-semibold">{p.duration}</Badge>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <div className="text-xs text-white bg-black/30 px-3 py-1 rounded">{p.value}</div>
-                    </div>
                   </div>
 
                   <div className="p-5">
@@ -616,45 +645,75 @@ const ServicesPage = memo(() => {
         </div>
       </section>
 
-      {/* Construction Process */}
-      <section ref={processSection.ref} className="section-padding bg-white">
-        <div className="max-w-7xl mx-auto container-padding">
-          <div className={`text-center mb-20 animate-on-scroll ${processSection.isVisible ? "is-visible" : ""}`}>
-            <Badge className="mb-8 bg-green-600 text-white text-lg px-6 py-3 font-semibold">
-              <Settings className="w-5 h-5 mr-2" />
-              Our Process
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Systematic Project Delivery</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Our proven 6-step process ensures consistent quality, timely delivery, and exceptional results
+
+
+      {/* Project Gallery Section */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Project Gallery</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Explore our portfolio of completed projects showcasing our expertise in construction and development
             </p>
           </div>
+          
+          {/* Gallery Title */}
+          <hr /><br></br>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {constructionProcess.map((step, index) => (
-              <Card
-                key={index}
-                className={`card-professional group animate-on-scroll ${processSection.isVisible ? "is-visible" : ""}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+          {/* Image Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projectImages.map((project) => (
+              <div 
+                key={project.id}
+                className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-zoom-in"
+                onClick={() => openModal(project.src)}
               >
-                <CardContent className="p-8">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                      {step.step}
-                    </div>
-                    <div className="text-sm font-medium text-[#d27015]">{step.duration}</div>
+                <img 
+                  src={project.src} 
+                  alt={project.title} 
+                  className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <div>
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded-full mb-2">
+                      {project.category}
+                    </span>
+                    <h3 className="text-white text-lg font-semibold">{project.title}</h3>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Image Modal */}
+      {isModalOpen && selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={closeModal}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+            onClick={(e) => {
+              e.stopPropagation();
+              closeModal();
+            }}
+            aria-label="Close modal"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          <div className="max-w-6xl w-full max-h-[90vh]" onClick={e => e.stopPropagation()}>
+            <img 
+              src={selectedImage} 
+              alt="Enlarged view" 
+              className="w-full h-full object-contain max-h-[80vh] mx-auto"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Final CTA Section */}
-      
     </div>
   );
 });

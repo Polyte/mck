@@ -1,20 +1,14 @@
 import { memo } from 'react'
 import { useTheme } from './hooks/useTheme'
 import { Button } from './ui/button'
-import { Sun, Moon, Monitor } from 'lucide-react'
+import { Sun, Moon } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
 
 export const ThemeToggle = memo(() => {
   const { theme, setTheme, actualTheme } = useTheme()
 
   const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark')
-    } else if (theme === 'dark') {
-      setTheme('system')
-    } else {
-      setTheme('light')
-    }
+    setTheme(theme === 'light' ? 'dark' : 'light')
   }
 
   const getIcon = () => {
@@ -23,8 +17,6 @@ export const ThemeToggle = memo(() => {
         return <Sun className="w-4 h-4" />
       case 'dark':
         return <Moon className="w-4 h-4" />
-      case 'system':
-        return <Monitor className="w-4 h-4" />
     }
   }
 
@@ -34,8 +26,6 @@ export const ThemeToggle = memo(() => {
         return 'Light'
       case 'dark':
         return 'Dark'
-      case 'system':
-        return 'Auto'
     }
   }
 

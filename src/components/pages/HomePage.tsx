@@ -1,4 +1,12 @@
+/** @jsxImportSource react */
+
 import { memo, useMemo, useState, useEffect } from "react";
+import IMG3335 from "../../assets/images/IMG_3335.jpeg";
+import IMG3340 from "../../assets/images/IMG_3340.jpeg";
+import IMG3346 from "../../assets/images/IMG_3346.jpeg";
+import IMG3356 from "../../assets/images/IMG_3356.jpeg";
+import IMG3424 from "../../assets/images/IMG_3424.jpeg";
+import IMG3447 from "../../assets/images/IMG_3447.webp";
 import { HeroCarousel } from "../HeroCarousel";
 import { ProjectCalculator } from "../ProjectCalculator";
 import { TestimonialsCarousel } from "../TestimonialsCarousel";
@@ -33,6 +41,8 @@ import {
   TrendingUp,
   Phone,
 } from "lucide-react";
+
+ 
 
 // Animated Counter Component
 const AnimatedCounter = memo(
@@ -94,7 +104,7 @@ const HomePage = memo(() => {
         value: 5,
         suffix: "+",
         label: "Projects Completed",
-        color: "text-[#d27015]",
+        color: "text-[#fff]",
       },
       {
         icon: Users,
@@ -151,7 +161,7 @@ const HomePage = memo(() => {
         metric: "25% efficiency gain",
         color: "text-[#d27015]",
         image:
-          "https://images.unsplash.com/photo-1707405644831-fdd2e6506083?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwYWVyaWFsJTIwdmlldyUyMHByb2dyZXNzfGVufDF8fHx8MTc1NTY1ODIzOHww&ixlib=rb-4.1.0&q=80&w=1080",
+          "https://images.unsplash.com/premium_photo-1677529102407-0d075eb2cbb9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         icon: Users,
@@ -212,10 +222,7 @@ const HomePage = memo(() => {
         <div className="absolute inset-0 professional-grid opacity-30"></div>
         <div className="relative max-w-7xl mx-auto container-padding">
           <div className="text-center mb-20">
-            <Badge className="mb-8 bg-[#d27015] text-white text-lg px-6 py-3 font-semibold">
-              <Award className="w-5 h-5 mr-2" />
-              #No.1 Architectural Developers
-            </Badge>
+            
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Welcome to <span className="text-[#d27015] font-bold">Mckeywa</span> Projects</h2>
             <p className="text-xl text-gray-600 max-w-6xl mx-auto">
               We create Measurable results that demonstrate our commitment to superior construction and Construction
@@ -364,8 +371,8 @@ const HomePage = memo(() => {
               <Quote className="w-5 h-5 mr-2" />
               Client Success Stories
             </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">What Our Clients Say</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-500  mb-6">What Our Clients Say</h2>
+            <p className="text-xl text-gray-600  max-w-4xl mx-auto">
               Real testimonials from satisfied clients who trusted us with their construction projects
             </p>
           </div>
@@ -375,6 +382,9 @@ const HomePage = memo(() => {
           </div>
         </div>
       </section>
+
+ 
+       
 
       {/* Services Preview */}
       <section ref={servicesSection.ref} className="section-padding bg-white relative">

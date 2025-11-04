@@ -6,8 +6,11 @@ import { useRouter } from "./Router";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu, X, Building2, Phone, Shield, Award } from "lucide-react";
 import Logo from '../assets/logo/site-logo.png';
+import LogoDark from '../assets/logo/site-logo-dark.png';
+import { useTheme } from "./hooks/useTheme";
 
 const Navigation = memo(() => {
+  const { theme } = useTheme();
   const { currentPage, setCurrentPage } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,9 +63,9 @@ const Navigation = memo(() => {
                 <Building2 className="w-5 h-5" />
               </div> */}
               <div>
-                <h1 className="text-lg font-bold text-orange-900 dark:text-white">
-                 <img src={Logo} alt="Company Logo" className="h-10 w-auto logo" />
-                </h1>
+                <a href="https://www.mckeywa.co.za" className="text-lg font-bold text-orange-900 dark:text-white">
+                 <img src={theme === 'dark' ? LogoDark : Logo} alt="Company Logo" className="h-10 w-auto logo" />
+                </a>
                 <p className="text-xs text-gray-600 dark:text-gray-400 font-medium"></p>
               </div>
             </div>

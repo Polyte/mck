@@ -162,10 +162,10 @@ const TestimonialsCarousel = memo(() => {
               <div className="w-8 h-8 bg-gradient-to-r from-[#14184c] to-[#0f1340] rounded-lg flex items-center justify-center text-white mx-auto mb-2">
                 <stat.icon className="w-4 h-4" />
               </div>
-              <div className="text-lg font-bold text-[#14184c] mb-1">
+              <div className="text-lg font-bold text-gray-500 dark:text-gray-300 mb-1">
                 {stat.value}
               </div>
-              <div className="text-xs font-medium text-gray-600">
+              <div className="text-xs font-medium text-gray-600 dark:text-gray-300">
                 {stat.label}
               </div>
             </CardContent>
@@ -288,7 +288,7 @@ const TestimonialsCarousel = memo(() => {
       </div>
 
       {/* Compact Testimonial Indicators */}
-      <div className="flex justify-center items-center space-x-3">
+      <div className="flex justify-center items-center space-x-3 mt-6">
         {testimonials.map((testimonial, index) => (
           <button
             key={testimonial.id}
@@ -322,7 +322,7 @@ const TestimonialsCarousel = memo(() => {
       </div>
 
       {/* Trusted Organizations Marquee */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-6 text-white overflow-hidden relative">
+      <div className="bg-gradient-to-r from-slate-900 to-blue-900 dark:from-slate-800 dark:to-blue-800 rounded-2xl p-6 text-white overflow-hidden relative">
         <h3 className="text-lg font-bold mb-6 text-center">
           Trusted by Leading Organizations
         </h3>

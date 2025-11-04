@@ -31,13 +31,6 @@ const TestimonialsCarousel = memo(() => {
       rating: 5,
       testimonial:
         "McKeywa Projects transformed our infrastructure vision into reality. Their Level 1 BBBEE status and exceptional Construction expertise made them our preferred partner.",
-      projectType: "Bridge Construction", 
-      completionTime: "16 months",
-      results: [
-        "Completed ahead of schedule",
-        "Zero safety incidents",
-        "15% under budget",
-      ],
       videoTestimonial: true,
     },
     {
@@ -50,13 +43,6 @@ const TestimonialsCarousel = memo(() => {
       rating: 5,
       testimonial:
         "Outstanding water treatment facility construction. McKeywa's innovative approach and advanced Construction solutions delivered a world-class facility that serves 65,000 residents.",
-      projectType: "Water Infrastructure", 
-      completionTime: "24 months",
-      results: [
-        "Serves 65,000 residents",
-        "Advanced filtration tech",
-        "Sustainable design",
-      ],
       videoTestimonial: false,
     },
     {
@@ -69,13 +55,6 @@ const TestimonialsCarousel = memo(() => {
       rating: 5,
       testimonial:
         "6+ years.",
-      projectType: "Road Construction", 
-      completionTime: "14 months",
-      results: [
-        "28km road rehabilitation",
-        "Smart road technology",
-        "Local skills development",
-      ],
       videoTestimonial: true,
     },
     {
@@ -88,13 +67,6 @@ const TestimonialsCarousel = memo(() => {
       rating: 5,
       testimonial:
         "McKeywa Projects consistently delivers excellence. Their CIDB PE 5CE rating speaks to their capability, but their results speak even louder.",
-      projectType: "Commercial Development", 
-      completionTime: "18 months",
-      results: [
-        "Premium construction quality",
-        "Innovative design solutions",
-        "Excellent project management",
-      ],
       videoTestimonial: false,
     },
   ];
@@ -107,7 +79,7 @@ const TestimonialsCarousel = memo(() => {
     },
     {
       label: "Projects Completed",
-      value: "5+",
+      value: "25+",
       icon: Building2,
     },
     { label: "Average Rating", value: "5.0", icon: Star },
@@ -154,16 +126,16 @@ const TestimonialsCarousel = memo(() => {
         {stats.map((stat, index) => (
           <Card
             key={index}
-            className="relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-2xl hover:border-[#14184c]/40 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 group overflow-hidden"
+            className="relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-700 shadow-lg hover:shadow-2xl hover:border-orange-500/40 dark:hover:border-orange-500/60 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 group overflow-hidden dark:text-white"
           >
             <CardContent className="p-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#14184c] to-[#0f1340] rounded-lg flex items-center justify-center text-white mx-auto mb-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white mx-auto mb-2">
                 <stat.icon className="w-4 h-4" />
               </div>
-              <div className="text-lg font-bold text-[#14184c] mb-1">
+              <div className="text-lg font-bold text-gray-900 dark:text-white mb-1">
                 {stat.value}
               </div>
-              <div className="text-xs font-medium text-gray-600">
+              <div className="text-xs font-medium text-gray-600 dark:text-white">
                 {stat.label}
               </div>
             </CardContent>
@@ -173,7 +145,7 @@ const TestimonialsCarousel = memo(() => {
 
       {/* Compact Main Testimonial - Fixed 200px height */}
       <div className="relative h-[200px]">
-        <Card className="card-professional overflow-hidden h-full">
+        <Card className="card-professional bg-white dark:bg-gray-800 overflow-hidden h-full">
           <CardContent className="p-0 h-full">
             <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
               {/* Compact Image Side */}
@@ -215,53 +187,21 @@ const TestimonialsCarousel = memo(() => {
                   </div>
 
                   {/* Compact Testimonial */}
-                  <blockquote className="text-sm text-gray-600 leading-tight mb-2 italic line-clamp-3">
+                  <blockquote className="text-sm text-gray-600 dark:text-gray-300 leading-tight mb-2 italic line-clamp-3">
                     "{currentTest.testimonial}"
                   </blockquote>
 
                   {/* Compact Author Info */}
                   <div className="mb-2">
-                    <div className="font-bold text-sm text-gray-900">
+                    <div className="font-bold text-sm text-gray-900 dark:text-white">
                       {currentTest.name}
                     </div>
-                    <div className="text-xs text-orange-500 font-medium">
+                    <div className="text-xs text-orange-500 dark:text-orange-400 font-medium">
                       {currentTest.title}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
                       {currentTest.company}
                     </div>
-                  </div>
-
-                  {/* Compact Project Details */}
-                  <div className="grid grid-cols-3 gap-2 text-xs">
-                    <div>
-                      <div className="font-semibold text-gray-900">
-                        {currentTest.projectType}
-                      </div>
-                    </div>
-                     
-                    <div>
-                      <div className="text-gray-600">
-                        {currentTest.completionTime}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Compact Results */}
-                  <div className="flex items-center space-x-4 text-xs">
-                    {currentTest.results
-                      .slice(0, 2)
-                      .map((result, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-1"
-                        >
-                          <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
-                          <span className="text-gray-600 truncate">
-                            {result}
-                          </span>
-                        </div>
-                      ))}
                   </div>
                 </div>
               </div>
@@ -272,14 +212,14 @@ const TestimonialsCarousel = memo(() => {
         {/* Compact Navigation Arrows */}
         <button
           onClick={prevTestimonial}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 shadow-lg"
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 dark:bg-gray-800/50 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 hover:scale-110 shadow-lg"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
 
         <button
           onClick={nextTestimonial}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 shadow-lg"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white/90 dark:bg-gray-800/50 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 hover:scale-110 shadow-lg"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
@@ -294,7 +234,7 @@ const TestimonialsCarousel = memo(() => {
             className={`flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ${
               index === currentTestimonial
                 ? "bg-orange-500 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-orange-100"
+                : "bg-gray-100 text-gray-600 hover:bg-orange-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-orange-900/50"
             }`}
           >
             <div className="w-6 h-6 rounded-full overflow-hidden">
@@ -326,10 +266,10 @@ const TestimonialsCarousel = memo(() => {
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { name: "City of Johannesburg", logo: "🏛️" },
-            { name: "KZN Provincial Gov", logo: "🏛️" },
-            { name: "Mpumalanga Transport", logo: "🚛" },
-            { name: "Private Sector", logo: "🏢" },
+            { name: "Eskom Holdings", logo: "⚡" },
+            { name: "Inter-Southern Power", logo: "🔌" },
+            { name: "City Power", logo: "🏙️" },
+            { name: "MTS Infraco", logo: "🚧" },
           ].map((client, index) => (
             <div
               key={index}
