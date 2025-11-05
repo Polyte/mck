@@ -85,7 +85,7 @@ const AboutPage = memo(() => {
         year: "2018",
         title: "Company Founded",
         description:
-          "Established McKeywa Projects with a vision to transform South African infrastructure development.",
+          "Established Mckeywa Projects with a vision to transform South African infrastructure development.",
         milestone: "Level 1 BBBEE Status achieved",
       },
       {
@@ -150,7 +150,7 @@ const AboutPage = memo(() => {
     <div className="min-h-screen bg-gray-50">
       {/* Enhanced Page Header with decorative images */}
       <PageHeader
-        title="About McKeywa Projects"
+        title="About Mckeywa Projects"
         subtitle="Excellence in Construction"
         description="A premier, 100% Black-owned construction company specializing in multi-disciplinary civil construction and infrastructure development across South Africa."
         backgroundImage="https://images.unsplash.com/photo-1610264146566-c233419fb1c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjb25zdHJ1Y3Rpb24lMjB0ZWFtJTIwb2ZmaWNlfGVufDF8fHx8MTc1NzQ1Mzc5Mnww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -303,7 +303,7 @@ const AboutPage = memo(() => {
                   </div>
 
                   {/* Timeline dot */}
-                  <div className="w-6 h-6 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-full border-4 border-white shadow-lg z-10 hidden lg:block"></div>
+                 
 
                   {/* Spacer for alternating layout */}
                   <div className="flex-1 hidden lg:block"></div>

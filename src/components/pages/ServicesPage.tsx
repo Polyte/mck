@@ -100,7 +100,7 @@ const ServicesPage = memo(() => {
         ],
         image:
           "https://plus.unsplash.com/premium_photo-1661873243927-ac13c13485eb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SW5mcmFzdHJ1Y3R1Y2V8ZW58MHx8fHwxMjA3MjY0MjA4fDA&auto=format&fit=crop",
-        projects: "5+", 
+         
         completionTime: "18 months avg",
       },
       {
@@ -254,7 +254,7 @@ const ServicesPage = memo(() => {
     IMG3442,
     
     // Substations and electrical infrastructure
-    IMG3447,
+    IMG3415,
     IMG3435,
     IMG3364,
     
@@ -440,9 +440,7 @@ const ServicesPage = memo(() => {
                       </div>
                     </div>
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-[#d27015] hover:bg-[#c46917] text-white font-bold transition-colors">
-                        {service.projects} Projects
-                      </Badge>
+                    
                     </div>
                   </div>
 
@@ -465,12 +463,11 @@ const ServicesPage = memo(() => {
                     {/* Service Stats */}
                     <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
                       <div className="text-center">
-                        <div className="text-lg font-bold text-[#d27015]">{service.projects}</div>
-                        <div className="text-xs text-gray-600">Projects</div>
+                        
                       </div>
                       <div className="text-center">
                         <div className="text-lg font-bold text-green-600">{service.completionTime}</div>
-                        <div className="text-xs text-gray-600">Timeline</div>
+                     
                       </div>
                     </div>
 

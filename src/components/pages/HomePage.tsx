@@ -7,6 +7,7 @@ import IMG3346 from "../../assets/images/IMG_3346.jpeg";
 import IMG3356 from "../../assets/images/IMG_3356.jpeg";
 import IMG3424 from "../../assets/images/IMG_3424.jpeg";
 import IMG3447 from "../../assets/images/IMG_3447.webp";
+import innovationImage from "../../assets/images/innovation.jpeg";
 import { HeroCarousel } from "../HeroCarousel";
 import { ProjectCalculator } from "../ProjectCalculator";
 import { TestimonialsCarousel } from "../TestimonialsCarousel";
@@ -160,8 +161,7 @@ const HomePage = memo(() => {
           "Cutting-edge construction technologies and sustainable building practices that set new industry benchmarks.",
         metric: "25% efficiency gain",
         color: "text-[#d27015]",
-        image:
-          "https://images.unsplash.com/premium_photo-1677529102407-0d075eb2cbb9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        image: innovationImage,
       },
       {
         icon: Users,
@@ -254,7 +254,7 @@ const HomePage = memo(() => {
                 <span className="block text-[#f2b777]">Infrastructure Future</span>
               </h2>
               <p className="text-xl mb-10 leading-relaxed text-gray-300">
-                McKeywa Projects (Pty) Ltd stands as South Africa's premier construction innovator, combining advanced
+                Mckeywa Projects (Pty) Ltd stands as South Africa's premier construction innovator, combining advanced
                 construction methodologies with sustainable construction practices. Our Level 1 BBBEE status and CIDB PE
                 5CE rating position us to deliver transformative infrastructure projects across multiple sectors.
               </p>

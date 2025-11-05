@@ -1,10 +1,10 @@
-# McKeywa Projects - Professional Construction Website
+# Mckeywa Projects - Professional Construction Website
 
-A modern, professional website for McKeywa Projects (Pty) Ltd, a premier 100% Black-owned civil construction and infrastructure development company based in South Africa.
+A modern, professional website for Mckeywa Projects (Pty) Ltd, a premier 100% Black-owned civil construction and infrastructure development company based in South Africa.
 
-## 🏗️ About McKeywa Projects
+## 🏗️ About Mckeywa Projects
 
-McKeywa Projects is a Level 1 BBBEE rated, CIDB PE 5CE certified construction company specializing in:
+Mckeywa Projects is a Level 1 BBBEE rated, CIDB PE 5CE certified construction company specializing in:
 
 - Multi-disciplinary civil construction
 - Infrastructure development
@@ -66,8 +66,8 @@ McKeywa Projects is a Level 1 BBBEE rated, CIDB PE 5CE certified construction co
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-org/mckeywa-projects-website.git
-   cd mckeywa-projects-website
+   git clone https://github.com/your-org/Mckeywa-projects-website.git
+   cd Mckeywa-projects-website
    ```
 
 2. **Install dependencies:**
@@ -114,7 +114,7 @@ The built files will be in the `dist/` directory, ready for deployment.
 ## 📁 Project Structure
 
 ```
-mckeywa-projects-website/
+Mckeywa-projects-website/
 ├── components/                 # React components
 │   ├── pages/                 # Page components
 │   │   ├── HomePage.tsx       # Landing page
@@ -162,8 +162,8 @@ mckeywa-projects-website/
 ### Environment Variables
 Create a `.env.local` file for local development:
 ```env
-VITE_APP_TITLE=McKeywa Projects
-VITE_CONTACT_EMAIL=info@mckeywaprojects.co.za
+VITE_APP_TITLE=Mckeywa Projects
+VITE_CONTACT_EMAIL=info@Mckeywaprojects.co.za
 VITE_CONTACT_PHONE=+27123226786
 VITE_CONTACT_MOBILE=+27823169297
 ```
@@ -211,7 +211,7 @@ npm run format:check
 
 ## 📞 Company Contact Information
 
-**McKeywa Projects (Pty) Ltd**
+**Mckeywa Projects (Pty) Ltd**
 - **Registration:** 2018/632727/07
 - **VAT:** 4310309382
 - **CIDB:** PE 5CE (CR 10400028)
@@ -226,19 +226,19 @@ Gauteng, South Africa
 - **Phone:** (012) 322 6786
 - **Mobile:** 082 316 9297
 - **Western Cape:** (021) 569 7124
-- **Email:** info@mckeywaprojects.co.za
-- **Website:** https://mckeywaprojects.co.za
+- **Email:** info@Mckeywaprojects.co.za
+- **Website:** https://Mckeywaprojects.co.za
 
 ## 📄 License
 
-© 2024 McKeywa Projects (Pty) Ltd. All rights reserved.
+© 2024 Mckeywa Projects (Pty) Ltd. All rights reserved.
 
 This project is proprietary software. Unauthorized copying, modification, distribution, or use is strictly prohibited.
 
 ## 🤝 Support
 
 For technical support or website inquiries:
-- **Email:** info@mckeywaprojects.co.za
+- **Email:** info@Mckeywaprojects.co.za
 - **Phone:** 082 316 9297 (24/7 Emergency Support)
 
 ---

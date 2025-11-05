@@ -63,7 +63,7 @@ const Navigation = memo(() => {
                 <Building2 className="w-5 h-5" />
               </div> */}
               <div>
-                <a href="https://www.mckeywa.co.za" className="text-lg font-bold text-orange-900 dark:text-white">
+                <a href="https://www.Mckeywa.co.za" className="text-lg font-bold text-orange-900 dark:text-white">
                  <img src={theme === 'dark' ? LogoDark : Logo} alt="Company Logo" className="h-10 w-auto logo" />
                 </a>
                 <p className="text-xs text-gray-600 dark:text-gray-400 font-medium"></p>

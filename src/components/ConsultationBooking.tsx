@@ -394,7 +394,7 @@ const ConsultationBooking = memo(({ onBooking }: ConsultationBookingProps) => {
             
             <div className="max-w-2xl mx-auto">
               <p className="text-xl text-construction-steel mb-8">
-                Thank you for booking your free consultation with McKeywa Projects. 
+                Thank you for booking your free consultation with Mckeywa Projects. 
                 We'll send you a confirmation email with meeting details and a calendar invite.
               </p>
               

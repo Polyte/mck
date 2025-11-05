@@ -37,24 +37,11 @@ const ConstructionPreloader = memo(() => {
           {/* Animated Logo Construction */}
           <div className="relative mb-16">
             <div className="construction-logo-container">
-              {/* Building Animation */}
-              <div className="building-animation">
-                <div className="foundation"></div>
-                <div className="floor floor-1"></div>
-                <div className="floor floor-2"></div>
-                <div className="floor floor-3"></div>
-                <div className="crane">
-                  <div className="crane-base"></div>
-                  <div className="crane-arm"></div>
-                  <div className="crane-hook"></div>
-                </div>
-              </div>
+              
               
               {/* Company Logo */}
               <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
-                <div className="w-20 h-20 gradient-construction rounded-2xl flex items-center justify-center text-white shadow-construction-xl animate-pulse-slow">
-                  <span className="text-3xl font-bold">M</span>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -62,7 +49,7 @@ const ConstructionPreloader = memo(() => {
           {/* Company Name with Typewriter Effect */}
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-white mb-2 typewriter-animation">
-              McKeywa Projects
+              Mckeywa Projects
             </h1>
             <p className="text-construction-yellow font-semibold text-xl tracking-wider">
               CONSTRUCTION EXCELLENCE
@@ -99,14 +86,7 @@ const ConstructionPreloader = memo(() => {
             </div>
           </div>
 
-          {/* Floating Construction Elements */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="floating-element" style={{ top: '20%', left: '10%', animationDelay: '0s' }}>🏗️</div>
-            <div className="floating-element" style={{ top: '30%', right: '15%', animationDelay: '1s' }}>🔧</div>
-            <div className="floating-element" style={{ bottom: '25%', left: '20%', animationDelay: '2s' }}>⚡</div>
-            <div className="floating-element" style={{ top: '40%', right: '25%', animationDelay: '3s' }}>🚧</div>
-            <div className="floating-element" style={{ bottom: '35%', right: '10%', animationDelay: '4s' }}>🏢</div>
-          </div>
+         
         </div>
       </div>
 

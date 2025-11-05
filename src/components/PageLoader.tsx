@@ -35,7 +35,7 @@ const PageLoader = memo(() => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h3 className="text-lg font-semibold text-gray-900">McKeywa Projects</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Mckeywa Projects</h3>
           <div className="flex items-center justify-center space-x-1">
             <motion.div
               className="w-2 h-2 bg-orange-500 rounded-full"

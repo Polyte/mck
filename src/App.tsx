@@ -368,7 +368,7 @@ const AppContent = memo(() => {
                     <Mail className="w-4 h-4 mr-2 text-[#d27015]" />
                     <span className="text-sm font-medium">Email</span>
                   </div>
-                  <div className="text-sm text-gray-400 ml-6"><a href="mailto:info@mckeywa.co.za">info@mckeywa.co.za</a></div>
+                  <div className="text-sm text-gray-400 ml-6"><a href="mailto:info@Mckeywa.co.za">info@Mckeywa.co.za</a></div>
                 </div>
 
                 {/* Address */}

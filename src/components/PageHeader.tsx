@@ -85,41 +85,7 @@ const PageHeader = memo(
         {/* Professional grid overlay */}
         <div className="absolute inset-0 professional-grid opacity-10"></div>
 
-        {/* Floating Decorative Images */}
-        {decorativeImages.length > 0 && (
-          <>
-            {/* Top right decorative image */}
-            <div className="absolute top-8 right-8 w-32 h-32 rounded-2xl overflow-hidden shadow-2xl opacity-20 rotate-12 hidden lg:block">
-              <ImageWithFallback
-                src={decorativeImages[0]}
-                alt="Construction detail"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Middle left decorative image */}
-            {decorativeImages[1] && (
-              <div className="absolute top-1/2 left-8 w-24 h-24 rounded-xl overflow-hidden shadow-xl opacity-15 -rotate-12 hidden lg:block">
-                <ImageWithFallback
-                  src={decorativeImages[1]}
-                  alt="Construction detail"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
-
-            {/* Bottom right decorative image */}
-            {decorativeImages[2] && (
-              <div className="absolute bottom-16 right-16 w-28 h-28 rounded-2xl overflow-hidden shadow-xl opacity-25 rotate-6 hidden lg:block">
-                <ImageWithFallback
-                  src={decorativeImages[2]}
-                  alt="Project detail"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
-          </>
-        )}
+        
 
         {/* Floating Accent Elements */}
         <div className="absolute top-20 left-20 w-2 h-2 bg-orange-500 rounded-full opacity-60 animate-pulse hidden lg:block"></div>

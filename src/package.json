@@ -1,7 +1,7 @@
 {
-  "name": "mckeywa-projects-website",
+  "name": "Mckeywa-projects-website",
   "version": "1.0.0",
-  "description": "Professional construction website for McKeywa Projects - A premier civil construction and infrastructure development company",
+  "description": "Professional construction website for Mckeywa Projects - A premier civil construction and infrastructure development company",
   "private": true,
   "type": "module",
   "scripts": {
@@ -55,8 +55,8 @@
     "south-africa",
     "bbbee",
     "cidb",
-    "mckeywa-projects"
+    "Mckeywa-projects"
   ],
-  "author": "McKeywa Projects (Pty) Ltd",
+  "author": "Mckeywa Projects (Pty) Ltd",
   "license": "Private"
 }

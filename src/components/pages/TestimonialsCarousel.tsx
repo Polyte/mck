@@ -30,7 +30,7 @@ const TestimonialsCarousel = memo(() => {
         "https://images.unsplash.com/photo-1494790108755-2616b6fc3b7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzU1NjU3MTg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       rating: 5,
       testimonial:
-        "McKeywa Projects transformed our infrastructure vision into reality. Their Level 1 BBBEE status and exceptional Construction expertise made them our preferred partner.",
+        "Mckeywa Projects transformed our infrastructure vision into reality. Their Level 1 BBBEE status and exceptional Construction expertise made them our preferred partner.",
       videoTestimonial: true,
     },
     {
@@ -42,7 +42,7 @@ const TestimonialsCarousel = memo(() => {
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NTY1NzE4OHww&ixlib=rb-4.1.0&q=80&w=1080",
       rating: 5,
       testimonial:
-        "Outstanding water treatment facility construction. McKeywa's innovative approach and advanced Construction solutions delivered a world-class facility that serves 65,000 residents.",
+        "Outstanding water treatment facility construction. Mckeywa's innovative approach and advanced Construction solutions delivered a world-class facility that serves 65,000 residents.",
       videoTestimonial: false,
     },
     {
@@ -66,7 +66,7 @@ const TestimonialsCarousel = memo(() => {
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHN1aXR8ZW58MXx8fHwxNzU1NjU3MTkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
       rating: 5,
       testimonial:
-        "McKeywa Projects consistently delivers excellence. Their CIDB PE 5CE rating speaks to their capability, but their results speak even louder.",
+        "Mckeywa Projects consistently delivers excellence. Their CIDB PE 5CE rating speaks to their capability, but their results speak even louder.",
       videoTestimonial: false,
     },
   ];
