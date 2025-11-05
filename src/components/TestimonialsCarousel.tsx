@@ -61,27 +61,9 @@ const TestimonialsCarousel = memo(() => {
       ],
       videoTestimonial: false,
     },
+     
     {
       id: 3,
-      name: "Nomsa Mthembu",
-      title: "Roads & Transport Manager",
-      company: "Mpumalanga Department of Transport",
-      image:
-        "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwYWZyaWNhbnxlbnwxfHx8fDE3NTU2NTcxOTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      rating: 5,
-      testimonial:
-        "6+ years.",
-      projectType: "Road Construction", 
-      completionTime: "14 months",
-      results: [
-        "28km road rehabilitation",
-        "Smart road technology",
-        "Local skills development",
-      ],
-      videoTestimonial: true,
-    },
-    {
-      id: 4,
       name: "David Wilson",
       title: "Development Manager",
       company: "Private Sector Client",
@@ -150,9 +132,9 @@ const TestimonialsCarousel = memo(() => {
   const currentTest = testimonials[currentTestimonial];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
+    <div className="max-w-7xl mx-auto space-y-8 justify-center align-center">
       {/* Compact Stats Header */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <Card
             key={index}
@@ -174,35 +156,17 @@ const TestimonialsCarousel = memo(() => {
       </div>
 
       {/* Compact Main Testimonial - Fixed 200px height */}
-      <div className="relative h-[200px]">
-        <Card className="card-professional overflow-hidden h-full">
-          <CardContent className="p-0 h-full">
-            <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
-              {/* Compact Image Side */}
-              <div className="lg:col-span-2 relative h-[200px]">
-                <ImageWithFallback
-                  src={currentTest.image}
-                  alt={currentTest.name}
-                  className="w-full h-full object-cover"
-                />
-                {/* Video overlay */}
-                {currentTest.videoTestimonial && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                    <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors cursor-pointer">
-                      <PlayCircle className="w-8 h-8 text-orange-500" />
-                    </div>
-                  </div>
-                )}
-
-                {/* Project badge */}
-                
-              </div>
+      <div className="relative h-[250px] flex items-center justify-center">
+        <Card className="card-professional overflow-hidden h-full ">
+          <CardContent className="p-0 h-full ">
+            <div className="flex h-full items-center justify-center">
+              
 
               {/* Compact Content Side */}
-              <div className="lg:col-span-3 p-4 h-[200px] overflow-hidden">
-                <div className="h-full flex flex-col justify-between">
+              <div className=" h-[200px] overflow-hidden">
+                <div className="h-full flex flex-col items-center justify-between">
                   {/* Quote and stars in one line */}
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between">
                     <Quote className="w-6 h-6 text-yellow-500" />
                     <div className="flex space-x-1">
                       {[...Array(currentTest.rating)].map(
@@ -217,54 +181,23 @@ const TestimonialsCarousel = memo(() => {
                   </div>
 
                   {/* Compact Testimonial */}
-                  <blockquote className="text-sm text-gray-600 leading-tight mb-2 italic line-clamp-3">
+                  <blockquote className="text-sm text-gray-600 leading-tight italic text-center">
                     "{currentTest.testimonial}"
                   </blockquote>
 
                   {/* Compact Author Info */}
-                  <div className="mb-2">
+                  <div className=" text-center">
                     <div className="font-bold text-sm text-gray-900">
                       {currentTest.name}
                     </div>
-                    <div className="text-xs text-orange-500 font-medium">
+                    <div className="text-xs text-orange-500 font-medium text-center">
                       {currentTest.title}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500  text-center">
                       {currentTest.company}
                     </div>
                   </div>
-
-                  {/* Compact Project Details */}
-                  <div className="grid grid-cols-3 gap-2 text-xs">
-                    <div>
-                      <div className="font-semibold text-gray-900">
-                        {currentTest.projectType}
-                      </div>
-                    </div>
-                     
-                    <div>
-                      <div className="text-gray-600">
-                        {currentTest.completionTime}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Compact Results */}
-                  <div className="flex items-center space-x-4 text-xs">
-                    {currentTest.results
-                      .slice(0, 2)
-                      .map((result, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-1"
-                        >
-                          <CheckCircle className="w-3 h-3 text-green-600 flex-shrink-0" />
-                          <span className="text-gray-600 truncate">
-                            {result}
-                          </span>
-                        </div>
-                      ))}
-                  </div>
+ 
                 </div>
               </div>
             </div>
@@ -322,73 +255,110 @@ const TestimonialsCarousel = memo(() => {
       </div>
 
       {/* Trusted Organizations Marquee */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-900 dark:from-slate-800 dark:to-blue-800 rounded-2xl p-6 text-white overflow-hidden relative">
-        <h3 className="text-lg font-bold mb-6 text-center">
+      <div className="bg-white dark:from-slate-800 py-4 dark:to-blue-800 rounded-2xl text-white overflow-hidden relative">
+        <h3 className="text-2xl font-bold mb-8 text-center text-[#d27015]">
           Trusted by Leading Organizations
         </h3>
+       
+        {/* Navigation Arrows - Only show on larger screens */}
+         
         
-        {/* Navigation Arrows */}
-        <div className="absolute top-1/2 left-4 -translate-y-1/2 z-20">
-          <button 
-            onClick={() => {
-              const container = document.querySelector('.marquee-container');
-              if (container) container.scrollBy({ left: -300, behavior: 'smooth' });
-            }}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="absolute top-1/2 right-4 -translate-y-1/2 z-20">
+        <div className="hidden md:block absolute top-1/2 right-4 -translate-y-1/2 z-20">
+         <hr />
           <button 
             onClick={() => {
               const container = document.querySelector('.marquee-container');
               if (container) container.scrollBy({ left: 300, behavior: 'smooth' });
             }}
-            className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+            className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 hover:scale-110"
             aria-label="Next"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-6 h-6" />
           </button>
         </div>
         
         <div className="relative w-full overflow-hidden marquee-container">
-          {/* Single row of logos */}
-          <div className="flex w-max animate-marquee whitespace-nowrap py-8">
+          {/* First row of logos */}
+           
+          
+          {/* Second row of logos (duplicate for seamless looping) */}
+          <div className="flex w-max animate-marquee whitespace-nowrap ">
             {[
-              { name: "Eskom Holdings", logo: "⚡" },
-              { name: "Inter Southern Power", logo: "🔌" },
-              { name: "City Power", logo: "🏙️" },
-              { name: "MTS Infraco", logo: "�" },
-              { name: "Noratec", logo: "🔧" },
-              { name: "Rotek Engineering", logo: "⚙️" },
+              { 
+                name: "Eskom National Transmission", 
+                logo: "/src/assets/logos/eskom-national-transmission.png",
+            
+                height: 100
+              },
+              { 
+                name: "City Power", 
+                logo: "/src/assets/logos/citypower.jpg",
+                 
+                height: 100
+              },
+              { 
+                name: "MTS Infraco", 
+                logo: "/src/assets/logos/mts-infraco.png",
+                
+                height: 100
+              },
+              { 
+                name: "Consolidated Power Projects", 
+                logo: "/src/assets/logos/consolidated-power-projects.png",
+                 
+                height: 100
+              },
+              { 
+                name: "Eskom Rotek", 
+                logo: "/src/assets/logos/eskom-rotek.jpg",
+                 
+                height: 100
+              },
+              { 
+                name: "Consolidated Power Maintenance", 
+                logo: "/src/assets/logos/consolidated-power-maintenance.png",
+               
+                height: 150
+              },
+              { 
+                name: "SPM", 
+                logo: "/src/assets/logos/spm.jpg",
+                height: 130
+                
+              },
             ].map((client, index) => (
               <div 
-                key={`logo-${index}`} 
-                className="mx-8 flex flex-col items-center justify-center min-w-[160px] px-6 py-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
+                key={`logo-dup-${index}`} 
+                className="mx-6 flex flex-col items-center justify-center min-w-[150px]   bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:scale-105 group"
               >
-                <div className="text-5xl mb-3">{client.logo}</div>
-                <div className="font-medium text-sm text-center text-white/90">{client.name}</div>
+                <div className="h-20 flex items-center justify-center">
+                  <img 
+                    src={client.logo} 
+                    alt={client.name}
+                    className="max-h-full max-w-full p-4 object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+                    style={{
+                      width: client.width,
+                      height: client.height,
+                      objectFit: 'contain'
+                    }}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="text-sm font-medium text-center text-white/80 group-hover:text-white transition-colors">
+                  {client.name}
+                </div>
               </div>
             ))}
           </div>
           
           {/* Gradient fades */}
-          <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-slate-900 via-slate-900/90 to-transparent z-10 pointer-events-none"></div>
-        </div>
+           </div>
         
-        {/* Add the animation keyframes to your global CSS or use a style tag */}
+        {/* Add the animation keyframes */}
         <style jsx global>{`
           @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
-          }
-          @keyframes marquee-reverse {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
           }
           .animate-marquee {
             animation: marquee 40s linear infinite;
@@ -398,11 +368,16 @@ const TestimonialsCarousel = memo(() => {
             animation-play-state: paused;
           }
           .marquee-container {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
           }
           .marquee-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+            display: none;
+          }
+          @media (max-width: 768px) {
+            .animate-marquee {
+              animation: marquee 60s linear infinite;
+            }
           }
         `}</style>
       </div>

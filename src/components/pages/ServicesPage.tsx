@@ -346,13 +346,7 @@ const ServicesPage = memo(() => {
   const siteLogo = "../assets/logo/site-logo.png";
 
   // Partner / client logos (place these files in public/assets/logos/)
-  const partnerLogos = [
-    "../assets/logos/consolidated-power-maintenance.png",
-    "../assets/logos/consolidated-power-projects.png",
-    "../assets/logos/spm.png",
-    "../assets/logos/mts-infraco.png",
-  ];
-
+  
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Inline header logo (ensures logo always renders even if PageHeader doesn't accept a logo prop) */}
@@ -645,48 +639,7 @@ const ServicesPage = memo(() => {
         </div>
       </section>
 
-
-
-      {/* Project Gallery Section */}
-      <section className="py-16 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Project Gallery</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Explore our portfolio of completed projects showcasing our expertise in construction and development
-            </p>
-          </div>
-          
-          {/* Gallery Title */}
-          <hr /><br></br>
-
-          {/* Image Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projectImages.map((project) => (
-              <div 
-                key={project.id}
-                className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-zoom-in"
-                onClick={() => openModal(project.src)}
-              >
-                <img 
-                  src={project.src} 
-                  alt={project.title} 
-                  className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <div>
-                    <span className="inline-block px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded-full mb-2">
-                      {project.category}
-                    </span>
-                    <h3 className="text-white text-lg font-semibold">{project.title}</h3>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+ 
       {/* Image Modal */}
       {isModalOpen && selectedImage && (
         <div 

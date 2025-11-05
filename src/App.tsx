@@ -8,6 +8,7 @@ import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
 import { motion, AnimatePresence } from "motion/react";
+import LogoDark from './assets/logo/site-logo-dark.png';
 import {
   ArrowUp,
   Phone,
@@ -89,8 +90,6 @@ const AppContent = memo(() => {
         return <AboutPage />;
       case "services":
         return <ServicesPage />;
-      case "projects":
-        return <ProjectsPage />;
       case "contact":
         return <ContactPage />;
       default:
@@ -183,15 +182,9 @@ const AppContent = memo(() => {
               viewport={{ once: true }}
             >
               <div className="flex items-center space-x-4">
-                <motion.div
-                  className="w-12 h-12 bg-gradient-to-r from-[#d27015] to-[#b8621a] rounded-lg flex items-center justify-center text-white shadow-lg"
-                  whileHover={{ scale: 1.05, rotate: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Building2 className="w-6 h-6" />
-                </motion.div>
+               <img src={LogoDark} alt="Logo" className="w-12 h-12" />
                 <div>
-                  <h3 className="text-xl font-bold text-white">McKeywa Projects</h3>
+                  <h3 className="text-xl font-bold text-white">Mckeywa Projects</h3>
                   <p className="text-[#d27015] font-medium text-sm">Civil Construction Excellence</p>
                 </div>
               </div>
@@ -285,8 +278,7 @@ const AppContent = memo(() => {
                 {[
                   { name: "Home", id: "home" },
                   { name: "About Us", id: "about" },
-                  { name: "Services", id: "services" },
-                  { name: "Projects", id: "projects" },
+                  { name: "Services", id: "services" }, 
                   { name: "Contact", id: "contact" },
                 ].map((link, index) => (
                   <motion.li
@@ -376,7 +368,7 @@ const AppContent = memo(() => {
                     <Mail className="w-4 h-4 mr-2 text-[#d27015]" />
                     <span className="text-sm font-medium">Email</span>
                   </div>
-                  <div className="text-sm text-gray-400 ml-6">info@mckeywaprojects.co.za</div>
+                  <div className="text-sm text-gray-400 ml-6"><a href="mailto:info@mckeywa.co.za">info@mckeywa.co.za</a></div>
                 </div>
 
                 {/* Address */}
@@ -429,10 +421,8 @@ const AppContent = memo(() => {
           <div className="border-t border-gray-700 pt-8">
             <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
               <div className="text-center lg:text-left">
-                <p className="text-gray-400 text-sm">© 2025 McKeywa Projects (Pty) Ltd. All rights reserved.</p>
-                <div className="text-gray-500 text-xs mt-1">
-                  REG: 2018/632727/07 • VAT: 4310309382 • CIDB: PE 5CE (CR 10400028)
-                </div>
+                <p className="text-gray-400 text-sm">© 2025 Mckeywa Projects (Pty) Ltd. Copyright All rights reserved.</p>
+                 
               </div>
 
               <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-6">
@@ -448,25 +438,7 @@ const AppContent = memo(() => {
                 </div>
               </div>
             </div>
-
-            {/* Social Links */}
-            {/* <div className="flex justify-center lg:justify-end mt-6 space-x-3">
-              {[
-                { name: "LinkedIn", href: "#" },
-                { name: "Facebook", href: "#" },
-                { name: "Twitter", href: "#" },
-                { name: "Instagram", href: "#" },
-              ].map((social) => (
-                <button
-                  key={social.name}
-                  className="w-8 h-8 bg-gray-800 hover:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
-                  title={social.name}
-                  aria-label={`Follow us on ${social.name}`}
-                >
-                  <Globe className="w-4 h-4" />
-                </button>
-              ))}
-            </div> */}
+ 
           </div>
         </div>
       </motion.footer>

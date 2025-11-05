@@ -188,13 +188,13 @@ const HomePage = memo(() => {
       {
         icon: Truck,
         title: "Road Construction",
-        description: "Advanced road Construction and rehabilitation using state-of-the-art equipment and techniques.",
+        description: "Road construction and maintenance expertise with advanced techniques, ensuring efficient maintenance.",
         projects: "5+",
       },
       {
         icon: Construction,
         title: "Civil Construction",
-        description: "Complete civil Construction services from planning to project completion and maintenance.",
+        description: "Comprehensive civil construction services from planning to project completion and maintenance services.",
         projects: "5+",
       },
       {
@@ -225,7 +225,7 @@ const HomePage = memo(() => {
             
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Welcome to <span className="text-[#d27015] font-bold">Mckeywa</span> Projects</h2>
             <p className="text-xl text-gray-600 max-w-6xl mx-auto">
-              We create Measurable results that demonstrate our commitment to superior construction and Construction
+              We create measurable results that demonstrate our commitment to superior construction and construction
               standards, we deliver world-class civil construction and infrastructure solutions that exceed client
               expectations while contributing to South Africa's economic transformation through skills development,
               local procurement, and sustainable construction practices.
@@ -255,7 +255,7 @@ const HomePage = memo(() => {
               </h2>
               <p className="text-xl mb-10 leading-relaxed text-gray-300">
                 McKeywa Projects (Pty) Ltd stands as South Africa's premier construction innovator, combining advanced
-                Construction methodologies with sustainable construction practices. Our Level 1 BBBEE status and CIDB PE
+                construction methodologies with sustainable construction practices. Our Level 1 BBBEE status and CIDB PE
                 5CE rating position us to deliver transformative infrastructure projects across multiple sectors.
               </p>
 
@@ -316,7 +316,7 @@ const HomePage = memo(() => {
             </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Advanced Construction Expertise</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Cutting-edge technical expertise across multiple construction and Construction disciplines
+              Cutting-edge technical expertise across multiple construction disciplines
             </p>
           </div>
 
@@ -349,7 +349,7 @@ const HomePage = memo(() => {
                     <p className="text-white leading-relaxed mb-6 text-lg">{capability.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-lg font-semibold text-[#d27015]">{capability.metric}</span>
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#d27015] group-hover:translate-x-2 transition-all duration-300" />
+                     
                     </div>
                   </div>
                 </CardContent>

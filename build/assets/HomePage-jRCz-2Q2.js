@@ -8,7 +8,7 @@ import{c as u,r as i,u as P,j as e,B as b,S as C,U as M,a as w,C as k,A as H,b a
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const Q=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polygon",{points:"10 8 16 12 10 16 10 8",key:"1cimsy"}]],I=u("circle-play",Q);/**
+ */const Q=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["polygon",{points:"10 8 16 12 10 16 10 8",key:"1cIMSy"}]],I=u("circle-play",Q);/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.

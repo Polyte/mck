@@ -104,7 +104,7 @@ const AboutPage = memo(() => {
       {
         year: "2021",
         title: "Technology Integration",
-        description: "Implemented advanced iMS systems and digital project management across all operations.",
+        description: "Implemented advanced IMS systems and digital project management across all operations.",
        
       },
       {
@@ -217,23 +217,9 @@ const AboutPage = memo(() => {
                 </div>
               </div>
 
-              {/* Floating achievement badge */}
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-6 shadow-xl">
-                <div className="text-center">
-                  <Award className="w-12 h-12 text-[#d27015] mx-auto mb-3" />
-                  <div className="text-2xl font-bold text-gray-900">6+</div>
-                  <div className="text-sm text-gray-600 font-medium">Years of Excellence</div>
-                </div>
-              </div>
+               
 
-              {/* Small decorative images */}
-              <div className="absolute -top-4 -left-4 w-16 h-16 rounded-xl overflow-hidden shadow-lg opacity-80">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1738931786807-45e3f39f332d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBjcmFuZSUyMGNpdHlzY2FwZSUyMG1vZGVybnxlbnwxfHx8fDE3NTYxOTQ3NzN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                  alt="Construction crane"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              
             </div>
           </div>
         </div>

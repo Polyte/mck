@@ -250,22 +250,7 @@ const PageHeader = memo(
                   {/* Main side image */}
                   
 
-                  {/* Small decorative images */}
-                  <div className="absolute -top-6 -left-6 w-20 h-20 rounded-xl overflow-hidden shadow-xl opacity-80">
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1568057373106-63057e421d1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbmdpbmVlcmluZyUyMGJsdWVwcmludHMlMjBvZmZpY2UlMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzU2MTk0NzA3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                      alt="Construction blueprints"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-xl overflow-hidden shadow-xl opacity-70">
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1630613750908-dd5ce4cd8386?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmZyYXN0cnVjdHVyZSUyMGNvbnN0cnVjdGlvbiUyMHByb2plY3QlMjBhZXJpYWx8ZW58MXx8fHwxNzU2MTk0NzExfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                      alt="Infrastructure project"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+ 
                 </div>
               </div>
             </div>

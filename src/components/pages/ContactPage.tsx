@@ -76,7 +76,7 @@ const ContactPage = memo(() => {
         icon: MapPin,
         title: "Visit Us",
         primary: "Unit 489 Silverwood",
-        secondary: "51 Nickel Street, Monavoni",
+        secondary: "51 Nikkel Street, Monavoni",
         description: "Centurion 0157, Gauteng",
         available: "Mon-Fri: 8AM-5PM",
         action: () => window.open("https://maps.google.com/?q=51+Nickel+Street+Monavoni+Centurion"),
@@ -106,7 +106,7 @@ const ContactPage = memo(() => {
       },
       {
         region: "Western Cape Office",
-        address: "Contact Head Office for Western Cape Projects",
+        address: "2nd Floor (S8 & S9) The Sanctuary Mall, Corner De Beers Ave and Broadway Blvd, R44, Somerset West, 7130",
         phone: "(021) 569 7124",
         email: "westerncape@mckeywa.co.za",
         manager: "Western Cape Manager",
@@ -212,7 +212,7 @@ const ContactPage = memo(() => {
             </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Choose Your Preferred Contact Method</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              We're available through multiple channels to ensure you get the support you need, when you need it
+              Get in touch with us anytime by using any of the following channels.
             </p>
           </div>
 
