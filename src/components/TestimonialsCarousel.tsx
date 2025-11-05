@@ -286,43 +286,43 @@ const TestimonialsCarousel = memo(() => {
             {[
               { 
                 name: "Eskom National Transmission", 
-                logo: "/src/assets/logos/eskom-national-transmission.png",
+                logo: "../src/assets/logos/eskom-national-transmission.png",
             
                 height: 100
               },
               { 
                 name: "City Power", 
-                logo: "/src/assets/logos/citypower.jpg",
+                logo: "../src/assets/logos/citypower.jpg",
                  
                 height: 100
               },
               { 
                 name: "MTS Infraco", 
-                logo: "/src/assets/logos/mts-infraco.png",
+                logo: "../src/assets/logos/mts-infraco.png",
                 
                 height: 100
               },
               { 
                 name: "Consolidated Power Projects", 
-                logo: "/src/assets/logos/consolidated-power-projects.png",
+                logo: "../src/assets/logos/consolidated-power-projects.png",
                  
                 height: 100
               },
               { 
                 name: "Eskom Rotek", 
-                logo: "/src/assets/logos/eskom-rotek.jpg",
+                logo: "../src/assets/logos/eskom-rotek.jpg",
                  
                 height: 100
               },
               { 
                 name: "Consolidated Power Maintenance", 
-                logo: "/src/assets/logos/consolidated-power-maintenance.png",
+                logo: "../src/assets/logos/consolidated-power-maintenance.png",
                
                 height: 150
               },
               { 
                 name: "SPM", 
-                logo: "/src/assets/logos/spm.jpg",
+                logo: "../src/assets/logos/spm.jpg",
                 height: 130
                 
               },
