@@ -1,12 +1,10 @@
 import { memo, useState, useEffect } from "react";
-import { Card, CardContent } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
-import {
+import { motion } from "framer-motion";
+import { 
+  ChevronLeft, 
+  ChevronRight,
   Star,
   Quote,
-  ChevronLeft,
-  ChevronRight,
   Award,
   Building2,
   CheckCircle,
@@ -16,6 +14,25 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "lucide-react";
+import { Card, CardContent } from "./ui/card";
+import { Badge } from "./ui/badge";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+
+// Import logo images
+import eskomNational from "../assets/logos/eskom-national-transmission.png";
+import citypower from "../assets/logos/citypower.jpg";
+import mtsInfraco from "../assets/logos/mts-infraco.png";
+import cpp from "../assets/logos/consolidated-power-projects.png";
+import eskomRotex from "../assets/logos/eskom-rotek.jpg";
+import cpm from "../assets/logos/consolidated-power-maintenance.png";
+import spm from "../assets/logos/spm.jpg";
+
+const stats = [
+  { value: '100+', label: 'Projects Completed', icon: CheckCircle },
+  { value: '15+', label: 'Years Experience', icon: TrendingUp },
+  { value: '50+', label: 'Team Members', icon: Users },
+  { value: '98%', label: 'Client Satisfaction', icon: Star }
+];
 
 const TestimonialsCarousel = memo(() => {
   const [currentTestimonial, setCurrentTestimonial] =
@@ -135,24 +152,27 @@ const TestimonialsCarousel = memo(() => {
     <div className="max-w-7xl mx-auto space-y-8 justify-center align-center">
       {/* Compact Stats Header */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {stats.map((stat, index) => (
-          <Card
-            key={index}
-            className="relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-2xl hover:border-[#14184c]/40 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 group overflow-hidden"
-          >
-            <CardContent className="p-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#14184c] to-[#0f1340] rounded-lg flex items-center justify-center text-white mx-auto mb-2">
-                <stat.icon className="w-4 h-4" />
-              </div>
-              <div className="text-lg font-bold text-gray-500 dark:text-gray-300 mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                {stat.label}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {stats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <Card 
+              key={index}
+              className="relative bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-2xl hover:border-[#14184c]/40 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 group overflow-hidden"
+            >
+              <CardContent className="p-4">
+                <div className="w-10 h-10 mx-auto mb-2 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-[#d27015] group-hover:bg-[#d27015] group-hover:text-white transition-colors">
+                  <Icon className="w-4 h-4" />
+                </div>
+                <div className="text-lg font-bold text-gray-500 dark:text-gray-300 mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-xs text-gray-400 dark:text-gray-400">
+                  {stat.label}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Compact Main Testimonial - Fixed 200px height */}
@@ -286,43 +306,37 @@ const TestimonialsCarousel = memo(() => {
             {[
               { 
                 name: "Eskom National Transmission", 
-                logo: "../src/assets/logos/eskom-national-transmission.png",
-            
+                logo: eskomNational,
                 height: 100
               },
               { 
                 name: "City Power", 
-                logo: "../src/assets/logos/citypower.jpg",
-                 
+                logo: citypower,
                 height: 100
               },
               { 
                 name: "MTS Infraco", 
-                logo: "../src/assets/logos/mts-infraco.png",
-                
+                logo: mtsInfraco,
                 height: 100
               },
               { 
                 name: "Consolidated Power Projects", 
-                logo: "../src/assets/logos/consolidated-power-projects.png",
-                 
+                logo: cpp,
                 height: 100
               },
               { 
                 name: "Eskom Rotek", 
-                logo: "../src/assets/logos/eskom-rotek.jpg",
-                 
+                logo: eskomRotex,
                 height: 100
               },
               { 
                 name: "Consolidated Power Maintenance", 
-                logo: "../src/assets/logos/consolidated-power-maintenance.png",
-               
+                logo: cpm,
                 height: 150
               },
               { 
                 name: "SPM", 
-                logo: "../src/assets/logos/spm.jpg",
+                logo: spm,
                 height: 130
                 
               },
