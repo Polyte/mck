@@ -5561,12 +5561,7 @@ html {
 
 .logo{width:60px;height:auto;}
 nav.sticky.top-0.z-50.transition-all.duration-300.font-\[\'Josefin_Sans\'\].bg-white\/90.dark\:bg-gray-900\/90.backdrop-blur-sm {
-    background: rgba(255, 255, 255, 0.21);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2.8px);
-    -webkit-backdrop-filter: blur(2.8px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+     
 }
 
 .page-header-services{
