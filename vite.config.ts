@@ -20,15 +20,13 @@
       },
       minify: 'terser',
       sourcemap: false,
+      chunkSizeWarningLimit: 1000,
     },
     server: {
       port: 3000,
       open: true,
       host: true,
       strictPort: true,
-      allowedHosts: [
-        'localhost',
-      ],
     },
     optimizeDeps: {
       include: [
@@ -41,5 +39,8 @@
     },
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    },
+    esbuild: {
+      target: 'es2020',
     },
   });
