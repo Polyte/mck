@@ -61,6 +61,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react-swc": "^3.10.2",
+    "eslint-plugin-security": "^4.0.0",
     "snyk": "^1.1304.0",
     "vite": "^6.4.2"
   },

@@ -30,13 +30,6 @@ const Navigation = memo(() => {
     { name: "Contact", id: "contact" },
   ];
 
-  const getBreadcrumbPath = () => {
-    const currentIndex = navItems.findIndex(item => item.id === currentPage);
-    if (currentIndex === -1) return [];
-    
-    return navItems.slice(0, currentIndex + 1);
-  };
-
   const handleNavigation = (page: string) => {
     setCurrentPage(page as any);
     setIsOpen(false);
@@ -46,31 +39,6 @@ const Navigation = memo(() => {
 
   return (
     <>
-      {/* Breadcrumb Navigation */}
-      <div className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
-            <span className="font-medium">You are here:</span>
-            <span className="flex items-center space-x-1">
-              {getBreadcrumbPath().map((item, index) => (
-                <React.Fragment key={item.id}>
-                  <span className="text-gray-400">/</span>
-                  <button
-                    onClick={() => handleNavigation(item.id)}
-                    className={`hover:text-[#d27015] transition-colors ${
-                      item.id === currentPage 
-                        ? "text-[#d27015] font-medium" 
-                        : "text-gray-700 dark:text-gray-300"
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                </React.Fragment>
-              ))}
-            </span>
-          </div>
-        </div>
-      </div>
 
       {/* Professional announcement bar */}
        

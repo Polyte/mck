@@ -1,0 +1,6 @@
+Sensitive Pattern Scan Results - 20260416_120728
+========================================
+
+Sensitive Files Check:
+======================
+WARNING: Sensitive file found: .env
