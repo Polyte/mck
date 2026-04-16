@@ -1,23 +1,13 @@
 /** @jsxImportSource react */
 
 import { memo, useMemo, useState, useEffect } from "react";
-import IMG3335 from "../../assets/images/IMG_3335.jpeg";
-import IMG3340 from "../../assets/images/IMG_3340.jpeg";
-import IMG3346 from "../../assets/images/IMG_3346.jpeg";
-import IMG3356 from "../../assets/images/IMG_3356.jpeg";
-import IMG3424 from "../../assets/images/IMG_3424.jpeg";
-import IMG3447 from "../../assets/images/IMG_3447.webp";
-import innovationImage from "../../assets/images/innovation.jpeg";
 import { HeroCarousel } from "../HeroCarousel";
-import { ProjectCalculator } from "../ProjectCalculator";
 import { TestimonialsCarousel } from "../TestimonialsCarousel";
-import { ConsultationBooking } from "../ConsultationBooking";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { useRouter } from "../Router";
+import { Dialog, DialogTrigger } from "../ui/dialog";
 import { useScrollAnimation, useAnimatedCounter, useStaggeredAnimation } from "../hooks/useScrollAnimation";
 import {
   Shield,
@@ -26,20 +16,12 @@ import {
   Building2,
   HardHat,
   Zap,
-  Settings,
   CheckCircle,
-  ArrowRight,
   Wrench,
   Truck,
   Construction,
-  Calculator,
-  Calendar,
-  PhoneCall,
-  Star,
   Quote,
-  Gift,
   Clock,
-  TrendingUp,
   Phone,
 } from "lucide-react";
 
@@ -82,8 +64,6 @@ const AnimatedCounter = memo(
 AnimatedCounter.displayName = "AnimatedCounter";
 
 const HomePage = memo(() => {
-  const { setCurrentPage } = useRouter();
-  const [showCalculator, setShowCalculator] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
 
   // Scroll animations
@@ -97,40 +77,6 @@ const HomePage = memo(() => {
   const servicesSection = useScrollAnimation({
     threshold: 0.1,
   });
-
-  const stats = useMemo(
-    () => [
-      {
-        icon: Building2,
-        value: 5,
-        suffix: "+",
-        label: "Projects Completed",
-        color: "text-[#fff]",
-      },
-      {
-        icon: Users,
-        value: 5,
-        suffix: "+",
-        label: "Expert Engineers",
-        color: "text-blue-600",
-      },
-      {
-        icon: Award,
-        value: 100,
-        suffix: "%",
-        label: "Client Satisfaction",
-        color: "text-green-600",
-      },
-      {
-        icon: Shield,
-        value: 1,
-        prefix: "Level ",
-        label: "BBBEE Status",
-        color: "text-[#b8621a]",
-      },
-    ],
-    [],
-  );
 
   const capabilities = useMemo(
     () => [
@@ -161,7 +107,7 @@ const HomePage = memo(() => {
           "Cutting-edge construction technologies and sustainable building practices that set new industry benchmarks.",
         metric: "25% efficiency gain",
         color: "text-[#d27015]",
-        image: innovationImage,
+        image: "https://images.unsplash.com/photo-1664728796715-465b06b19050?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=80&w=1080",
       },
       {
         icon: Users,

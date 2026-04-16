@@ -3,11 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="en" />
+    <meta name="geo.region" content="ZA-GP" />
+    <meta name="geo.placename" content="Gauteng, South Africa" />
+    <meta name="geo.position" content="-25.8627;28.1777" />
+    <meta name="ICBM" content="-25.8627, 28.1777" />
+    <meta name="category" content="business, construction, engineering" />
+    <meta name="coverage" content="South Africa, Gauteng, Pretoria, Centurion" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+    <meta name="revisit-after" content="7 days" />
     
     <!-- SEO Meta Tags -->
     <title>Mckeywa Projects - Premier Civil Construction & Infrastructure Development</title>
     <meta name="description" content="Mckeywa Projects is a 100% Black-owned, Level 1 BBBEE civil construction company specializing in multi-disciplinary infrastructure development across South Africa. CIDB PE 5CE rated with proven expertise in commercial, residential, and industrial construction." />
-    <meta name="keywords" content="civil construction, infrastructure development, BBBEE Level 1, CIDB PE 5CE, black-owned construction, South Africa construction, commercial construction, residential construction, industrial construction, Mckeywa Projects" />
+    <meta name="keywords" content="civil construction, infrastructure development, BBBEE Level 1, CIDB PE 5CE, black-owned construction, South Africa construction, commercial construction, residential construction, industrial construction, Mckeywa Projects, construction company Gauteng, building contractors, civil engineering, infrastructure projects, construction services, building construction, road construction, electrical construction, plumbing construction, maintenance services, construction management, project management, construction contractors South Africa, BBBEE construction company, CIDB registered construction, infrastructure development South Africa, commercial building contractors, residential construction services, industrial construction projects, civil construction companies, construction and maintenance, building contractors Gauteng, infrastructure construction, electrical contractors, plumbing contractors, construction project management, building maintenance services" />
     <meta name="author" content="Mckeywa Projects (Pty) Ltd" />
     <meta name="robots" content="index, follow" />
     
@@ -18,11 +28,39 @@
     <meta property="og:url" content="https://Mckeywaprojects.co.za" />
     <meta property="og:site_name" content="Mckeywa Projects" />
     <meta property="og:locale" content="en_ZA" />
+    <meta property="og:image" content="https://Mckeywaprojects.co.za/logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Mckeywa Projects Logo" />
+    <meta property="og:type" content="business" />
+    <meta property="business:contact_data:street_address" content="Unit 489 Silverwood, 51 Nikkel Street" />
+    <meta property="business:contact_data:locality" content="Monavoni Ext 6, Centurion" />
+    <meta property="business:contact_data:region" content="Gauteng" />
+    <meta property="business:contact_data:postal_code" content="0157" />
+    <meta property="business:contact_data:country_name" content="South Africa" />
+    <meta property="business:contact_data:phone_number" content="+27-12-322-6786" />
+    <meta property="business:contact_data:website" content="https://Mckeywaprojects.co.za" />
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Mckeywa Projects - Premier Civil Construction" />
     <meta name="twitter:description" content="100% Black-owned, Level 1 BBBEE civil construction company specializing in infrastructure development across South Africa." />
+    <meta name="twitter:image" content="https://Mckeywaprojects.co.za/logo.png" />
+    <meta name="twitter:image:alt" content="Mckeywa Projects Logo" />
+    <meta name="twitter:site" content="@MckeywaProjects" />
+    <meta name="twitter:creator" content="@MckeywaProjects" />
+    <meta name="twitter:domain" content="Mckeywaprojects.co.za" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="msapplication-TileColor" content="#d27015" />
+    <meta name="theme-color" content="#d27015" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Mckeywa Projects" />
+    <link rel="canonical" href="https://Mckeywaprojects.co.za" />
+    <link rel="alternate" hreflang="en" href="https://Mckeywaprojects.co.za" />
+    <link rel="alternate" hreflang="en-za" href="https://Mckeywaprojects.co.za" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -84,6 +122,19 @@
     
     <div id="root"></div>
     <script type="module" src="/App.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      }
+    </script>
     
     <!-- Structured Data for Local Business -->
     <script type="application/ld+json">

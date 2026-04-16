@@ -2,12 +2,15 @@ import { lazy, Suspense, memo, useCallback, useState, useEffect, useRef } from "
 import { RouterProvider, useRouter } from "./components/Router";
 import { ThemeProvider } from "./components/hooks/useTheme";
 import { Navigation } from "./components/Navigation";
+import { PathDisplay } from "./components/PathDisplay";
+import { OfflineDetector } from "./components/OfflineDetector";
 import { PageLoader } from "./components/PageLoader";
 import { ConstructionPreloader } from "./components/ConstructionPreloader";
 import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
 import { motion, AnimatePresence } from "motion/react";
+import WhatsAppWidget from "./components/WhatsAppWidget";
 import LogoDark from './assets/logo/site-logo-dark.png';
 import {
   ArrowUp,
@@ -19,7 +22,6 @@ import {
   Target,
   Building2,
   Headphones,
-  Globe,
   ChevronRight,
   Eye,
   Heart,
@@ -138,6 +140,12 @@ const AppContent = memo(() => {
 
       {/* Navigation */}
       <Navigation />
+
+      {/* Path Display */}
+      <PathDisplay />
+
+      {/* Offline Detector */}
+      <OfflineDetector />
 
       <main ref={mainContentRef} className="relative" id="main-content">
         <AnimatePresence mode="wait">
@@ -491,6 +499,9 @@ const AppContent = memo(() => {
           </motion.button>
         )}
       </AnimatePresence>
+
+      {/* WhatsApp Widget */}
+      <WhatsAppWidget />
 
       {/* Toast Notifications */}
       <Toaster

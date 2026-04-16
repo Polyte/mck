@@ -1,0 +1,95 @@
+name: Setup Snyk Integration
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-snyk:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install Snyk CLI
+      run: |
+        npm install -g snyk
+        snyk --version
+        
+    - name: Test Snyk authentication
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: |
+        if [ -n "$SNYK_TOKEN" ]; then
+          echo "✅ Snyk token found"
+          snyk auth $SNYK_TOKEN
+          snyk test --dry-run
+          echo "✅ Snyk authentication successful"
+        else
+          echo "❌ Snyk token not found in repository secrets"
+          echo "Please add SNYK_TOKEN to your repository secrets"
+          exit 1
+        fi
+        
+    - name: Run initial Snyk scan
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: |
+        if [ -n "$SNYK_TOKEN" ]; then
+          echo "🔍 Running Snyk vulnerability scan..."
+          snyk test --severity-threshold=high --json > snyk-report.json 2>&1 || true
+          snyk test --severity-threshold=high || true
+          echo "✅ Snyk scan completed"
+        else
+          echo "❌ Skipping Snyk scan - no token available"
+        fi
+        
+    - name: Enable Snyk monitoring
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: |
+        if [ -n "$SNYK_TOKEN" ]; then
+          echo "📊 Enabling Snyk monitoring..."
+          snyk monitor || echo "⚠️ Monitoring setup may require additional configuration"
+        fi
+        
+    - name: Upload Snyk report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: snyk-security-report
+        path: snyk-report.json
+        retention-days: 30
+        
+    - name: Create Snyk setup summary
+      run: |
+        echo "# Snyk Integration Status" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ -n "$SNYK_TOKEN" ]; then
+          echo "✅ **Snyk Token**: Configured and authenticated" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Snyk CLI**: Installed and tested" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Initial Scan**: Completed" >> $GITHUB_STEP_SUMMARY
+          echo "📊 **Monitoring**: Enabled for ongoing vulnerability detection" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ **Snyk Token**: Not configured" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Setup Instructions" >> $GITHUB_STEP_SUMMARY
+          echo "1. Create a Snyk account at [snyk.io](https://snyk.io)" >> $GITHUB_STEP_SUMMARY
+          echo "2. Generate your Snyk token from Account Settings" >> $GITHUB_STEP_SUMMARY
+          echo "3. Add SNYK_TOKEN to repository secrets" >> $GITHUB_STEP_SUMMARY
+          echo "4. Re-run this workflow to test integration" >> $GITHUB_STEP_SUMMARY
+        fi
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Next Steps" >> $GITHUB_STEP_SUMMARY
+        echo "- Review Snyk dashboard for vulnerability insights" >> $GITHUB_STEP_SUMMARY
+        echo "- Configure notification preferences" >> $GITHUB_STEP_SUMMARY
+        echo "- Set up Snyk integration with your development workflow" >> $GITHUB_STEP_SUMMARY

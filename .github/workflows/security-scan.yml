@@ -1,0 +1,257 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run security scan daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      scan_type:
+        description: 'Type of scan to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - dependencies
+          - code
+          - container
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run npm audit
+      run: npm audit --audit-level=moderate
+      continue-on-error: true
+      
+    - name: Install security tools
+      run: |
+        npm install -g npm-audit-ci
+        npm install -g snyk
+        npm install -g retire
+        npm install -g eslint-plugin-security
+        
+    - name: Run comprehensive dependency audit
+      run: npm-audit-ci --moderate
+      continue-on-error: true
+      
+    - name: Scan for known vulnerabilities with retire
+      run: retire --outputformat json --outputpath retire-report.json
+      continue-on-error: true
+      
+    - name: Run Snyk security scan
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: |
+        if [ -n "$SNYK_TOKEN" ]; then
+          snyk test --severity-threshold=high
+          snyk monitor
+        else
+          echo "SNYK_TOKEN not found, skipping Snyk scan"
+        fi
+      continue-on-error: true
+      
+    - name: Run ESLint security rules
+      run: |
+        npx eslint --ext .js,.jsx,.ts,.tsx src/ --plugin security --config '{"plugins": ["security"], "extends": ["plugin:security/recommended"]}'
+      continue-on-error: true
+      
+    - name: Upload security reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-reports-node-${{ matrix.node-version }}
+        path: |
+          retire-report.json
+          npm-audit-report.json
+        retention-days: 30
+        
+    - name: Comment PR with security findings
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          let comment = '## 🔒 Security Scan Results\n\n';
+          
+          if (fs.existsSync('retire-report.json')) {
+            const retireReport = JSON.parse(fs.readFileSync('retire-report.json', 'utf8'));
+            if (retireReport.data && retireReport.data.length > 0) {
+              comment += '### 📦 Known Vulnerabilities Found:\n';
+              retireReport.data.forEach(vuln => {
+                comment += `- **${vuln.component}**: ${vuln.version} - ${vuln.identifiers.summary}\n`;
+              });
+            } else {
+              comment += '### ✅ No known vulnerabilities found\n';
+            }
+          }
+          
+          comment += '\n---\n*This security scan runs on every push and pull request.*';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+  container-security:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.scan_type == 'all' || github.event.inputs.scan_type == 'container' || github.event_name == 'schedule'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Build Docker image
+      run: |
+        if [ -f "Dockerfile" ]; then
+          docker build -t mckeywa-app .
+        else
+          echo "No Dockerfile found, skipping container security scan"
+        fi
+        
+    - name: Run Trivy vulnerability scanner
+      if: hashFiles('Dockerfile') != ''
+      run: |
+        sudo apt-get update
+        sudo apt-get install wget apt-transport-https gnupg lsb-release
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+        echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+        sudo apt-get update
+        sudo apt-get install trivy
+        
+        trivy image --format json --output trivy-report.json mckeywa-app
+        trivy image --severity HIGH,CRITICAL mckeywa-app
+      continue-on-error: true
+      
+    - name: Upload container security reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: container-security-reports
+        path: trivy-report.json
+        retention-days: 30
+
+  code-quality-security:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.scan_type == 'all' || github.event.inputs.scan_type == 'code'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install semgrep
+      run: |
+        pip install semgrep
+      continue-on-error: true
+      
+    - name: Run semgrep security scan
+      run: |
+        if command -v semgrep &> /dev/null; then
+          semgrep --config=auto --json --output=semgrep-report.json src/
+          semgrep --config=auto src/
+        else
+          echo "Semgrep not available, skipping"
+        fi
+      continue-on-error: true
+      
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript
+        
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+      
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      
+    - name: Upload code security reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: code-security-reports
+        path: semgrep-report.json
+        retention-days: 30
+
+  security-summary:
+    runs-on: ubuntu-latest
+    needs: [security-scan, container-security, code-quality-security]
+    if: always()
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      
+    - name: Create security summary
+      run: |
+        echo "# 🔒 Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Scan Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Dependency scan status
+        if [ "${{ needs.security-scan.result }}" == "success" ]; then
+          echo "✅ **Dependency Scan**: Passed" >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ needs.security-scan.result }}" == "failure" ]; then
+          echo "❌ **Dependency Scan**: Failed - Vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "⚠️ **Dependency Scan**: Skipped or cancelled" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        # Container scan status
+        if [ "${{ needs.container-security.result }}" == "success" ]; then
+          echo "✅ **Container Scan**: Passed" >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ needs.container-security.result }}" == "failure" ]; then
+          echo "❌ **Container Scan**: Failed - Vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "⚠️ **Container Scan**: Skipped" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        # Code scan status
+        if [ "${{ needs.code-quality-security.result }}" == "success" ]; then
+          echo "✅ **Code Security Scan**: Passed" >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ needs.code-quality-security.result }}" == "failure" ]; then
+          echo "❌ **Code Security Scan**: Failed - Security issues found" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "⚠️ **Code Security Scan**: Skipped" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Recommendations" >> $GITHUB_STEP_SUMMARY
+        echo "- Review any failed scans and address identified vulnerabilities" >> $GITHUB_STEP_SUMMARY
+        echo "- Keep dependencies updated to latest secure versions" >> $GITHUB_STEP_SUMMARY
+        echo "- Regular security scans help maintain application security" >> $GITHUB_STEP_SUMMARY

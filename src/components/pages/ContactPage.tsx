@@ -6,33 +6,24 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from "../ui/dialog";
-import { ProjectCalculator } from "../ProjectCalculator";
-import { ConsultationBooking } from "../ConsultationBooking";
-import { useRouter } from "../Router";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 import {
   Phone,
   Mail,
   MapPin,
   Clock,
   Users,
-  Building2,
   Calculator,
-  Calendar,
   ArrowRight,
   Send,
   Headphones,
-  Globe,
   Shield,
   Award,
   CheckCircle,
-  ExternalLink,
 } from "lucide-react";
 
 const ContactPage = memo(() => {
-  const { setCurrentPage } = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -44,8 +35,6 @@ const ContactPage = memo(() => {
     timeline: "",
     message: "",
   });
-  const [showCalculator, setShowCalculator] = useState(false);
-  const [showBooking, setShowBooking] = useState(false);
 
   // Scroll animations
   const contactSection = useScrollAnimation({ threshold: 0.1 });
@@ -150,23 +139,45 @@ const ContactPage = memo(() => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    toast.success("Thank you! Your inquiry has been submitted. We'll contact you within 2 hours.");
+    
+    try {
+      // Show loading state
+      toast.loading("Submitting your inquiry...");
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      projectType: "",
-      budget: "",
-      location: "",
-      timeline: "",
-      message: "",
-    });
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(data.message);
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          projectType: "",
+          budget: "",
+          location: "",
+          timeline: "",
+          message: "",
+        });
+      } else {
+        toast.error(data.message || 'Failed to submit inquiry. Please try again.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast.error('Failed to submit inquiry. Please try again or call us directly.');
+    }
   };
 
   const headerStats = useMemo(
@@ -314,7 +325,7 @@ const ContactPage = memo(() => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Project Type *</label>
-                        <Select onValueChange={(value) => handleInputChange("projectType", value)}>
+                        <Select onValueChange={(value: string) => handleInputChange("projectType", value)}>
                           <SelectTrigger className="form-professional">
                             <SelectValue placeholder="Select project type" />
                           </SelectTrigger>
@@ -329,7 +340,7 @@ const ContactPage = memo(() => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Estimated Budget</label>
-                        <Select onValueChange={(value) => handleInputChange("budget", value)}>
+                        <Select onValueChange={(value: string) => handleInputChange("budget", value)}>
                           <SelectTrigger className="form-professional">
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
@@ -356,7 +367,7 @@ const ContactPage = memo(() => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Project Timeline</label>
-                        <Select onValueChange={(value) => handleInputChange("timeline", value)}>
+                        <Select onValueChange={(value: string) => handleInputChange("timeline", value)}>
                           <SelectTrigger className="form-professional">
                             <SelectValue placeholder="Select timeline" />
                           </SelectTrigger>
@@ -396,8 +407,7 @@ const ContactPage = memo(() => {
                       <Button
                         type="button"
                         onClick={() => window.open("tel:0123226786")}
-                        variant="outline"
-                        className="border-orange-500 text-orange-500 hover:bg-orange-50 font-semibold px-8 py-4 text-lg"
+                        className="border border-orange-500 text-orange-500 hover:bg-orange-50 font-semibold px-8 py-4 text-lg"
                       >
                         <Phone className="mr-2 w-5 h-5" />
                         Call Instead
@@ -539,8 +549,7 @@ const ContactPage = memo(() => {
                     </Button>
                     <Button
                       onClick={() => window.open(`mailto:${office.email}`)}
-                      variant="outline"
-                      className="flex-1 border-orange-500 text-orange-500 hover:bg-orange-50"
+                      className="flex-1 border border-orange-500 text-orange-500 hover:bg-orange-50"
                     >
                       <Mail className="mr-2 w-4 h-4" />
                       Email
