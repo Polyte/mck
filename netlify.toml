@@ -21,3 +21,7 @@
 
 [context.branch-deploy]
   command = "npm run build"
+
+[context.fallback]
+  command = "echo 'Using fallback deployment - copying pre-built files'"
+  publish = "build"
