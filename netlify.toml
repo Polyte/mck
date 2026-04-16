@@ -5,7 +5,7 @@
 
 [build.environment]
   NPM_VERSION = "8"
-  NODE_VERSION = "20"
+  NODE_VERSION = "18"
   NODE_OPTIONS = "--max-old-space-size=4096"
 
 [[redirects]]
@@ -14,7 +14,7 @@
   status = 200
 
 [context.production]
-  command = "npm run build:prod"
+  command = "npm run build"
 
 [context.deploy-preview]
   command = "npm run build"
