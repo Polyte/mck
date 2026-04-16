@@ -10,13 +10,16 @@
       },
     },
     build: {
-      target: 'esnext',
+      target: 'es2020',
       outDir: 'build',
       rollupOptions: {
         output: {
           manualChunks: undefined,
         },
+        external: [],
       },
+      minify: 'terser',
+      sourcemap: false,
     },
     server: {
       port: 3000,
@@ -34,5 +37,9 @@
         'motion',
         'framer-motion',
       ],
+      force: true,
+    },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
     },
   });
