@@ -8,6 +8,7 @@
   NODE_VERSION = "18"
   NODE_OPTIONS = "--max-old-space-size=4096"
   VITE_NODE_OPTIONS = "--max-old-space-size=4096"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [[redirects]]
   from = "/*"
@@ -26,3 +27,13 @@
 [context.fallback]
   command = "echo 'Using fallback deployment - copying pre-built files'"
   publish = "build"
+
+# Disable Next.js plugin for Vite project
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+    skip = true
+
+# Vite-specific configuration
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
