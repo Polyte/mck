@@ -147,58 +147,7 @@ const AppContent = memo(() => {
       {/* Offline Detector */}
       <OfflineDetector />
 
-      {/* Breadcrumb Navigation */}
-      {typeof window !== 'undefined' && window.location.pathname !== '/' && (
-        <div className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
-              <span className="font-medium">You are here:</span>
-              <span className="flex items-center space-x-1">
-                {(() => {
-                  const navItems = [
-                    { name: "Home", id: "home" },
-                    { name: "About", id: "about" },
-                    { name: "Services", id: "services" }, 
-                    { name: "Contact", id: "contact" },
-                  ];
-                  
-                  const getCurrentPageFromPath = () => {
-                    const path = window.location.pathname;
-                    if (path === '/' || path === '/home') return 'home';
-                    if (path === '/about') return 'about';
-                    if (path === '/services') return 'services';
-                    if (path === '/contact') return 'contact';
-                    return 'home';
-                  };
-
-                  const currentPath = getCurrentPageFromPath();
-                  const getBreadcrumbPath = () => {
-                    const currentIndex = navItems.findIndex(item => item.id === currentPath);
-                    if (currentIndex === -1) return [];
-                    return navItems.slice(0, currentIndex + 1);
-                  };
-
-                  return getBreadcrumbPath().map((item, index) => [
-                    <span key={`sep-${item.id}`} className="text-gray-400">/</span>,
-                    <button
-                      key={item.id}
-                      onClick={() => setCurrentPage(item.id)}
-                      className={`hover:text-[#d27015] transition-colors ${
-                        item.id === currentPath 
-                          ? "text-[#d27015] font-medium" 
-                          : "text-gray-700 dark:text-gray-300"
-                      }`}
-                    >
-                      {item.name}
-                    </button>
-                  ]).flat();
-                })()}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-
+      
       <main ref={mainContentRef} className="relative" id="main-content">
         <AnimatePresence mode="wait">
           <motion.div

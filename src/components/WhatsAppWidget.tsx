@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { MessageCircle, X, Send } from 'lucide-react';
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,8 +48,8 @@ const WhatsAppWidget = () => {
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Mckeywa Projects</h3>
-                    <p className="text-xs opacity-90">Typically replies instantly</p>
+                    <h3 className="font-semibold">WhatsApp Chat</h3>
+                    <p className="text-xs opacity-90">Chat with us on WhatsApp</p>
                   </div>
                 </div>
                 <button
@@ -124,24 +124,24 @@ const WhatsAppWidget = () => {
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
-
+        
         {/* WhatsApp Icon */}
         <MessageCircle className="w-6 h-6 relative z-10" />
-
+        
         {/* Notification Dot */}
         <motion.div
-          className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"
+          className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-900"
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
         />
-
+        
         {/* Tooltip */}
         <motion.div
           className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
           initial={{ opacity: 0, y: 5 }}
           whileHover={{ opacity: 1, y: 0 }}
         >
-          Chat with us on WhatsApp
+          Chat on WhatsApp
           <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
         </motion.div>
       </motion.button>
