@@ -1,4 +1,4 @@
-import { memo, useMemo, useState, useRef, useCallback } from "react";
+import { memo, useMemo, useState } from "react";
 import { X } from "lucide-react";
 
 // Import all project images
@@ -42,164 +42,6 @@ import {
   MapPin,
   TrendingUp,
 } from "lucide-react";
-
-/* ── 3D Tilt Card for Refurbishment Projects ── */
-const ProjectCard3D = memo(({ project: p, image, index }: {
-  project: { id: string; title: string; description: string; client: string; contractor: string; value: string; duration: string; period: string };
-  image: string;
-  index: number;
-}) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState({
-    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)',
-    transition: 'transform 0.5s ease, box-shadow 0.5s ease',
-    boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
-  });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateY = ((x - centerX) / centerX) * 14;
-    const rotateX = -((y - centerY) / centerY) * 10;
-
-    // Move gloss
-    if (glowRef.current) {
-      const pctX = (x / rect.width) * 100;
-      const pctY = (y / rect.height) * 100;
-      glowRef.current.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255,255,255,0.18) 0%, transparent 65%)`;
-    }
-
-    setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04,1.04,1.04)`,
-      transition: 'transform 0.1s ease, box-shadow 0.1s ease',
-      boxShadow: `${-rotateY * 1.5}px ${rotateX * 1.5}px 40px rgba(210,112,21,0.25), 0 20px 60px rgba(0,0,0,0.15)`,
-    });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    if (glowRef.current) glowRef.current.style.background = 'transparent';
-    setStyle({
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)',
-      transition: 'transform 0.5s ease, box-shadow 0.5s ease',
-      boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
-    });
-  }, []);
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ ...style, willChange: 'transform', transformOrigin: 'center', animationDelay: `${index * 0.05}s` }}
-      className="rounded-2xl overflow-hidden cursor-pointer animate-on-scroll is-visible"
-    >
-      {/* Gloss overlay */}
-      <div ref={glowRef} className="absolute inset-0 z-10 pointer-events-none rounded-2xl transition-all duration-100" />
-
-      {/* Orange top border glow */}
-      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#d27015] via-[#e8821a] to-[#d27015] z-10 rounded-t-2xl" />
-
-      {/* Card surface */}
-      <div className="relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full flex flex-col"
-        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.8)' }}>
-
-        {/* Image */}
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={image}
-            alt={p.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-          {/* Floating badge */}
-          <div className="absolute top-3 left-3 bg-[#d27015]/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"
-            style={{ transform: 'translateZ(20px)', textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
-            Refurbishment
-          </div>
-
-          {/* Project initials */}
-          <div className="absolute bottom-3 left-3 w-10 h-10 rounded-xl bg-gradient-to-br from-[#e8821a] to-[#a85508] flex items-center justify-center shadow-lg"
-            style={{ transform: 'translateZ(25px)' }}>
-            <span className="text-white text-xs font-bold">{p.title.split(' ').slice(0, 2).map(s => s[0]).join('')}</span>
-          </div>
-        </div>
-
-        {/* Content — lifted with translateZ */}
-        <div className="p-5 flex flex-col flex-1" style={{ transform: 'translateZ(10px)' }}>
-          <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-snug">{p.title}</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1">{p.description}</p>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <div className="bg-orange-50 dark:bg-orange-900/20 rounded-lg px-3 py-2 text-center">
-              <div className="text-[10px] text-gray-400 uppercase tracking-wide">Value</div>
-              <div className="text-xs font-bold text-[#d27015] truncate">{p.value}</div>
-            </div>
-            <div className="bg-green-50 dark:bg-green-900/20 rounded-lg px-3 py-2 text-center">
-              <div className="text-[10px] text-gray-400 uppercase tracking-wide">Duration</div>
-              <div className="text-xs font-bold text-green-600">{p.duration}</div>
-            </div>
-          </div>
-
-          <div className="text-[11px] text-gray-400 mb-4 space-y-0.5">
-            <div><span className="font-semibold text-gray-500">Client:</span> {p.client}</div>
-          </div>
-
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="w-full bg-gradient-to-r from-[#d27015] to-[#b8621a] hover:from-[#b8621a] hover:to-[#a55618] text-white text-xs font-semibold py-2 rounded-xl shadow-md hover:shadow-lg transition-all"
-                style={{ transform: 'translateZ(15px)' }}>
-                View Full Details
-                <ChevronRight className="w-3.5 h-3.5 ml-1" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{p.title}</DialogTitle>
-                <DialogDescription>Project details and period information</DialogDescription>
-              </DialogHeader>
-              <div className="p-6 space-y-4">
-                <div className="flex items-start space-x-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#e8821a] to-[#a85508] flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                    {p.title.split(' ').slice(0, 2).map(s => s[0]).join('')}
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold">{p.title}</h4>
-                    <div className="text-sm text-gray-500 mt-1">{p.period}</div>
-                  </div>
-                </div>
-                <p className="text-gray-700 leading-relaxed">{p.description}</p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
-                    <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">Project Value</div>
-                    <div className="text-xl font-bold text-[#d27015]">{p.value}</div>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded-xl border border-green-100">
-                    <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">Duration</div>
-                    <div className="text-xl font-bold text-green-600">{p.duration}</div>
-                  </div>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-xl space-y-2">
-                  <div className="text-sm"><span className="font-semibold text-gray-600">Client:</span> <span className="text-gray-700">{p.client}</span></div>
-                  <div className="text-sm"><span className="font-semibold text-gray-600">Contractor:</span> <span className="text-gray-700">{p.contractor}</span></div>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </div>
-    </div>
-  );
-});
-ProjectCard3D.displayName = 'ProjectCard3D';
 
 const ServicesPage = memo(() => {
   const { setCurrentPage } = useRouter();
@@ -719,7 +561,76 @@ const ServicesPage = memo(() => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((p, i) => (
-              <ProjectCard3D key={p.id} project={p} image={decorativeImages[i % decorativeImages.length]} index={i} />
+              <Card
+                key={p.id}
+                className="transform perspective-1000 transition duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl group overflow-hidden"
+                style={{ willChange: "transform", transformOrigin: "center", animationDelay: `${i * 0.05}s` }}
+              >
+                <CardContent className="p-0">
+                  <div className="relative h-44 overflow-hidden bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800">
+                    <ImageWithFallback
+                      src={decorativeImages[i % decorativeImages.length]}
+                      alt={p.title}
+                      className="w-full h-full object-cover 
+                     group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
+                  </div>
+
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{p.title}</h3>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3">{p.description}</p>
+
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs text-gray-500">
+                        <div><strong>Client:</strong> {p.client}</div>
+                        <div><strong>Contractor:</strong> {p.contractor}</div>
+                      </div>
+
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button className="px-3 py-2 bg-[#d27015] hover:bg-[#b8621a] text-white">View Details</Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle>{p.title}</DialogTitle>
+                            <DialogDescription>
+                              Project details and period information
+                            </DialogDescription>
+                          </DialogHeader>
+
+                          <div className="p-6 space-y-4">
+                            <div className="flex items-start space-x-4">
+                              <div className="w-14 h-14 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold">
+                                {p.title.split(" ").slice(0,2).map(s=>s[0]).join("")}
+                              </div>
+                              <div>
+                                <h4 className="text-xl font-semibold">{p.title}</h4>
+                                <div className="text-sm text-gray-600">{p.period}</div>
+                              </div>
+                            </div>
+
+                            <div>
+                              <p className="text-gray-700">{p.description}</p>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="bg-gray-50 p-4 rounded">
+                                <div className="text-sm text-gray-500">Project Value</div>
+                                <div className="text-lg font-bold text-[#d27015]">{p.value}</div>
+                              </div>
+                              <div className="bg-gray-50 p-4 rounded">
+                                <div className="text-sm text-gray-500">Duration</div>
+                                <div className="text-lg font-bold text-green-600">{p.duration}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
