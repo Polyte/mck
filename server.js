@@ -36,7 +36,7 @@ function brandedEmail({ preheader, bodyHtml }) {
               <p style="margin:0 0 6px;font-size:12px;color:#9ca3af;">Mckeywa Projects (Pty) Ltd &nbsp;|&nbsp; Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157</p>
               <p style="margin:0;font-size:12px;color:#9ca3af;">
                 <a href="tel:0123226786" style="color:#d27015;text-decoration:none;">(012) 322 6786</a> &nbsp;|&nbsp;
-                <a href="mailto:info@Mckeywa.co.za" style="color:#d27015;text-decoration:none;">info@Mckeywa.co.za</a>
+                <a href="mailto:info@mckeywa.co.za" style="color:#d27015;text-decoration:none;">info@mckeywa.co.za</a>
               </p>
             </div>
           </td>
@@ -81,7 +81,7 @@ function confirmationEmail(name, projectType) {
         <p style="margin:0 0 8px;font-size:14px;font-weight:600;color:#111827;">In the meantime, you can reach us at:</p>
         <p style="margin:0 0 4px;font-size:13px;color:#374151;">📞 Head Office: <a href="tel:0123226786" style="color:#d27015;">(012) 322 6786</a></p>
         <p style="margin:0 0 4px;font-size:13px;color:#374151;">📱 24/7 Emergency: <a href="tel:0823169297" style="color:#d27015;">082 316 9297</a></p>
-        <p style="margin:0;font-size:13px;color:#374151;">✉️ <a href="mailto:info@Mckeywa.co.za" style="color:#d27015;">info@Mckeywa.co.za</a></p>
+        <p style="margin:0;font-size:13px;color:#374151;">✉️ <a href="mailto:info@mckeywa.co.za" style="color:#d27015;">info@mckeywa.co.za</a></p>
       </div>
       <p style="margin:0;font-size:13px;color:#6b7280;">We look forward to delivering excellence on your project.</p>`,
   });
@@ -101,7 +101,7 @@ app.post('/api/contact', async (req, res) => {
     const safeEmail = email && emailRegex.test(email) ? email : null;
 
     const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const companyInbox = process.env.COMPANY_EMAIL || 'info@Mckeywa.co.za';
+    const companyInbox = process.env.COMPANY_EMAIL || 'info@mckeywa.co.za';
 
     const fields = {
       'Name': name,
@@ -162,7 +162,7 @@ app.post('/api/chat', async (req, res) => {
 
 Company: Mckeywa Projects (Pty) Ltd | Level 1 BBBEE | CIDB PE 5CE | ISO 9001:2015 | SAFCEC
 Services: Infrastructure Development, Civil Construction, Building & Construction, Renovation, Landscaping, Project Management
-Phone: (012) 322 6786 | Mobile: 082 316 9297 | Email: info@Mckeywa.co.za
+Phone: (012) 322 6786 | Mobile: 082 316 9297 | Email: info@mckeywa.co.za
 Address: Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157, Gauteng
 
 Guidelines: Be friendly and professional. No markdown or asterisks. Plain prose only. Never reveal what AI powers you.`;

@@ -32,7 +32,7 @@ Contact Information:
 - Head Office Phone: (012) 322 6786
 - Mobile / 24/7 Emergency: 082 316 9297
 - Western Cape Office: (021) 569 7124
-- Email: info@Mckeywa.co.za | enquiries@Mckeywa.co.za
+- Email: info@mckeywa.co.za | enquiries@mckeywa.co.za
 - Head Office Address: Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157, Gauteng, South Africa
 
 Response Guidelines:
@@ -76,7 +76,7 @@ function brandedEmail({ preheader, bodyHtml }: { preheader: string; bodyHtml: st
               <p style="margin:0 0 6px;font-size:12px;color:#9ca3af;">Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157</p>
               <p style="margin:0;font-size:12px;color:#9ca3af;">
                 <a href="tel:0123226786" style="color:#d27015;text-decoration:none;">(012) 322 6786</a> &nbsp;|&nbsp;
-                <a href="mailto:info@Mckeywa.co.za" style="color:#d27015;text-decoration:none;">info@Mckeywa.co.za</a>
+                <a href="mailto:info@mckeywa.co.za" style="color:#d27015;text-decoration:none;">info@mckeywa.co.za</a>
               </p>
             </div>
           </td>
@@ -123,7 +123,7 @@ function confirmationEmail(name: string, projectType: string) {
         <p style="margin:0 0 8px;font-size:14px;font-weight:600;color:#111827;">In the meantime, you can reach us at:</p>
         <p style="margin:0 0 4px;font-size:13px;color:#374151;">📞 Head Office: <a href="tel:0123226786" style="color:#d27015;">(012) 322 6786</a></p>
         <p style="margin:0 0 4px;font-size:13px;color:#374151;">📱 Mobile / 24/7 Emergency: <a href="tel:0823169297" style="color:#d27015;">082 316 9297</a></p>
-        <p style="margin:0;font-size:13px;color:#374151;">✉️ Email: <a href="mailto:info@Mckeywa.co.za" style="color:#d27015;">info@Mckeywa.co.za</a></p>
+        <p style="margin:0;font-size:13px;color:#374151;">✉️ Email: <a href="mailto:info@mckeywa.co.za" style="color:#d27015;">info@mckeywa.co.za</a></p>
       </div>
       <p style="margin:0;font-size:13px;color:#6b7280;">We look forward to delivering excellence on your project.</p>`,
   });
@@ -154,7 +154,7 @@ function apiPlugin() {
 
             const resend = new Resend(process.env.RESEND_API_KEY);
             const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-            const companyInbox = process.env.COMPANY_EMAIL || 'info@Mckeywa.co.za';
+            const companyInbox = process.env.COMPANY_EMAIL || 'info@mckeywa.co.za';
 
             const fields: Record<string, string> = {
               'Name': name,

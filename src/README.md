@@ -163,7 +163,7 @@ Mckeywa-projects-website/
 Create a `.env.local` file for local development:
 ```env
 VITE_APP_TITLE=Mckeywa Projects
-VITE_CONTACT_EMAIL=info@Mckeywaprojects.co.za
+VITE_CONTACT_EMAIL=info@mckeywaprojects.co.za
 VITE_CONTACT_PHONE=+27123226786
 VITE_CONTACT_MOBILE=+27823169297
 ```
@@ -226,7 +226,7 @@ Gauteng, South Africa
 - **Phone:** (012) 322 6786
 - **Mobile:** 082 316 9297
 - **Western Cape:** (021) 569 7124
-- **Email:** info@Mckeywaprojects.co.za
+- **Email:** info@mckeywaprojects.co.za
 - **Website:** https://Mckeywaprojects.co.za
 
 ## 📄 License
@@ -238,7 +238,7 @@ This project is proprietary software. Unauthorized copying, modification, distri
 ## 🤝 Support
 
 For technical support or website inquiries:
-- **Email:** info@Mckeywaprojects.co.za
+- **Email:** info@mckeywaprojects.co.za
 - **Phone:** 082 316 9297 (24/7 Emergency Support)
 
 ---

@@ -24,7 +24,7 @@ Contact Information:
 - Head Office Phone: (012) 322 6786
 - Mobile / 24/7 Emergency: 082 316 9297
 - Western Cape Office: (021) 569 7124
-- Email: info@Mckeywa.co.za | enquiries@Mckeywa.co.za
+- Email: info@mckeywa.co.za | enquiries@mckeywa.co.za
 - Head Office Address: Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157, Gauteng, South Africa
 
 Response Guidelines:
