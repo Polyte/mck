@@ -10,7 +10,7 @@ import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
 import { motion, AnimatePresence } from "motion/react";
-import WhatsAppWidget from "./components/WhatsAppWidget";
+import ChatBot from "./components/ChatBot";
 import LogoDark from './assets/logo/site-logo-dark.png';
 import {
   ArrowUp,
@@ -501,8 +501,8 @@ const AppContent = memo(() => {
         )}
       </AnimatePresence>
 
-      {/* WhatsApp Widget */}
-      <WhatsAppWidget />
+      {/* AI Chat Assistant */}
+      <ChatBot />
 
       {/* Toast Notifications */}
       <Toaster

@@ -139,44 +139,34 @@ const ContactPage = memo(() => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      // Show loading state
-      toast.loading("Submitting your inquiry...");
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
-      const response = await fetch('http://localhost:3001/api/contact', {
+    const toastId = toast.loading("Submitting your enquiry…");
+    try {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        toast.success(data.message);
-        
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          company: "",
-          projectType: "",
-          budget: "",
-          location: "",
-          timeline: "",
-          message: "",
-        });
+        toast.success(data.message, { id: toastId });
+        setFormData({ name: "", email: "", phone: "", company: "", projectType: "", budget: "", location: "", timeline: "", message: "" });
       } else {
-        toast.error(data.message || 'Failed to submit inquiry. Please try again.');
+        toast.error(data.message || 'Failed to submit. Please try again.', { id: toastId });
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      toast.error('Failed to submit inquiry. Please try again or call us directly.');
+      toast.error('Failed to submit. Please call us directly on (012) 322 6786.', { id: toastId });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -397,11 +387,12 @@ const ContactPage = memo(() => {
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Button
                         type="submit"
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 text-lg flex-1"
+                        disabled={isSubmitting}
+                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 text-lg flex-1 disabled:opacity-70"
                       >
                         <Send className="mr-2 w-5 h-5" />
-                        Submit Inquiry
-                        <ArrowRight className="ml-2 w-5 h-5" />
+                        {isSubmitting ? 'Submitting…' : 'Submit Enquiry'}
+                        {!isSubmitting && <ArrowRight className="ml-2 w-5 h-5" />}
                       </Button>
 
                       <Button
