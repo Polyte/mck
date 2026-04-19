@@ -6,7 +6,7 @@
 
 **Before:**
 - Resend API key: `re_A4ieu78r_LK8swFJkCMCHoBpmxj2e5dY4` (exposed in `.env`)
-- Google Maps API key: `AIzaSyDA46oVU7puUbsLsUURJmZ522LAznOan0U` (exposed in HTML)
+- Google Maps API key: `AIza***REDACTED***` (exposed in HTML)
 
 **After:**
 - Both keys replaced with placeholders
