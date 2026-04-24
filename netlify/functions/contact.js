@@ -94,7 +94,7 @@ exports.handler = async (event) => {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const companyInbox = process.env.COMPANY_EMAIL || 'info@mckeywa.co.za';
+    const companyInbox = 'info@mckeywa.co.za';
 
     const fields = {
       'Name': name,

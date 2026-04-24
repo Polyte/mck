@@ -101,7 +101,7 @@ app.post('/api/contact', async (req, res) => {
     const safeEmail = email && emailRegex.test(email) ? email : null;
 
     const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const companyInbox = process.env.COMPANY_EMAIL || 'info@mckeywa.co.za';
+    const companyInbox = 'info@mckeywa.co.za';
 
     const fields = {
       'Name': name,

@@ -41,7 +41,7 @@ For production use, you should verify your own domain:
 ### 4. Update Email Recipients
 In `server.js`, update the email addresses to your actual company emails:
 ```javascript
-to: ['info@Mckeywa.co.za', 'enquiries@Mckeywa.co.za'],
+to: ['info@mckeywa.co.za'],
 ```
 
 ## Running the Application
