@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, X, Send, Loader2, CheckCheck, ChevronRight, Sparkles, Mail } from 'lucide-react';
+import { postToApi } from '../utils/api';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -72,12 +73,9 @@ const ChatBot = memo(() => {
     setInput('');
     setIsLoading(true);
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updated.map(({ role, content: c }) => ({ role, content: c })) }),
+      const data = await postToApi<{ success: boolean; reply?: string; message?: string }>('chat', {
+        messages: updated.map(({ role, content: c }) => ({ role, content: c })),
       });
-      const data = await res.json();
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: data.success ? data.reply : (data.message || 'Sorry, something went wrong.'), time: getTime() },
@@ -100,27 +98,27 @@ const ChatBot = memo(() => {
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!lead.name.trim() || !lead.phone.trim() || !lead.message.trim()) {
+      setLeadStatus('error');
+      return;
+    }
+
     setLeadStatus('sending');
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: lead.name,
-          email: lead.email || 'not-provided@mckeywa.co.za',
-          phone: lead.phone,
-          projectType: 'General Enquiry',
-          message: lead.message,
-        }),
+      const data = await postToApi<{ success: boolean }>('contact', {
+        name: lead.name.trim(),
+        email: lead.email.trim() || 'not-provided@mckeywa.co.za',
+        phone: lead.phone.trim(),
+        projectType: 'General Enquiry',
+        message: lead.message.trim(),
       });
-      const data = await res.json();
       if (data.success) { setLeadStatus('sent'); setLead({ name: '', phone: '', email: '', message: '' }); }
       else setLeadStatus('error');
     } catch { setLeadStatus('error'); }
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontFamily: "'Josefin Sans', sans-serif" }}>
+    <div style={{ position: 'fixed', bottom: '16px', right: '16px', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontFamily: "'Josefin Sans', sans-serif" }}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -129,7 +127,7 @@ const ChatBot = memo(() => {
             exit={{ opacity: 0, y: 32, scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 360, damping: 32 }}
             style={{
-              width: '450px',
+              width: 'min(450px, calc(100vw - 24px))',
               marginBottom: '16px',
               borderRadius: '20px',
               overflow: 'hidden',
@@ -180,6 +178,7 @@ const ChatBot = memo(() => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <button
                     onClick={handleWhatsApp}
+                    aria-label="Continue on WhatsApp"
                     style={{
                       display: 'flex', alignItems: 'center', gap: '6px',
                       background: '#25D366', color: 'white',
@@ -196,6 +195,7 @@ const ChatBot = memo(() => {
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
+                    aria-label="Close chat"
                     style={{
                       width: '30px', height: '30px', borderRadius: '50%',
                       background: 'rgba(255,255,255,0.15)', border: 'none',
@@ -383,6 +383,7 @@ const ChatBot = memo(() => {
                 {/* WhatsApp bar */}
                 <button
                   onClick={handleWhatsApp}
+                  aria-label="Continue this conversation on WhatsApp"
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     padding: '9px 16px', border: 'none', cursor: 'pointer',
@@ -428,6 +429,7 @@ const ChatBot = memo(() => {
                       className="dark:text-gray-100 placeholder:text-gray-400"
                     />
                     <motion.button
+                      type="button"
                       onClick={() => sendMessage()}
                       disabled={isLoading || !input.trim()}
                       whileTap={{ scale: 0.88 }}

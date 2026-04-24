@@ -8,6 +8,7 @@ import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { toast } from "sonner";
+import { postToApi } from "../../utils/api";
 import {
   Phone,
   Mail,
@@ -56,10 +57,10 @@ const ContactPage = memo(() => {
         icon: Mail,
         title: "Email Us",
         primary: "info@mckeywa.co.za",
-        secondary: "enquiries@mckeywa.co.za",
+        secondary: "info@mckeywa.co.za",
         description: "General & Project Inquiries",
         available: "Response within 2 hours",
-        action: () => window.open("mailto:info@mckeywaprojects.co.za"),
+        action: () => window.open("mailto:info@mckeywa.co.za"),
       },
       {
         icon: MapPin,
@@ -97,7 +98,7 @@ const ContactPage = memo(() => {
         region: "Western Cape Office",
         address: "2nd Floor (S8 & S9) The Sanctuary Mall, Corner De Beers Ave and Broadway Blvd, R44, Somerset West, 7130",
         phone: "(021) 569 7124",
-        email: "westerncape@mckeywa.co.za",
+        email: "info@mckeywa.co.za",
         manager: "Western Cape Manager",
         specialization: "Road Construction & Maintenance",
       },
@@ -105,7 +106,7 @@ const ContactPage = memo(() => {
         region: "Mobile Operations",
         address: "On-site project management across all provinces",
         phone: "082 316 9297",
-        email: "mobile@mckeywa.co.za",
+        email: "info@mckeywa.co.za",
         manager: "Mobile Operations Coordinator",
         specialization: "Emergency Response & Field Services",
       },
@@ -144,20 +145,20 @@ const ContactPage = memo(() => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
+
+    if (!formData.projectType) {
+      toast.error("Please select a project type before submitting.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     const toastId = toast.loading("Submitting your enquiry…");
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
+      const data = await postToApi<{ success: boolean; message?: string }>("contact", formData);
 
       if (data.success) {
-        toast.success(data.message, { id: toastId });
+        toast.success(data.message || "Enquiry submitted successfully.", { id: toastId });
         setFormData({ name: "", email: "", phone: "", company: "", projectType: "", budget: "", location: "", timeline: "", message: "" });
       } else {
         toast.error(data.message || 'Failed to submit. Please try again.', { id: toastId });
@@ -315,7 +316,7 @@ const ContactPage = memo(() => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Project Type *</label>
-                        <Select onValueChange={(value: string) => handleInputChange("projectType", value)}>
+                        <Select value={formData.projectType} onValueChange={(value: string) => handleInputChange("projectType", value)}>
                           <SelectTrigger className="form-professional">
                             <SelectValue placeholder="Select project type" />
                           </SelectTrigger>
@@ -330,7 +331,7 @@ const ContactPage = memo(() => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Estimated Budget</label>
-                        <Select onValueChange={(value: string) => handleInputChange("budget", value)}>
+                        <Select value={formData.budget} onValueChange={(value: string) => handleInputChange("budget", value)}>
                           <SelectTrigger className="form-professional">
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
@@ -357,7 +358,7 @@ const ContactPage = memo(() => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Project Timeline</label>
-                        <Select onValueChange={(value: string) => handleInputChange("timeline", value)}>
+                        <Select value={formData.timeline} onValueChange={(value: string) => handleInputChange("timeline", value)}>
                           <SelectTrigger className="form-professional">
                             <SelectValue placeholder="Select timeline" />
                           </SelectTrigger>
@@ -397,6 +398,7 @@ const ContactPage = memo(() => {
 
                       <Button
                         type="button"
+                        variant="outline"
                         onClick={() => window.open("tel:0123226786")}
                         className="border border-orange-500 text-orange-500 hover:bg-orange-50 font-semibold px-8 py-4 text-lg"
                       >
@@ -539,6 +541,7 @@ const ContactPage = memo(() => {
                       Call
                     </Button>
                     <Button
+                      variant="outline"
                       onClick={() => window.open(`mailto:${office.email}`)}
                       className="flex-1 border border-orange-500 text-orange-500 hover:bg-orange-50"
                     >
