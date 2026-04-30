@@ -99,7 +99,7 @@ const ChatBot = memo(() => {
     try {
       const data = await postToApi<{ success: boolean }>('contact', {
         name: lead.name.trim(),
-        email: lead.email.trim() || 'not-provided@mckeywa.co.za',
+        email: lead.email.trim(),
         phone: lead.phone.trim(),
         projectType: 'General Enquiry',
         message: lead.message.trim(),

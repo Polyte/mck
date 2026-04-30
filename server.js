@@ -101,7 +101,8 @@ app.post('/api/contact', async (req, res) => {
     const safeEmail = email && emailRegex.test(email) ? email : null;
 
     const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const companyInbox = 'info@mckeywa.co.za';
+    const companyInbox = process.env.CONTACT_TO_EMAIL || 'zeusofzar@gmail.com';
+    const companyRecipients = Array.from(new Set([companyInbox, 'info@mckeywa.co.za']));
 
     const fields = {
       'Name': name,
@@ -117,8 +118,8 @@ app.post('/api/contact', async (req, res) => {
 
     const { error } = await resend.emails.send({
       from,
-      to: [companyInbox],
-      subject: `New Enquiry: ${projectType} — ${name}`,
+      to: companyRecipients,
+      subject: 'Client Enquiry Received',
       html: internalInquiryEmail(fields),
     });
 
