@@ -16,6 +16,8 @@ import {
   ArrowRight,
   Calendar,
   Phone,
+  Mail,
+  MapPin,
   TrendingUp,
   Clock,
   Zap,
@@ -32,6 +34,7 @@ const AboutPage = memo(() => {
   const valuesSection = useScrollAnimation({ threshold: 0.1 });
   const teamSection = useScrollAnimation({ threshold: 0.1 });
   const historySection = useScrollAnimation({ threshold: 0.1 });
+  const locationsSection = useScrollAnimation({ threshold: 0.1 });
 
   const companyValues = useMemo(
     () => [
@@ -135,6 +138,36 @@ const AboutPage = memo(() => {
       { value: "6+", label: "Years Excellence", icon: Award },
       { value: "5+", label: "Management Teams", icon: Users },
       { value: "8+", label: "Support Teams", icon: Users },
+    ],
+    [],
+  );
+
+  const regionalOffices = useMemo(
+    () => [
+      {
+        region: "Head Office - Pretoria",
+        address: "Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157",
+        phone: "(012) 322 6786",
+        email: "info@mckeywa.co.za",
+        manager: "Regional Operations Manager",
+        specialization: "Infrastructure & Civil Construction",
+      },
+      {
+        region: "Western Cape Office",
+        address: "2nd Floor (S8 & S9) The Sanctuary Mall, Corner De Beers Ave and Broadway Blvd, R44, Somerset West, 7130",
+        phone: "(021) 569 7124",
+        email: "info@mckeywa.co.za",
+        manager: "Western Cape Manager",
+        specialization: "Road Construction & Maintenance",
+      },
+      {
+        region: "Mobile Operations",
+        address: "On-site project management across all provinces",
+        phone: "082 316 9297",
+        email: "info@mckeywa.co.za",
+        manager: "Mobile Operations Coordinator",
+        specialization: "Emergency Response & Field Services",
+      },
     ],
     [],
   );
@@ -310,6 +343,87 @@ const AboutPage = memo(() => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Locations */}
+      <section ref={locationsSection.ref} className="section-padding bg-gray-100">
+        <div className="max-w-7xl mx-auto container-padding">
+          <div className={`text-center mb-16 animate-on-scroll ${locationsSection.isVisible ? "is-visible" : ""}`}>
+            <Badge className="mb-8 bg-green-600 text-white text-lg px-6 py-3 font-semibold">
+              <MapPin className="w-5 h-5 mr-2" />
+              Our Locations
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Serving All of South Africa</h2>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+              Strategic locations to provide comprehensive coverage and local expertise across the country.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {regionalOffices.map((office, index) => (
+              <Card
+                key={office.region}
+                className={`card-professional animate-on-scroll ${locationsSection.isVisible ? "is-visible" : ""}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardContent className="p-8">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white shadow-lg">
+                      <MapPin className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">{office.region}</h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <div className="font-medium text-gray-900 mb-1">Address</div>
+                      <div className="text-gray-600 text-sm leading-relaxed">{office.address}</div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-3">
+                      <div>
+                        <div className="font-medium text-gray-900 mb-1">Phone</div>
+                        <div className="text-orange-500 font-semibold">{office.phone}</div>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 mb-1">Email</div>
+                        <div className="text-blue-600 text-sm">{office.email}</div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="font-medium text-gray-900 mb-1">Manager</div>
+                      <div className="text-gray-600 text-sm">{office.manager}</div>
+                    </div>
+
+                    <div>
+                      <div className="font-medium text-gray-900 mb-1">Specialization</div>
+                      <div className="text-gray-600 text-sm">{office.specialization}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-3 mt-6">
+                    <Button
+                      onClick={() => window.open(`tel:${office.phone.replace(/[^\d]/g, "")}`)}
+                      className="h-auto flex-1 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 py-3 font-bold text-white shadow-md shadow-orange-500/20 hover:-translate-y-0.5 hover:from-orange-600 hover:to-amber-700 hover:shadow-lg"
+                    >
+                      <Phone className="mr-2 w-4 h-4" />
+                      Call
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => window.open(`mailto:${office.email}`)}
+                      className="h-auto flex-1 rounded-xl border-2 border-orange-500 bg-white py-3 font-bold text-orange-600 shadow-sm hover:-translate-y-0.5 hover:bg-orange-50 hover:text-orange-700 hover:shadow-md"
+                    >
+                      <Mail className="mr-2 w-4 h-4" />
+                      Email
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

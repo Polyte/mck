@@ -13,6 +13,7 @@ import {
   Phone,
   Mail,
   MapPin,
+  MessageCircle,
   Clock,
   Users,
   Calculator,
@@ -23,6 +24,11 @@ import {
   Award,
   CheckCircle,
 } from "lucide-react";
+
+const HEAD_OFFICE_ADDRESS = "Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157";
+const GOOGLE_MAPS_QUERY = encodeURIComponent(HEAD_OFFICE_ADDRESS);
+const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${GOOGLE_MAPS_QUERY}`;
+const WHATSAPP_URL = "https://wa.me/27823169297";
 
 const ContactPage = memo(() => {
   const [formData, setFormData] = useState({
@@ -40,7 +46,6 @@ const ContactPage = memo(() => {
   // Scroll animations
   const contactSection = useScrollAnimation({ threshold: 0.1 });
   const formSection = useScrollAnimation({ threshold: 0.1 });
-  const officesSection = useScrollAnimation({ threshold: 0.1 });
 
   const contactMethods = useMemo(
     () => [
@@ -51,15 +56,30 @@ const ContactPage = memo(() => {
         secondary: "082 316 9297",
         description: "Head Office & Mobile",
         available: "24/7 Emergency Support",
+        actionLabel: "Call Now",
+        image: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=900&q=80",
         action: () => window.open("tel:0123226786"),
+      },
+      {
+        icon: MessageCircle,
+        title: "WhatsApp",
+        primary: "082 316 9297",
+        secondary: "Chat with our team",
+        description: "Fast support for quick questions",
+        available: "Quick mobile response",
+        actionLabel: "Open WhatsApp",
+        image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=900&q=80",
+        action: () => window.open(WHATSAPP_URL),
       },
       {
         icon: Mail,
         title: "Email Us",
         primary: "info@mckeywa.co.za",
         secondary: "info@mckeywa.co.za",
-        description: "General & Project Inquiries",
+        description: "General & Project Enquiries",
         available: "Response within 2 hours",
+        actionLabel: "Send Email",
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
         action: () => window.open("mailto:info@mckeywa.co.za"),
       },
       {
@@ -69,46 +89,9 @@ const ContactPage = memo(() => {
         secondary: "51 Nikkel Street, Monavoni",
         description: "Centurion 0157, Gauteng",
         available: "Mon-Fri: 8AM-5PM",
-        action: () => window.open("https://maps.google.com/?q=51+Nickel+Street+Monavoni+Centurion"),
-      },
-      {
-        icon: Headphones,
-        title: "24/7 Emergency",
-        primary: "082 316 9297",
-        secondary: "Emergency Hotline",
-        description: "Critical Infrastructure Issues",
-        available: "Immediate Response",
-        action: () => window.open("tel:0823169297"),
-      },
-    ],
-    [],
-  );
-
-  const regionalOffices = useMemo(
-    () => [
-      {
-        region: "Head Office - Pretoria",
-        address: "Unit 489 Silverwood, 51 Nikkel Street, Monavoni Ext 6, Centurion 0157",
-        phone: "(012) 322 6786",
-        email: "info@mckeywa.co.za",
-        manager: "Regional Operations Manager",
-        specialization: "Infrastructure & Civil Construction",
-      },
-      {
-        region: "Western Cape Office",
-        address: "2nd Floor (S8 & S9) The Sanctuary Mall, Corner De Beers Ave and Broadway Blvd, R44, Somerset West, 7130",
-        phone: "(021) 569 7124",
-        email: "info@mckeywa.co.za",
-        manager: "Western Cape Manager",
-        specialization: "Road Construction & Maintenance",
-      },
-      {
-        region: "Mobile Operations",
-        address: "On-site project management across all provinces",
-        phone: "082 316 9297",
-        email: "info@mckeywa.co.za",
-        manager: "Mobile Operations Coordinator",
-        specialization: "Emergency Response & Field Services",
+        actionLabel: "Get Directions",
+        image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=900&q=80",
+        action: () => window.open(GOOGLE_MAPS_URL),
       },
     ],
     [],
@@ -185,7 +168,7 @@ const ContactPage = memo(() => {
     <div className="min-h-screen bg-gray-50">
       {/* Page Header */}
       <PageHeader
-        title="Get In Touch With Us"
+        title="Get in Touch with Us"
         subtitle="Professional Consultation"
         description="Ready to start your construction project? Our expert team is here to provide comprehensive consultation, detailed estimates, and professional guidance for all your infrastructure needs."
         backgroundImage="https://images.unsplash.com/photo-1725772498434-7265ec19fc92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25zdHJ1Y3Rpb24lMjBjb250YWN0JTIwb2ZmaWNlJTIwYnVpbGRpbmd8ZW58MXx8fHwxNzU3NDUzODAwfDA&ixlib=rb-4.1.0&q=80&w=1080"
@@ -218,27 +201,43 @@ const ContactPage = memo(() => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
             {contactMethods.map((method, index) => (
               <Card
                 key={index}
-                className={`card-professional text-center group cursor-pointer animate-on-scroll ${contactSection.isVisible ? "is-visible" : ""}`}
+                className={`card-professional overflow-hidden text-center group animate-on-scroll ${contactSection.isVisible ? "is-visible" : ""}`}
                 style={{ animationDelay: `${index * 0.1}s` }}
-                onClick={method.action}
               >
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <method.icon className="w-8 h-8" />
+                <CardContent className="p-0 flex h-full flex-col">
+                  <div className="relative h-28 overflow-hidden">
+                    <img
+                      src={method.image}
+                      alt={`${method.title} contact option`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-slate-950/20 to-transparent" />
+                    <div className="absolute bottom-4 left-1/2 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg ring-4 ring-white">
+                      <method.icon className="w-6 h-6" />
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{method.title}</h3>
-                  <div className="space-y-2 mb-4">
-                    <div className="font-semibold text-orange-500">{method.primary}</div>
-                    <div className="text-sm text-gray-600">{method.secondary}</div>
-                    <div className="text-sm text-gray-500">{method.description}</div>
+                  <div className="flex h-full flex-col p-5 pt-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{method.title}</h3>
+                    <div className="space-y-1.5 mb-3">
+                      <div className="font-semibold text-orange-500">{method.primary}</div>
+                      <div className="text-sm text-gray-600">{method.secondary}</div>
+                      <div className="text-sm text-gray-500">{method.description}</div>
+                    </div>
+                    <Badge variant="secondary" className="mx-auto bg-green-100 text-green-800 text-xs">
+                      {method.available}
+                    </Badge>
+                    <Button
+                      onClick={method.action}
+                      className="mt-4 h-auto w-full rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 py-2.5 font-bold text-white shadow-md shadow-orange-500/20 hover:-translate-y-0.5 hover:from-orange-600 hover:to-amber-700 hover:shadow-lg"
+                    >
+                      <method.icon className="mr-2 w-4 h-4" />
+                      {method.actionLabel}
+                    </Button>
                   </div>
-                  <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                    {method.available}
-                  </Badge>
                 </CardContent>
               </Card>
             ))}
@@ -252,7 +251,7 @@ const ContactPage = memo(() => {
           <div className={`text-center mb-16 animate-on-scroll ${formSection.isVisible ? "is-visible" : ""}`}>
             <Badge className="mb-8 bg-orange-500 text-white text-lg px-6 py-3 font-semibold">
               <Send className="w-5 h-5 mr-2" />
-              Project Inquiry Form
+              Project Enquiry Form
             </Badge>
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Tell Us About Your Project</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
@@ -389,7 +388,7 @@ const ContactPage = memo(() => {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 text-lg flex-1 disabled:opacity-70"
+                        className="h-auto min-h-14 flex-1 rounded-xl bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-orange-500/25 hover:-translate-y-0.5 hover:from-orange-600 hover:to-amber-700 hover:shadow-xl hover:shadow-orange-500/35 disabled:translate-y-0 disabled:opacity-70"
                       >
                         <Send className="mr-2 w-5 h-5" />
                         {isSubmitting ? 'Submitting…' : 'Submit Enquiry'}
@@ -400,7 +399,7 @@ const ContactPage = memo(() => {
                         type="button"
                         variant="outline"
                         onClick={() => window.open("tel:0123226786")}
-                        className="border border-orange-500 text-orange-500 hover:bg-orange-50 font-semibold px-8 py-4 text-lg"
+                        className="h-auto min-h-14 rounded-xl border-2 border-orange-500 bg-white px-8 py-4 text-lg font-bold text-orange-600 shadow-sm hover:-translate-y-0.5 hover:bg-orange-50 hover:text-orange-700 hover:shadow-lg"
                       >
                         <Phone className="mr-2 w-5 h-5" />
                         Call Instead
@@ -411,27 +410,8 @@ const ContactPage = memo(() => {
               </Card>
             </div>
 
-            {/* Quick Actions & Info */}
+            {/* Quick Info */}
             <div className="space-y-8">
-              {/* Quick Actions */}
-              <Card className={`card-professional animate-on-scroll ${formSection.isVisible ? "is-visible" : ""}`}>
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h3>
-                  <div className="space-y-4">
-                     
-
-                    <Button
-                      onClick={() => window.open("tel:0823169297")}
-                      className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4"
-                    >
-                      <Headphones className="mr-2 w-5 h-5" />
-                      24/7 Emergency Line
-                      <Phone className="ml-2 w-5 h-5" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
               {/* Company Credentials */}
               <Card className={`card-professional animate-on-scroll ${formSection.isVisible ? "is-visible" : ""}`}>
                 <CardContent className="p-8">
@@ -471,87 +451,6 @@ const ContactPage = memo(() => {
 
               {/* Response Time */}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Regional Offices */}
-      <section ref={officesSection.ref} className="section-padding bg-white">
-        <div className="max-w-7xl mx-auto container-padding">
-          <div className={`text-center mb-16 animate-on-scroll ${officesSection.isVisible ? "is-visible" : ""}`}>
-            <Badge className="mb-8 bg-green-600 text-white text-lg px-6 py-3 font-semibold">
-              <MapPin className="w-5 h-5 mr-2" />
-              Our Locations
-            </Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Serving All of South Africa</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Strategic locations to provide comprehensive coverage and local expertise across the country
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {regionalOffices.map((office, index) => (
-              <Card
-                key={index}
-                className={`card-professional animate-on-scroll ${officesSection.isVisible ? "is-visible" : ""}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardContent className="p-8">
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white">
-                      <MapPin className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900">{office.region}</h3>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <div className="font-medium text-gray-900 mb-1">Address</div>
-                      <div className="text-gray-600 text-sm">{office.address}</div>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-3">
-                      <div>
-                        <div className="font-medium text-gray-900 mb-1">Phone</div>
-                        <div className="text-orange-500 font-semibold">{office.phone}</div>
-                      </div>
-                      <div>
-                        <div className="font-medium text-gray-900 mb-1">Email</div>
-                        <div className="text-blue-600 text-sm">{office.email}</div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="font-medium text-gray-900 mb-1">Manager</div>
-                      <div className="text-gray-600 text-sm">{office.manager}</div>
-                    </div>
-
-                    <div>
-                      <div className="font-medium text-gray-900 mb-1">Specialization</div>
-                      <div className="text-gray-600 text-sm">{office.specialization}</div>
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-3 mt-6">
-                    <Button
-                      onClick={() => window.open(`tel:${office.phone.replace(/[^\d]/g, "")}`)}
-                      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white"
-                    >
-                      <Phone className="mr-2 w-4 h-4" />
-                      Call
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => window.open(`mailto:${office.email}`)}
-                      className="flex-1 border border-orange-500 text-orange-500 hover:bg-orange-50"
-                    >
-                      <Mail className="mr-2 w-4 h-4" />
-                      Email
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>

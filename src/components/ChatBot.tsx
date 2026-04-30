@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageCircle, X, Send, Loader2, CheckCheck, ChevronRight, Sparkles, Mail } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2, CheckCheck, ChevronRight, Mail, Sparkles } from 'lucide-react';
 import { postToApi } from '../utils/api';
+import remiVideo from '../assets/remi_dark@2x.mp4?url';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -26,13 +27,6 @@ const WhatsAppIcon = ({ size = 16 }: { size?: number }) => (
   </svg>
 );
 
-const QUICK_REPLIES = [
-  { label: '🏗️ Our Services', text: 'What services does Mckeywa offer?' },
-  { label: '📋 Get a Quote', text: 'How can I get a project quote?' },
-  { label: '📍 Location', text: 'Where are you located?' },
-  { label: '📞 Contact Us', text: 'How can I contact Mckeywa?' },
-];
-
 const ChatBot = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [tab, setTab] = useState<'chat' | 'lead'>('chat');
@@ -45,7 +39,6 @@ const ChatBot = memo(() => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [quickRepliesVisible, setQuickRepliesVisible] = useState(true);
   const [lead, setLead] = useState<LeadForm>({ name: '', phone: '', email: '', message: '' });
   const [leadStatus, setLeadStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -66,7 +59,6 @@ const ChatBot = memo(() => {
   const sendMessage = async (text?: string) => {
     const content = (text ?? input).trim();
     if (!content || isLoading) return;
-    setQuickRepliesVisible(false);
     const userMessage: Message = { role: 'user', content, time: getTime() };
     const updated = [...messages, userMessage];
     setMessages(updated);
@@ -78,7 +70,7 @@ const ChatBot = memo(() => {
       });
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.success ? data.reply : (data.message || 'Sorry, something went wrong.'), time: getTime() },
+        { role: 'assistant', content: data.success ? (data.reply || 'Sorry, something went wrong.') : (data.message || 'Sorry, something went wrong.'), time: getTime() },
       ]);
     } catch {
       setMessages((prev) => [
@@ -117,10 +109,283 @@ const ChatBot = memo(() => {
     } catch { setLeadStatus('error'); }
   };
 
+  const starterPrompts = [
+    { label: 'Where should I start?', text: 'Where should I start with a construction project enquiry?' },
+    { label: 'What do you do?', text: 'What services does Mckeywa Projects offer?' },
+    { label: 'I have a project', text: 'I have a project and would like to speak to your team.' },
+  ];
+
+  const renderRemiPanel = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 32, scale: 0.94 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 32, scale: 0.94 }}
+      transition={{ type: 'spring', stiffness: 360, damping: 32 }}
+      style={{
+        width: 'min(488px, calc(100vw - 24px))',
+        height: 'min(784px, calc(100vh - 96px))',
+        marginBottom: '16px',
+        borderRadius: '26px',
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#0b0b08',
+        border: '1px solid rgba(255,255,255,0.12)',
+        boxShadow: '0 28px 90px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08)',
+        color: 'white',
+      }}
+    >
+      <video
+        src={remiVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          opacity: 0.86,
+        }}
+      />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,5,4,0.14) 0%, rgba(5,5,4,0.22) 38%, rgba(5,5,4,0.88) 74%, #0b0b08 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, boxShadow: 'inset 0 0 80px rgba(0,0,0,0.45)' }} />
+
+      <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '18px 18px 0' }}>
+        <div>
+          <div style={{ fontSize: '64px', lineHeight: '50px', fontWeight: 900, letterSpacing: '-6px' }}>M</div>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '-2px', color: 'rgba(255,255,255,0.58)', fontSize: '13px', fontWeight: 700 }}>
+            {(['chat', 'lead'] as const).map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => { setTab(t); setLeadStatus('idle'); }}
+                style={{
+                  color: tab === t ? 'white' : 'rgba(255,255,255,0.52)',
+                  background: 'transparent',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  font: 'inherit',
+                }}
+              >
+                {t === 'chat' ? 'Chat' : 'Contact'}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button
+          onClick={() => setIsOpen(false)}
+          aria-label="Close chat"
+          style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: '50%',
+            border: 'none',
+            background: 'rgba(255,255,255,0.14)',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            backdropFilter: 'blur(10px)',
+          }}
+        >
+          <X style={{ width: '18px', height: '18px' }} />
+        </button>
+      </div>
+
+      {tab === 'chat' ? (
+        <div style={{ position: 'relative', zIndex: 2, marginTop: 'auto', padding: '0 32px 30px' }}>
+          {messages.length === 1 ? (
+            <>
+              <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: '13px', fontWeight: 800, marginBottom: '10px' }}>Remi</div>
+              <h3 style={{ margin: 0, fontSize: '20px', lineHeight: 1.35, fontWeight: 900 }}>Hey - I'm Remi, Mckeywa's AI assistant.</h3>
+              <p style={{ margin: '10px 0 24px', fontSize: '19px', lineHeight: 1.35, fontWeight: 800 }}>Anything catch your eye?</p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '28px' }}>
+                {starterPrompts.map((prompt, index) => (
+                  <button
+                    key={prompt.text}
+                    onClick={() => sendMessage(prompt.text)}
+                    style={{
+                      border: 'none',
+                      borderRadius: '999px',
+                      padding: '11px 15px',
+                      background: index === 0 ? 'white' : 'rgba(255,255,255,0.12)',
+                      color: index === 0 ? '#050505' : 'rgba(255,255,255,0.58)',
+                      fontSize: '15px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {prompt.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div style={{ maxHeight: '220px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '18px', paddingRight: '4px' }}>
+              {messages.slice(1).map((msg, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                  <div style={{
+                    maxWidth: '82%',
+                    borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                    padding: '10px 13px',
+                    background: msg.role === 'user' ? 'white' : 'rgba(255,255,255,0.12)',
+                    color: msg.role === 'user' ? '#0b0b08' : 'white',
+                    fontSize: '13.5px',
+                    lineHeight: 1.45,
+                    backdropFilter: 'blur(12px)',
+                  }}>
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div style={{ color: 'rgba(255,255,255,0.68)', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Loader2 style={{ width: '14px', height: '14px', animation: 'spin 1s linear infinite' }} />
+                  Remi is typing...
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          )}
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div style={{ width: '48px', height: '48px', flexShrink: 0, display: 'grid', gridTemplateColumns: 'repeat(4, 4px)', gap: '5px', alignContent: 'center', justifyContent: 'center' }}>
+              {Array.from({ length: 16 }).map((_, i) => (
+                <span key={i} style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'white', opacity: i % 3 === 0 ? 1 : 0.72 }} />
+              ))}
+            </div>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.18)', paddingBottom: '9px' }}>
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask me anything..."
+                disabled={isLoading}
+                style={{
+                  flex: 1,
+                  border: 'none',
+                  outline: 'none',
+                  background: 'transparent',
+                  color: 'white',
+                  fontSize: '16px',
+                  fontFamily: 'inherit',
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => sendMessage()}
+                disabled={isLoading || !input.trim()}
+                style={{
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  background: input.trim() ? 'white' : 'rgba(255,255,255,0.12)',
+                  color: input.trim() ? '#111' : 'rgba(255,255,255,0.45)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: input.trim() ? 'pointer' : 'not-allowed',
+                }}
+              >
+                <Send style={{ width: '15px', height: '15px' }} />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div style={{ position: 'relative', zIndex: 2, marginTop: 'auto', padding: '0 32px 30px' }}>
+          <div style={{ background: 'rgba(8,8,7,0.72)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '22px', padding: '18px', backdropFilter: 'blur(16px)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <Mail style={{ width: '16px', height: '16px', color: '#f59e0b' }} />
+              <strong>Leave a message</strong>
+            </div>
+            {leadStatus === 'sent' ? (
+              <div style={{ color: 'rgba(255,255,255,0.78)', fontSize: '14px', lineHeight: 1.5 }}>
+                Thanks, your message was sent. Our team will contact you shortly.
+              </div>
+            ) : (
+              <form onSubmit={handleLeadSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {([
+                  ['name', 'Full name'],
+                  ['phone', 'Phone number'],
+                  ['email', 'Email address'],
+                ] as const).map(([key, placeholder]) => (
+                  <input
+                    key={key}
+                    value={lead[key]}
+                    onChange={(e) => setLead((p) => ({ ...p, [key]: e.target.value }))}
+                    placeholder={placeholder}
+                    type={key === 'email' ? 'email' : key === 'phone' ? 'tel' : 'text'}
+                    style={{
+                      width: '100%',
+                      boxSizing: 'border-box',
+                      border: '1px solid rgba(255,255,255,0.14)',
+                      borderRadius: '13px',
+                      background: 'rgba(255,255,255,0.08)',
+                      color: 'white',
+                      padding: '11px 12px',
+                      outline: 'none',
+                      fontFamily: 'inherit',
+                    }}
+                  />
+                ))}
+                <textarea
+                  value={lead.message}
+                  onChange={(e) => setLead((p) => ({ ...p, message: e.target.value }))}
+                  placeholder="Tell us about your project"
+                  rows={3}
+                  style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    border: '1px solid rgba(255,255,255,0.14)',
+                    borderRadius: '13px',
+                    background: 'rgba(255,255,255,0.08)',
+                    color: 'white',
+                    padding: '11px 12px',
+                    outline: 'none',
+                    resize: 'none',
+                    fontFamily: 'inherit',
+                  }}
+                />
+                {leadStatus === 'error' && <span style={{ color: '#fca5a5', fontSize: '12px' }}>Please add your name, phone number, and message.</span>}
+                <button
+                  type="submit"
+                  disabled={leadStatus === 'sending'}
+                  style={{
+                    border: 'none',
+                    borderRadius: '999px',
+                    background: 'white',
+                    color: '#0b0b08',
+                    padding: '12px 16px',
+                    fontWeight: 900,
+                    cursor: leadStatus === 'sending' ? 'not-allowed' : 'pointer',
+                    fontFamily: 'inherit',
+                  }}
+                >
+                  {leadStatus === 'sending' ? 'Sending...' : 'Send message'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </motion.div>
+  );
+
   return (
     <div style={{ position: 'fixed', bottom: '16px', right: '16px', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontFamily: "'Josefin Sans', sans-serif" }}>
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && renderRemiPanel()}
+        {false && (
           <motion.div
             initial={{ opacity: 0, y: 32, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -334,46 +599,6 @@ const ChatBot = memo(() => {
                           />
                         ))}
                       </div>
-                    </motion.div>
-                  )}
-
-                  {/* Quick reply chips */}
-                  {quickRepliesVisible && messages.length === 1 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', paddingTop: '4px' }}
-                    >
-                      {QUICK_REPLIES.map((q) => (
-                        <button
-                          key={q.text}
-                          onClick={() => sendMessage(q.text)}
-                          style={{
-                            fontSize: '12px', padding: '7px 13px', borderRadius: '20px',
-                            border: '1.5px solid rgba(210,112,21,0.35)',
-                            background: 'white', color: '#c26810',
-                            cursor: 'pointer', fontWeight: 600, transition: 'all 0.2s',
-                            boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-                            fontFamily: 'inherit',
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.background = '#d27015';
-                            e.currentTarget.style.color = 'white';
-                            e.currentTarget.style.borderColor = '#d27015';
-                            e.currentTarget.style.boxShadow = '0 3px 10px rgba(210,112,21,0.3)';
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.background = 'white';
-                            e.currentTarget.style.color = '#c26810';
-                            e.currentTarget.style.borderColor = 'rgba(210,112,21,0.35)';
-                            e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
-                          }}
-                          className="dark:bg-[#1a1a2e] dark:text-[#e88a30]"
-                        >
-                          {q.label}
-                        </button>
-                      ))}
                     </motion.div>
                   )}
 
