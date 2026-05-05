@@ -17,8 +17,8 @@ RUN apk add --no-cache \
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies with security check
-RUN npm ci --only=production && \
+# Full install so Vite and build tooling are available (they live in devDependencies)
+RUN npm ci && \
     npm audit --audit-level=moderate || true
 
 # Copy source code
@@ -32,43 +32,30 @@ RUN npm run security-audit || true && \
 # Build the application
 RUN npm run build
 
-# Production stage with minimal attack surface
-FROM nginx:alpine AS production
+# Production runtime dependencies only (Express, Nodemailer, etc.)
+FROM node:18-alpine AS prod-deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Install security updates
-RUN apk update && \
-    apk upgrade && \
-    rm -rf /var/cache/apk/*
+# Production: nginx serves the SPA; Node runs the /api/* routes (chat, contact) on loopback
+FROM node:18-alpine AS production
 
-# Remove unnecessary packages and files
-RUN rm -rf /usr/share/man /tmp/* /var/tmp/* && \
-    find /var/log -type f -delete
+RUN apk update && apk upgrade && apk add --no-cache nginx curl && rm -rf /var/cache/apk/*
 
-# Copy built application
+WORKDIR /app
+COPY --from=builder /app/package*.json ./
+COPY --from=prod-deps /app/node_modules ./node_modules
+COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Copy secure nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nextjs -u 1001
-
-# Set proper permissions
-RUN chown -R nextjs:nodejs /usr/share/nginx/html && \
-    chown -R nextjs:nodejs /var/cache/nginx && \
-    chown -R nextjs:nodejs /var/log/nginx && \
-    chown -R nextjs:nodejs /etc/nginx/conf.d
-
-# Switch to non-root user
-USER nextjs
-
-# Expose port
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/ || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
+    CMD curl -sf http://127.0.0.1:8080/health || exit 1
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/docker-entrypoint.sh"]

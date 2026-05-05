@@ -1,15 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const { Resend } = require('resend');
 require('dotenv').config();
+const { sendHtmlMail, getMailFrom } = require('./lib/contactMail.cjs');
+
+const { extractAssistantReply, parseDeepSeekHttpError } = require('./lib/deepseekChatResponse.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3002;
+/** Bind API only on loopback when paired with nginx in Docker (see docker-entrypoint.sh). */
+const BIND_HOST = process.env.BIND_HOST || '0.0.0.0';
 
 app.use(cors());
 app.use(express.json());
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ── Email template helpers ──────────────────────────────────────────────────
 
@@ -100,9 +102,13 @@ app.post('/api/contact', async (req, res) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const safeEmail = email && emailRegex.test(email) ? email : null;
 
-    const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const companyInbox = process.env.CONTACT_TO_EMAIL || 'zeusofzar@gmail.com';
-    const companyRecipients = Array.from(new Set([companyInbox, 'info@mckeywa.co.za']));
+    // SMTP (Nodemailer): MAIL_FROM must be allowed by your mail provider. See .env.example.
+    const from = getMailFrom();
+    // Comma-separated for multiple inboxes (e.g. info@, ops@).
+    const companyInbox = process.env.CONTACT_TO_EMAIL || 'info@mckeywa.co.za';
+    const companyRecipients = Array.from(
+      new Set(companyInbox.split(',').map((s) => s.trim()).filter(Boolean)),
+    );
 
     const fields = {
       'Name': name,
@@ -116,22 +122,28 @@ app.post('/api/contact', async (req, res) => {
       'Message': message,
     };
 
-    const { error } = await resend.emails.send({
-      from,
-      to: companyRecipients,
-      subject: 'Client Enquiry Received',
-      html: internalInquiryEmail(fields),
-    });
+    let sendResult;
+    try {
+      sendResult = await sendHtmlMail({
+        from,
+        to: companyRecipients,
+        subject: 'Client Enquiry Received',
+        html: internalInquiryEmail(fields),
+      });
+    } catch (err) {
+      console.error('SMTP configuration error:', err);
+      return res.status(500).json({ success: false, message: 'Email is not configured on the server.' });
+    }
 
-    if (error) {
-      console.error('Resend error:', error);
+    if (sendResult.error) {
+      console.error('SMTP send error:', sendResult.error);
       return res.status(500).json({ success: false, message: 'Failed to send email. Please try again.' });
     }
 
     if (safeEmail) {
-      await resend.emails.send({
+      sendHtmlMail({
         from,
-        to: [safeEmail],
+        to: safeEmail,
         subject: 'We received your enquiry — Mckeywa Projects',
         html: confirmationEmail(name, projectType),
       }).catch((err) => console.warn('Confirmation email skipped:', err));
@@ -179,15 +191,38 @@ Guidelines: Be friendly and professional. No markdown or asterisks. Plain prose 
       }),
     });
 
-    if (!response.ok) {
-      return res.status(500).json({ success: false, message: 'Failed to get a response. Please try again.' });
+    const bodyText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(bodyText);
+    } catch {
+      if (!response.ok) {
+        return res.status(500).json({
+          success: false,
+          message: parseDeepSeekHttpError(bodyText),
+        });
+      }
+      return res.status(500).json({
+        success: false,
+        message: 'Invalid JSON from assistant service.',
+      });
     }
 
-    const data = await response.json();
-    const raw = data.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
-    const reply = raw.replace(/\*\*/g, '').replace(/\*/g, '').replace(/^#+\s/gm, '');
+    if (!response.ok) {
+      console.error('DeepSeek HTTP', response.status, bodyText.slice(0, 500));
+      return res.status(500).json({
+        success: false,
+        message: parseDeepSeekHttpError(bodyText),
+      });
+    }
 
-    res.json({ success: true, reply });
+    const extracted = extractAssistantReply(data);
+    if (!extracted.ok) {
+      console.error('DeepSeek completion:', extracted.message, bodyText.slice(0, 400));
+      return res.status(500).json({ success: false, message: extracted.message });
+    }
+
+    res.json({ success: true, reply: extracted.reply });
   } catch (error) {
     console.error('Chat endpoint error:', error);
     res.status(500).json({ success: false, message: 'Internal server error' });
@@ -200,6 +235,6 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, BIND_HOST, () => {
+  console.log(`Server is running on http://${BIND_HOST}:${PORT}`);
 });

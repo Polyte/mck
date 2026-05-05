@@ -4,6 +4,10 @@
   publish = "build"
   functions = "netlify/functions"
 
+# Ensure shared DeepSeek parser is bundled with functions (required from netlify/functions/chat.js)
+[functions]
+  included_files = ["lib/deepseekChatResponse.cjs"]
+
 [build.environment]
   NPM_VERSION = "8"
   NODE_VERSION = "18"
