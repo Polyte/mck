@@ -2,7 +2,6 @@ import { lazy, Suspense, memo, useCallback, useState, useEffect, useRef } from "
 import { RouterProvider, useRouter } from "./components/Router";
 import { ThemeProvider } from "./components/hooks/useTheme";
 import { Navigation } from "./components/Navigation";
-import { PathDisplay } from "./components/PathDisplay";
 import { OfflineDetector } from "./components/OfflineDetector";
 import { PageLoader } from "./components/PageLoader";
 import { ConstructionPreloader } from "./components/ConstructionPreloader";
@@ -140,9 +139,6 @@ const AppContent = memo(() => {
 
       {/* Navigation */}
       <Navigation />
-
-      {/* Path Display */}
-      <PathDisplay />
 
       {/* Offline Detector */}
       <OfflineDetector />
