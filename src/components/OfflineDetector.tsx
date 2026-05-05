@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
-import { AlertCircle, Wifi, WifiOff } from "lucide-react";
+import { WifiOff } from "lucide-react";
 
 const OfflineDetector = () => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [showOfflineAlert, setShowOfflineAlert] = useState(false);
 
   useEffect(() => {
     const handleOnline = () => {
-      setIsOnline(true);
       setShowOfflineAlert(false);
     };
 
     const handleOffline = () => {
-      setIsOnline(false);
       setShowOfflineAlert(true);
     };
 
@@ -47,27 +44,7 @@ const OfflineDetector = () => {
     );
   }
 
-  return (
-    <div className="fixed bottom-4 right-4 z-40">
-      <div className={`flex items-center space-x-2 px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-        isOnline 
-          ? 'bg-green-100 text-green-800 border border-green-200' 
-          : 'bg-red-100 text-red-800 border border-red-200'
-      }`}>
-        {isOnline ? (
-          <>
-            <Wifi className="w-4 h-4" />
-            <span>Online</span>
-          </>
-        ) : (
-          <>
-            <WifiOff className="w-4 h-4" />
-            <span>Offline</span>
-          </>
-        )}
-      </div>
-    </div>
-  );
+  return null;
 };
 
 OfflineDetector.displayName = "OfflineDetector";

@@ -6,7 +6,7 @@
  */
 
 interface EnvConfig {
-  resendApiKey: string;
+  smtpHost: string;
   googleMapsApiKey: string;
   port: number;
   nodeEnv: string;
@@ -16,7 +16,7 @@ interface EnvConfig {
  * Validates and loads environment variables
  */
 function validateEnv(): EnvConfig {
-  const resendApiKey = process.env.RESEND_API_KEY;
+  const smtpHost = process.env.SMTP_HOST;
   const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
   const port = process.env.PORT;
   const nodeEnv = process.env.NODE_ENV || 'development';
@@ -24,10 +24,10 @@ function validateEnv(): EnvConfig {
   // Validate required environment variables
   const errors: string[] = [];
 
-  if (!resendApiKey) {
-    errors.push('RESEND_API_KEY is required');
-  } else if (resendApiKey === 'your_resend_api_key_here') {
-    errors.push('RESEND_API_KEY is using placeholder value - please set a real API key');
+  if (!smtpHost) {
+    errors.push('SMTP_HOST is required for contact email (set in server / Netlify / Docker env)');
+  } else if (smtpHost === 'smtp.example.com') {
+    errors.push('SMTP_HOST is using placeholder value — configure your real SMTP host');
   }
 
   if (!googleMapsApiKey) {
@@ -42,8 +42,8 @@ function validateEnv(): EnvConfig {
 
   // If in production, require real API keys
   if (nodeEnv === 'production') {
-    if (resendApiKey?.startsWith('re_') && resendApiKey.length < 20) {
-      errors.push('RESEND_API_KEY appears to be using a placeholder or test key in production');
+    if (!process.env.SMTP_USER) {
+      errors.push('SMTP_USER should be set in production for contact email');
     }
     if (googleMapsApiKey?.startsWith('YOUR_')) {
       errors.push('GOOGLE_MAPS_API_KEY is using placeholder value in production');
@@ -62,7 +62,7 @@ function validateEnv(): EnvConfig {
   }
 
   return {
-    resendApiKey: resendApiKey || '',
+    smtpHost: smtpHost || '',
     googleMapsApiKey: googleMapsApiKey || '',
     port: parseInt(port || '3001', 10),
     nodeEnv,

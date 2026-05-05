@@ -2,9 +2,24 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import type { IncomingMessage, ServerResponse } from 'http';
+import { createRequire } from 'module';
 import { config as loadDotenv } from 'dotenv';
-import { Resend } from 'resend';
 loadDotenv();
+
+const require = createRequire(import.meta.url);
+const { sendHtmlMail, getMailFrom } = require('./lib/contactMail.cjs') as {
+  sendHtmlMail: (opts: {
+    from: string;
+    to: string | string[];
+    subject: string;
+    html: string;
+  }) => Promise<{ error: Error | null }>;
+  getMailFrom: () => string;
+};
+const { extractAssistantReply, parseDeepSeekHttpError } = require('./lib/deepseekChatResponse.cjs') as {
+  extractAssistantReply: (data: unknown) => { ok: true; reply: string } | { ok: false; message: string };
+  parseDeepSeekHttpError: (body: string) => string;
+};
 
 const MCKEYWA_SYSTEM_PROMPT = `You are a helpful virtual assistant for Mckeywa Projects (Pty) Ltd, a premier 100% Black-owned civil construction company based in South Africa. Your role is to assist visitors with any questions about the company, its services, projects, credentials, and contact information.
 
@@ -152,10 +167,11 @@ function apiPlugin() {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const safeEmail = email && emailRegex.test(email) ? email : null;
 
-            const resend = new Resend(process.env.RESEND_API_KEY);
-            const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-            const companyInbox = process.env.CONTACT_TO_EMAIL || 'zeusofzar@gmail.com';
-            const companyRecipients = Array.from(new Set([companyInbox, 'info@mckeywa.co.za']));
+            const from = getMailFrom();
+            const companyInbox = process.env.CONTACT_TO_EMAIL || 'info@mckeywa.co.za';
+            const companyRecipients = Array.from(
+              new Set(companyInbox.split(',').map((s: string) => s.trim()).filter(Boolean)),
+            );
 
             const fields: Record<string, string> = {
               'Name': name,
@@ -169,29 +185,35 @@ function apiPlugin() {
               'Message': message,
             };
 
-            // Notify company
-            const { error } = await resend.emails.send({
-              from,
-              to: companyRecipients,
-              subject: 'Client Enquiry Received',
-              html: internalInquiryEmail(fields),
-            });
+            let sendResult: { error: Error | null };
+            try {
+              sendResult = await sendHtmlMail({
+                from,
+                to: companyRecipients,
+                subject: 'Client Enquiry Received',
+                html: internalInquiryEmail(fields),
+              });
+            } catch (smtpConfigErr) {
+              console.error('SMTP configuration error:', smtpConfigErr);
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: 'Email is not configured on the server.' }));
+              return;
+            }
 
-            if (error) {
-              console.error('Resend error:', error);
+            if (sendResult.error) {
+              console.error('SMTP send error:', sendResult.error);
               res.writeHead(500, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify({ success: false, message: 'Failed to send email. Please try again.' }));
               return;
             }
 
-            // Send confirmation to visitor (best-effort, don't fail if skipped)
             if (safeEmail) {
-              await resend.emails.send({
+              sendHtmlMail({
                 from,
-                to: [safeEmail],
+                to: safeEmail,
                 subject: 'We received your enquiry — Mckeywa Projects',
                 html: confirmationEmail(name, projectType),
-              }).catch((err: any) => console.warn('Confirmation email skipped:', err));
+              }).catch((err: unknown) => console.warn('Confirmation email skipped:', err));
             }
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -236,12 +258,38 @@ function apiPlugin() {
               }),
             });
 
-            const data = await response.json() as any;
-            const raw = data.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
-            const reply = raw.replace(/\*\*/g, '').replace(/\*/g, '').replace(/^#+\s/gm, '');
+            const bodyText = await response.text();
+            let data: unknown;
+            try {
+              data = JSON.parse(bodyText);
+            } catch {
+              if (!response.ok) {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, message: parseDeepSeekHttpError(bodyText) }));
+                return;
+              }
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: 'Invalid JSON from assistant service.' }));
+              return;
+            }
+
+            if (!response.ok) {
+              console.error('DeepSeek HTTP', response.status, bodyText.slice(0, 500));
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: parseDeepSeekHttpError(bodyText) }));
+              return;
+            }
+
+            const extracted = extractAssistantReply(data);
+            if (!extracted.ok) {
+              console.error('DeepSeek completion:', extracted.message, bodyText.slice(0, 400));
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: extracted.message }));
+              return;
+            }
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: true, reply }));
+            res.end(JSON.stringify({ success: true, reply: extracted.reply }));
           } catch (err) {
             console.error('Chat API error:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });

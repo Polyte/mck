@@ -65,18 +65,31 @@ const ChatBot = memo(() => {
     setInput('');
     setIsLoading(true);
     try {
+      const forApi =
+        updated[0]?.role === 'assistant' ? updated.slice(1) : updated;
       const data = await postToApi<{ success: boolean; reply?: string; message?: string }>('chat', {
-        messages: updated.map(({ role, content: c }) => ({ role, content: c })),
+        messages: forApi.map(({ role, content: c }) => ({ role, content: c })),
       });
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: data.success ? (data.reply || 'Sorry, something went wrong.') : (data.message || 'Sorry, something went wrong.'), time: getTime() },
       ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: 'I am having trouble connecting. Please contact us at (012) 322 6786 or via WhatsApp.', time: getTime() },
-      ]);
+    } catch (err) {
+      const phone = '(012) 322 6786';
+      let detail =
+        'I am having trouble connecting. Please contact us at ' + phone + ' or via WhatsApp.';
+      if (err instanceof Error && err.message) {
+        const m = err.message.trim();
+        if (m.includes('Failed to fetch') || m.includes('NetworkError')) {
+          detail =
+            'We could not reach the chat service (network or blocked request). Please try again, or call ' +
+            phone +
+            ' / WhatsApp.';
+        } else if (m.length > 0 && m.length < 500) {
+          detail = m + ' If this continues, call ' + phone + ' or WhatsApp us.';
+        }
+      }
+      setMessages((prev) => [...prev, { role: 'assistant', content: detail, time: getTime() }]);
     } finally {
       setIsLoading(false);
     }
@@ -932,15 +945,6 @@ const ChatBot = memo(() => {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* Online dot */}
-          {!isOpen && (
-            <span style={{
-              position: 'absolute', top: '-2px', right: '-2px',
-              width: '14px', height: '14px', borderRadius: '50%',
-              background: '#4ade80', border: '2.5px solid white',
-            }} />
-          )}
         </motion.button>
       </div>
     </div>
