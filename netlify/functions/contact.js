@@ -1,4 +1,4 @@
-const { Resend } = require('resend');
+const { sendHtmlMail, getMailFrom } = require('../../lib/contactMail.cjs');
 
 function brandedEmail({ preheader, bodyHtml }) {
   return `<!DOCTYPE html>
@@ -92,10 +92,11 @@ exports.handler = async (event) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const safeEmail = email && emailRegex.test(email) ? email : null;
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const companyInbox = process.env.CONTACT_TO_EMAIL || 'zeusofzar@gmail.com';
-    const companyRecipients = Array.from(new Set([companyInbox, 'info@mckeywa.co.za']));
+    const from = getMailFrom();
+    const companyInbox = process.env.CONTACT_TO_EMAIL || 'info@mckeywa.co.za';
+    const companyRecipients = Array.from(
+      new Set(companyInbox.split(',').map((s) => s.trim()).filter(Boolean)),
+    );
 
     const fields = {
       'Name': name,
@@ -109,15 +110,24 @@ exports.handler = async (event) => {
       'Message': message,
     };
 
-    const { error } = await resend.emails.send({
-      from,
-      to: companyRecipients,
-      subject: 'Client Enquiry Received',
-      html: internalInquiryEmail(fields),
-    });
+    let sendResult;
+    try {
+      sendResult = await sendHtmlMail({
+        from,
+        to: companyRecipients,
+        subject: 'Client Enquiry Received',
+        html: internalInquiryEmail(fields),
+      });
+    } catch (err) {
+      console.error('SMTP configuration error:', err);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ success: false, message: 'Email is not configured on the server.' }),
+      };
+    }
 
-    if (error) {
-      console.error('Resend error:', error);
+    if (sendResult.error) {
+      console.error('SMTP send error:', sendResult.error);
       return {
         statusCode: 500,
         body: JSON.stringify({ success: false, message: 'Failed to send email. Please try again.' }),
@@ -125,9 +135,9 @@ exports.handler = async (event) => {
     }
 
     if (safeEmail) {
-      await resend.emails.send({
+      sendHtmlMail({
         from,
-        to: [safeEmail],
+        to: safeEmail,
         subject: 'We received your enquiry — Mckeywa Projects',
         html: confirmationEmail(name, projectType),
       }).catch((err) => console.warn('Confirmation email skipped:', err));

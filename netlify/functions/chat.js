@@ -1,3 +1,5 @@
+const { extractAssistantReply, parseDeepSeekHttpError } = require('../../lib/deepseekChatResponse.cjs');
+
 const SYSTEM_PROMPT = `You are a helpful virtual assistant for Mckeywa Projects (Pty) Ltd, a premier 100% Black-owned civil construction company based in South Africa. Your role is to assist visitors with any questions about the company, its services, projects, credentials, and contact information.
 
 Company Overview:
@@ -72,23 +74,44 @@ exports.handler = async (event) => {
       }),
     });
 
-    if (!response.ok) {
-      const err = await response.text();
-      console.error('DeepSeek API error:', err);
+    const bodyText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(bodyText);
+    } catch {
+      if (!response.ok) {
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ success: false, message: parseDeepSeekHttpError(bodyText) }),
+        };
+      }
       return {
         statusCode: 500,
-        body: JSON.stringify({ success: false, message: 'Failed to get a response. Please try again.' }),
+        body: JSON.stringify({ success: false, message: 'Invalid JSON from assistant service.' }),
       };
     }
 
-    const data = await response.json();
-    const raw = data.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
-    const reply = raw.replace(/\*\*/g, '').replace(/\*/g, '').replace(/^#+\s/gm, '');
+    if (!response.ok) {
+      console.error('DeepSeek HTTP', response.status, bodyText.slice(0, 500));
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ success: false, message: parseDeepSeekHttpError(bodyText) }),
+      };
+    }
+
+    const extracted = extractAssistantReply(data);
+    if (!extracted.ok) {
+      console.error('DeepSeek completion:', extracted.message, bodyText.slice(0, 400));
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ success: false, message: extracted.message }),
+      };
+    }
 
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ success: true, reply }),
+      body: JSON.stringify({ success: true, reply: extracted.reply }),
     };
   } catch (err) {
     console.error('Chat function error:', err);
