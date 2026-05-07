@@ -453,7 +453,7 @@ const AppContent = memo(() => {
         {showScrollToTop && (
           <motion.button
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-[#d27015] to-[#b8621a] hover:from-[#b8621a] hover:to-[#a55618] text-white rounded-full shadow-lg flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#d27015] focus:ring-offset-2 group"
+            className="fixed bottom-6 left-6 z-50 w-14 h-14 bg-gradient-to-r from-[#d27015] to-[#b8621a] hover:from-[#b8621a] hover:to-[#a55618] text-white rounded-full shadow-lg flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#d27015] focus:ring-offset-2 group"
             title="Scroll to top"
             aria-label="Scroll to top"
             initial={{ opacity: 0, scale: 0, y: 100 }}
