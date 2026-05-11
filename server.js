@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 const { sendHtmlMail, getMailFrom } = require('./lib/contactMail.cjs');
+const { loadJsonState, saveJsonState } = require('./lib/sqliteState.cjs');
 
 const { extractAssistantReply, parseDeepSeekHttpError } = require('./lib/deepseekChatResponse.cjs');
 
@@ -9,9 +11,245 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 /** Bind API only on loopback when paired with nginx in Docker (see docker-entrypoint.sh). */
 const BIND_HOST = process.env.BIND_HOST || '0.0.0.0';
+const DASHBOARD_DB_PATH = path.join(__dirname, 'data', 'dashboard.sqlite');
+const DASHBOARD_STATE_KEY = 'dashboard_store';
+const DASHBOARD_ADMIN_TOKEN = process.env.DASHBOARD_ADMIN_TOKEN || '';
+const TAKEOVER_TIMEOUT_MINUTES = Number(process.env.TAKEOVER_TIMEOUT_MINUTES || 15);
+const CHAT_RETENTION_DAYS = Number(process.env.CHAT_RETENTION_DAYS || 30);
 
 app.use(cors());
 app.use(express.json());
+
+function defaultDashboardStore() {
+  return {
+    totals: {
+      enquiries: 0,
+      chatbotLeads: 0,
+      websiteLeads: 0,
+      chatSessions: 0,
+      chatMessages: 0,
+      chatbotContactCaptures: 0,
+    },
+    enquiries: [],
+    chatbotContacts: [],
+    chatActivity: [],
+    conversations: [],
+    liveSessions: {},
+    meta: {
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  };
+}
+
+function readDashboardStore() {
+  const parsed = loadJsonState(DASHBOARD_DB_PATH, DASHBOARD_STATE_KEY, defaultDashboardStore);
+  return {
+    ...defaultDashboardStore(),
+    ...parsed,
+    totals: { ...defaultDashboardStore().totals, ...(parsed.totals || {}) },
+    enquiries: Array.isArray(parsed.enquiries) ? parsed.enquiries : [],
+    chatbotContacts: Array.isArray(parsed.chatbotContacts) ? parsed.chatbotContacts : [],
+    chatActivity: Array.isArray(parsed.chatActivity) ? parsed.chatActivity : [],
+    conversations: Array.isArray(parsed.conversations) ? parsed.conversations : [],
+    liveSessions: parsed.liveSessions && typeof parsed.liveSessions === 'object' ? parsed.liveSessions : {},
+  };
+}
+
+function writeDashboardStore(store) {
+  const retentionCutoff = Date.now() - CHAT_RETENTION_DAYS * 24 * 60 * 60 * 1000;
+  const withRetention = {
+    ...store,
+    conversations: (Array.isArray(store.conversations) ? store.conversations : []).filter((entry) => {
+      const ts = new Date(entry.createdAt || 0).getTime();
+      return Number.isFinite(ts) && ts >= retentionCutoff;
+    }),
+    liveSessions: Object.fromEntries(
+      Object.entries(store.liveSessions || {}).map(([sessionId, session]) => {
+        const adminMessages = (Array.isArray(session.adminMessages) ? session.adminMessages : []).filter((msg) => {
+          const ts = new Date(msg.createdAt || 0).getTime();
+          return Number.isFinite(ts) && ts >= retentionCutoff;
+        });
+        return [sessionId, { ...session, adminMessages }];
+      }),
+    ),
+  };
+
+  const updated = {
+    ...withRetention,
+    meta: {
+      ...(withRetention.meta || {}),
+      updatedAt: new Date().toISOString(),
+    },
+  };
+  saveJsonState(DASHBOARD_DB_PATH, DASHBOARD_STATE_KEY, updated);
+}
+
+function recordEnquiry({
+  source,
+  name,
+  email,
+  phone,
+  company,
+  projectType,
+  budget,
+  location,
+  timeline,
+  message,
+}) {
+  const safeSource = source === 'chatbot' ? 'chatbot' : 'website-form';
+  const store = readDashboardStore();
+  const enquiry = {
+    id: `enq_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    source: safeSource,
+    name: name || '',
+    email: email || '',
+    phone: phone || '',
+    company: company || '',
+    projectType: projectType || '',
+    budget: budget || '',
+    location: location || '',
+    timeline: timeline || '',
+    message: message || '',
+    createdAt: new Date().toISOString(),
+  };
+
+  store.enquiries.unshift(enquiry);
+  store.enquiries = store.enquiries.slice(0, 500);
+  store.totals.enquiries += 1;
+  if (safeSource === 'chatbot') store.totals.chatbotLeads += 1;
+  if (safeSource === 'website-form') store.totals.websiteLeads += 1;
+
+  writeDashboardStore(store);
+}
+
+function extractContactFromText(text) {
+  if (!text || typeof text !== 'string') return null;
+  const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi);
+  const phoneMatch = text.match(/(?:\+?\d[\d\s()-]{7,}\d)/g);
+  const emails = (emailMatch || []).map((entry) => entry.trim());
+  const phones = (phoneMatch || [])
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.replace(/[^\d]/g, '').length >= 9);
+
+  if (emails.length === 0 && phones.length === 0) return null;
+  return { emails, phones };
+}
+
+function recordChatActivity(messages, replyOk, options = {}) {
+  const store = readDashboardStore();
+  const userMessages = messages.filter((m) => m && m.role === 'user' && typeof m.content === 'string');
+  const latestUserMessage = userMessages[userMessages.length - 1] || null;
+  const sessionId = typeof options.sessionId === 'string' && options.sessionId.trim()
+    ? options.sessionId.trim()
+    : 'anonymous';
+  const assistantReply = typeof options.assistantReply === 'string' ? options.assistantReply : '';
+
+  store.totals.chatSessions += 1;
+  store.totals.chatMessages += latestUserMessage ? 1 : 0;
+  store.chatActivity.unshift({
+    id: `chat_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    sessionId,
+    userMessageCount: latestUserMessage ? 1 : 0,
+    success: Boolean(replyOk),
+    createdAt: new Date().toISOString(),
+  });
+  store.chatActivity = store.chatActivity.slice(0, 1000);
+
+  if (latestUserMessage) {
+    store.conversations.unshift({
+      id: `conv_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      sessionId,
+      userMessage: latestUserMessage.content,
+      assistantReply,
+      success: Boolean(replyOk),
+      createdAt: new Date().toISOString(),
+    });
+  }
+  store.conversations = store.conversations.slice(0, 2000);
+
+  userMessages.forEach((msg) => {
+    const extracted = extractContactFromText(msg.content);
+    if (!extracted) return;
+    store.totals.chatbotContactCaptures += 1;
+    store.chatbotContacts.unshift({
+      id: `cbc_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      message: msg.content.slice(0, 240),
+      emails: extracted.emails,
+      phones: extracted.phones,
+      createdAt: new Date().toISOString(),
+    });
+  });
+  store.chatbotContacts = store.chatbotContacts.slice(0, 500);
+
+  writeDashboardStore(store);
+}
+
+function buildDashboardPayload() {
+  const store = readDashboardStore();
+  const recentEnquiries = store.enquiries.slice(0, 100);
+  const recentChatbotContacts = store.chatbotContacts.slice(0, 100);
+  const recentChatActivity = store.chatActivity.slice(0, 200);
+  const recentConversations = store.conversations.slice(0, 500);
+  const successfulSessions = recentChatActivity.filter((entry) => entry.success).length;
+  const failedSessions = recentChatActivity.length - successfulSessions;
+  const averageUserMessagesPerSession = recentChatActivity.length
+    ? Number(
+      (recentChatActivity.reduce((sum, entry) => sum + Number(entry.userMessageCount || 0), 0) / recentChatActivity.length).toFixed(2),
+    )
+    : 0;
+
+  return {
+    success: true,
+    stats: {
+      ...store.totals,
+      successfulSessions,
+      failedSessions,
+      averageUserMessagesPerSession,
+      lastUpdatedAt: store.meta.updatedAt,
+    },
+    leads: {
+      total: store.totals.enquiries,
+      chatbot: store.totals.chatbotLeads,
+      websiteForm: store.totals.websiteLeads,
+    },
+    formEnquiries: recentEnquiries,
+    chatbotContacts: recentChatbotContacts,
+    chatActivity: recentChatActivity,
+    conversations: recentConversations,
+    liveSessions: store.liveSessions || {},
+  };
+}
+
+function isAuthorizedDashboardRequest(req) {
+  if (!DASHBOARD_ADMIN_TOKEN) return true;
+  const token = req.headers['x-dashboard-token'];
+  return typeof token === 'string' && token === DASHBOARD_ADMIN_TOKEN;
+}
+
+function ensureLiveSession(store, sessionId) {
+  const safeId = sessionId && typeof sessionId === 'string' ? sessionId : 'anonymous';
+  if (!store.liveSessions[safeId]) {
+    store.liveSessions[safeId] = {
+      takeoverActive: false,
+      adminName: '',
+      adminMessages: [],
+      lastAdminActivityAt: '',
+      updatedAt: new Date().toISOString(),
+    };
+  }
+  const timeoutMs = TAKEOVER_TIMEOUT_MINUTES * 60 * 1000;
+  const activityTs = new Date(store.liveSessions[safeId].lastAdminActivityAt || 0).getTime();
+  if (
+    store.liveSessions[safeId].takeoverActive &&
+    Number.isFinite(activityTs) &&
+    activityTs > 0 &&
+    Date.now() - activityTs > timeoutMs
+  ) {
+    store.liveSessions[safeId].takeoverActive = false;
+  }
+  return { safeId, session: store.liveSessions[safeId] };
+}
 
 // ── Email template helpers ──────────────────────────────────────────────────
 
@@ -93,7 +331,7 @@ function confirmationEmail(name, projectType) {
 
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, email, phone, company, projectType, budget, location, timeline, message } = req.body;
+    const { name, email, phone, company, projectType, budget, location, timeline, message, source } = req.body;
 
     if (!name || !phone || !projectType || !message) {
       return res.status(400).json({ success: false, message: 'Please fill in all required fields.' });
@@ -149,6 +387,19 @@ app.post('/api/contact', async (req, res) => {
       }).catch((err) => console.warn('Confirmation email skipped:', err));
     }
 
+    recordEnquiry({
+      source,
+      name,
+      email: safeEmail || '',
+      phone,
+      company,
+      projectType,
+      budget,
+      location,
+      timeline,
+      message,
+    });
+
     res.status(200).json({ success: true, message: 'Your enquiry has been submitted. We will contact you within 2 hours.' });
 
   } catch (error) {
@@ -161,9 +412,34 @@ app.post('/api/contact', async (req, res) => {
 
 app.post('/api/chat', async (req, res) => {
   try {
-    const { messages } = req.body;
+    const { messages, sessionId } = req.body;
     if (!messages || !Array.isArray(messages)) {
       return res.status(400).json({ success: false, message: 'Invalid messages format' });
+    }
+
+    const storeForSession = readDashboardStore();
+    const { safeId, session } = ensureLiveSession(storeForSession, sessionId);
+    const latestUserMessage = messages.filter((m) => m?.role === 'user').slice(-1)[0];
+    if (latestUserMessage && typeof latestUserMessage.content === 'string') {
+      storeForSession.conversations.unshift({
+        id: `conv_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        sessionId: safeId,
+        userMessage: latestUserMessage.content,
+        assistantReply: '',
+        success: true,
+        createdAt: new Date().toISOString(),
+      });
+      storeForSession.conversations = storeForSession.conversations.slice(0, 2000);
+      session.updatedAt = new Date().toISOString();
+      writeDashboardStore(storeForSession);
+    }
+
+    if (session.takeoverActive) {
+      return res.json({
+        success: true,
+        handover: true,
+        reply: `You are now connected to a human agent${session.adminName ? ` (${session.adminName})` : ''}. Please wait for their response.`,
+      });
     }
 
     const apiKey = process.env.AI_CHAT_API_KEY;
@@ -210,6 +486,7 @@ Guidelines: Be friendly and professional. No markdown or asterisks. Plain prose 
 
     if (!response.ok) {
       console.error('DeepSeek HTTP', response.status, bodyText.slice(0, 500));
+      recordChatActivity(messages, false, { sessionId: safeId });
       return res.status(500).json({
         success: false,
         message: parseDeepSeekHttpError(bodyText),
@@ -219,14 +496,109 @@ Guidelines: Be friendly and professional. No markdown or asterisks. Plain prose 
     const extracted = extractAssistantReply(data);
     if (!extracted.ok) {
       console.error('DeepSeek completion:', extracted.message, bodyText.slice(0, 400));
+      recordChatActivity(messages, false, { sessionId: safeId });
       return res.status(500).json({ success: false, message: extracted.message });
     }
 
+    const storeWithReply = readDashboardStore();
+    const { session: replySession } = ensureLiveSession(storeWithReply, safeId);
+    const latestConversation = storeWithReply.conversations.find((entry) => entry.sessionId === safeId && !entry.assistantReply);
+    if (latestConversation) latestConversation.assistantReply = extracted.reply;
+    replySession.updatedAt = new Date().toISOString();
+    writeDashboardStore(storeWithReply);
+
+    recordChatActivity(messages, true, { sessionId: safeId, assistantReply: extracted.reply });
     res.json({ success: true, reply: extracted.reply });
   } catch (error) {
     console.error('Chat endpoint error:', error);
+    if (req.body && Array.isArray(req.body.messages)) {
+      recordChatActivity(req.body.messages, false, { sessionId: req.body.sessionId });
+    }
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
+});
+
+app.get('/api/chat/session/:sessionId', (req, res) => {
+  const store = readDashboardStore();
+  const { safeId, session } = ensureLiveSession(store, req.params.sessionId);
+  const conversations = store.conversations
+    .filter((entry) => entry.sessionId === safeId)
+    .slice(0, 30);
+  res.json({
+    success: true,
+    sessionId: safeId,
+    takeoverActive: Boolean(session.takeoverActive),
+    adminName: session.adminName || '',
+    adminMessages: Array.isArray(session.adminMessages) ? session.adminMessages : [],
+    conversations,
+  });
+});
+
+app.post('/api/dashboard/takeover', (req, res) => {
+  if (!isAuthorizedDashboardRequest(req)) {
+    return res.status(401).json({ success: false, message: 'Unauthorized dashboard action' });
+  }
+  const { sessionId, active, adminName } = req.body || {};
+  if (!sessionId || typeof sessionId !== 'string') {
+    return res.status(400).json({ success: false, message: 'sessionId is required' });
+  }
+  const store = readDashboardStore();
+  const { session } = ensureLiveSession(store, sessionId);
+  session.takeoverActive = Boolean(active);
+  session.adminName = adminName || session.adminName || 'Agent';
+  session.lastAdminActivityAt = new Date().toISOString();
+  session.updatedAt = new Date().toISOString();
+  writeDashboardStore(store);
+  return res.json({ success: true, sessionId, takeoverActive: session.takeoverActive });
+});
+
+app.post('/api/dashboard/reply', (req, res) => {
+  if (!isAuthorizedDashboardRequest(req)) {
+    return res.status(401).json({ success: false, message: 'Unauthorized dashboard action' });
+  }
+  const { sessionId, message, adminName } = req.body || {};
+  if (!sessionId || typeof sessionId !== 'string' || !message || typeof message !== 'string') {
+    return res.status(400).json({ success: false, message: 'sessionId and message are required' });
+  }
+  const store = readDashboardStore();
+  const { session } = ensureLiveSession(store, sessionId);
+  session.takeoverActive = true;
+  session.adminName = adminName || session.adminName || 'Agent';
+  session.lastAdminActivityAt = new Date().toISOString();
+  session.adminMessages = Array.isArray(session.adminMessages) ? session.adminMessages : [];
+  session.adminMessages.unshift({
+    id: `adm_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    message: message.trim(),
+    adminName: session.adminName,
+    createdAt: new Date().toISOString(),
+  });
+  session.adminMessages = session.adminMessages.slice(0, 100);
+  session.updatedAt = new Date().toISOString();
+
+  store.conversations.unshift({
+    id: `conv_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    sessionId,
+    userMessage: '',
+    assistantReply: message.trim(),
+    success: true,
+    byAdmin: true,
+    adminName: session.adminName,
+    createdAt: new Date().toISOString(),
+  });
+  store.conversations = store.conversations.slice(0, 2000);
+  writeDashboardStore(store);
+  return res.json({ success: true });
+});
+
+app.get('/api/dashboard', (req, res) => {
+  res.json(buildDashboardPayload());
+});
+
+app.get('/api/dashboard/auth', (req, res) => {
+  if (!isAuthorizedDashboardRequest(req)) {
+    return res.status(401).json({ success: false, message: 'Unauthorized dashboard action' });
+  }
+  return res.json({ success: true });
 });
 
 // ── Health check ─────────────────────────────────────────────────────────────

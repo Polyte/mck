@@ -1,4 +1,4 @@
-type EndpointKey = "contact" | "chat";
+type EndpointKey = "contact" | "chat" | "dashboard";
 class NonRetriableApiError extends Error {}
 
 function apiBase(): string {
@@ -15,6 +15,7 @@ function prefixPath(path: string): string {
 const ENDPOINTS: Record<EndpointKey, string[]> = {
   contact: [prefixPath("/api/contact"), prefixPath("/.netlify/functions/contact")],
   chat: [prefixPath("/api/chat"), prefixPath("/.netlify/functions/chat")],
+  dashboard: [prefixPath("/api/dashboard")],
 };
 
 async function safeJsonParse(response: Response) {
@@ -62,6 +63,55 @@ export async function postToApi<TResponse = unknown>(
         }
         if (parsed === null) {
           lastError = new Error("The server returned an empty JSON body.");
+          continue;
+        }
+        return parsed as TResponse;
+      }
+
+      const message =
+        (parsed && typeof parsed === "object" && "message" in parsed && typeof parsed.message === "string"
+          ? parsed.message
+          : null) ?? `Request failed with status ${response.status}`;
+
+      if (shouldTryAlternateUrl(response.status)) {
+        lastError = new Error(message);
+        continue;
+      }
+
+      throw new NonRetriableApiError(message);
+    } catch (error) {
+      if (error instanceof NonRetriableApiError) {
+        throw error;
+      }
+      lastError = error instanceof Error ? error : new Error("Request failed");
+    }
+  }
+
+  throw lastError ?? new Error("Request failed");
+}
+
+export async function getFromApi<TResponse = unknown>(
+  endpoint: EndpointKey,
+): Promise<TResponse> {
+  let lastError: Error | null = null;
+
+  for (const url of ENDPOINTS[endpoint]) {
+    try {
+      const response = await fetch(url, { method: "GET" });
+      const parsed = await safeJsonParse(response);
+
+      if (response.ok) {
+        const ct = (response.headers.get("content-type") ?? "").toLowerCase();
+        if (!ct.includes("application/json")) {
+          lastError = new Error(
+            ct.includes("text/html")
+              ? "The server returned a web page instead of JSON. Ensure the backend server is running and /api/dashboard is reachable."
+              : "The server returned an unexpected content type (expected JSON).",
+          );
+          continue;
+        }
+        if (parsed === null) {
+          lastError = new Error("The server returned an empty JSON payload.");
           continue;
         }
         return parsed as TResponse;

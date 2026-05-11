@@ -1,0 +1,23 @@
+{
+  "totals": {
+    "enquiries": 0,
+    "chatbotLeads": 0,
+    "websiteLeads": 0,
+    "chatSessions": 1,
+    "chatMessages": 1,
+    "chatbotContactCaptures": 0
+  },
+  "enquiries": [],
+  "chatbotContacts": [],
+  "chatActivity": [
+    {
+      "id": "chat_1778174933781_9ujg2l",
+      "userMessageCount": 1,
+      "success": true,
+      "createdAt": "2026-05-07T17:28:53.781Z"
+    }
+  ],
+  "meta": {
+    "updatedAt": "2026-05-07T17:28:53.782Z"
+  }
+}

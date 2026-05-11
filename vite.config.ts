@@ -20,6 +20,10 @@ const { extractAssistantReply, parseDeepSeekHttpError } = require('./lib/deepsee
   extractAssistantReply: (data: unknown) => { ok: true; reply: string } | { ok: false; message: string };
   parseDeepSeekHttpError: (body: string) => string;
 };
+const { loadJsonState, saveJsonState } = require('./lib/sqliteState.cjs') as {
+  loadJsonState: (dbPath: string, stateKey: string, defaultFactory: () => any) => any;
+  saveJsonState: (dbPath: string, stateKey: string, state: any) => void;
+};
 
 const MCKEYWA_SYSTEM_PROMPT = `You are a helpful virtual assistant for Mckeywa Projects (Pty) Ltd, a premier 100% Black-owned civil construction company based in South Africa. Your role is to assist visitors with any questions about the company, its services, projects, credentials, and contact information.
 
@@ -146,6 +150,185 @@ function confirmationEmail(name: string, projectType: string) {
 
 /* ── Vite dev-server plugin ── */
 function apiPlugin() {
+  const dashboardAdminToken = process.env.DASHBOARD_ADMIN_TOKEN || '';
+  const takeoverTimeoutMinutes = Number(process.env.TAKEOVER_TIMEOUT_MINUTES || 15);
+  const chatRetentionDays = Number(process.env.CHAT_RETENTION_DAYS || 30);
+  const dashboardDbPath = path.join(__dirname, 'data', 'dashboard.sqlite');
+  const dashboardStateKey = 'dashboard_store';
+  const defaultStore = () => ({
+    totals: {
+      enquiries: 0,
+      chatbotLeads: 0,
+      websiteLeads: 0,
+      chatSessions: 0,
+      chatMessages: 0,
+      chatbotContactCaptures: 0,
+    },
+    enquiries: [],
+    chatbotContacts: [],
+    chatActivity: [],
+    conversations: [],
+    liveSessions: {},
+    meta: { updatedAt: new Date().toISOString() },
+  });
+  const readStore = () => {
+    const parsed = loadJsonState(dashboardDbPath, dashboardStateKey, defaultStore);
+    return {
+      ...defaultStore(),
+      ...parsed,
+      totals: { ...defaultStore().totals, ...(parsed?.totals || {}) },
+      enquiries: Array.isArray(parsed?.enquiries) ? parsed.enquiries : [],
+      chatbotContacts: Array.isArray(parsed?.chatbotContacts) ? parsed.chatbotContacts : [],
+      chatActivity: Array.isArray(parsed?.chatActivity) ? parsed.chatActivity : [],
+      conversations: Array.isArray(parsed?.conversations) ? parsed.conversations : [],
+      liveSessions: parsed?.liveSessions && typeof parsed.liveSessions === 'object' ? parsed.liveSessions : {},
+      meta: { ...defaultStore().meta, ...(parsed?.meta || {}) },
+    };
+  };
+  const writeStore = (store: any) => {
+    const retentionCutoff = Date.now() - chatRetentionDays * 24 * 60 * 60 * 1000;
+    const withRetention = {
+      ...store,
+      conversations: (Array.isArray(store.conversations) ? store.conversations : []).filter((entry: any) => {
+        const ts = new Date(entry.createdAt || 0).getTime();
+        return Number.isFinite(ts) && ts >= retentionCutoff;
+      }),
+      liveSessions: Object.fromEntries(
+        Object.entries(store.liveSessions || {}).map(([sessionId, session]: any) => {
+          const adminMessages = (Array.isArray(session.adminMessages) ? session.adminMessages : []).filter((msg: any) => {
+            const ts = new Date(msg.createdAt || 0).getTime();
+            return Number.isFinite(ts) && ts >= retentionCutoff;
+          });
+          return [sessionId, { ...session, adminMessages }];
+        }),
+      ),
+    };
+    saveJsonState(dashboardDbPath, dashboardStateKey, {
+      ...withRetention,
+      meta: {
+        ...(withRetention.meta || {}),
+        updatedAt: new Date().toISOString(),
+      },
+    });
+  };
+
+  const extractContactFromText = (text: string) => {
+    if (!text || typeof text !== 'string') return null;
+    const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi);
+    const phoneMatch = text.match(/(?:\+?\d[\d\s()-]{7,}\d)/g);
+    const emails = (emailMatch || []).map((entry: string) => entry.trim());
+    const phones = (phoneMatch || [])
+      .map((entry: string) => entry.trim())
+      .filter((entry: string) => entry.replace(/[^\d]/g, '').length >= 9);
+    if (emails.length === 0 && phones.length === 0) return null;
+    return { emails, phones };
+  };
+
+  const recordEnquiry = (payload: any) => {
+    const store = readStore();
+    const source = payload?.source === 'chatbot' ? 'chatbot' : 'website-form';
+    store.enquiries.unshift({
+      id: `enq_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      source,
+      name: payload?.name || '',
+      email: payload?.email || '',
+      phone: payload?.phone || '',
+      company: payload?.company || '',
+      projectType: payload?.projectType || '',
+      budget: payload?.budget || '',
+      location: payload?.location || '',
+      timeline: payload?.timeline || '',
+      message: payload?.message || '',
+      createdAt: new Date().toISOString(),
+    });
+    store.enquiries = store.enquiries.slice(0, 500);
+    store.totals.enquiries += 1;
+    if (source === 'chatbot') store.totals.chatbotLeads += 1;
+    if (source === 'website-form') store.totals.websiteLeads += 1;
+    writeStore(store);
+  };
+
+  const recordChatActivity = (messages: any[], success: boolean, sessionId = 'anonymous') => {
+    const store = readStore();
+    const userMessages = (messages || []).filter(
+      (m: any) => m && m.role === 'user' && typeof m.content === 'string',
+    );
+    const latestUserMessage = userMessages[userMessages.length - 1] || null;
+    store.totals.chatSessions += 1;
+    store.totals.chatMessages += latestUserMessage ? 1 : 0;
+    store.chatActivity.unshift({
+      id: `chat_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      sessionId: sessionId || 'anonymous',
+      userMessageCount: latestUserMessage ? 1 : 0,
+      success: Boolean(success),
+      createdAt: new Date().toISOString(),
+    });
+    store.chatActivity = store.chatActivity.slice(0, 1000);
+
+    userMessages.forEach((msg: any) => {
+      const extracted = extractContactFromText(msg.content);
+      if (!extracted) return;
+      store.totals.chatbotContactCaptures += 1;
+      store.chatbotContacts.unshift({
+        id: `cbc_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+        message: msg.content.slice(0, 240),
+        emails: extracted.emails,
+        phones: extracted.phones,
+        createdAt: new Date().toISOString(),
+      });
+    });
+    store.chatbotContacts = store.chatbotContacts.slice(0, 500);
+    writeStore(store);
+  };
+
+  const recordConversationEntry = (messages: any[], success: boolean, sessionId: string, assistantReply: string) => {
+    const store = readStore();
+    const userMessages = (messages || []).filter(
+      (m: any) => m && m.role === 'user' && typeof m.content === 'string',
+    );
+    const latestUserMessage = userMessages[userMessages.length - 1] || null;
+    if (!latestUserMessage) return;
+    store.conversations.unshift({
+      id: `conv_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      sessionId: sessionId || 'anonymous',
+      userMessage: latestUserMessage.content,
+      assistantReply: assistantReply || '',
+      success: Boolean(success),
+      createdAt: new Date().toISOString(),
+    });
+    store.conversations = store.conversations.slice(0, 2000);
+    writeStore(store);
+  };
+
+  const ensureLiveSession = (store: any, sessionId: string) => {
+    const safeId = sessionId && typeof sessionId === 'string' ? sessionId : 'anonymous';
+    if (!store.liveSessions[safeId]) {
+      store.liveSessions[safeId] = {
+        takeoverActive: false,
+        adminName: '',
+        adminMessages: [],
+        lastAdminActivityAt: '',
+        updatedAt: new Date().toISOString(),
+      };
+    }
+    const timeoutMs = takeoverTimeoutMinutes * 60 * 1000;
+    const activityTs = new Date(store.liveSessions[safeId].lastAdminActivityAt || 0).getTime();
+    if (
+      store.liveSessions[safeId].takeoverActive &&
+      Number.isFinite(activityTs) &&
+      activityTs > 0 &&
+      Date.now() - activityTs > timeoutMs
+    ) {
+      store.liveSessions[safeId].takeoverActive = false;
+    }
+    return { safeId, session: store.liveSessions[safeId] };
+  };
+  const isAuthorizedDashboardRequest = (req: IncomingMessage) => {
+    if (!dashboardAdminToken) return true;
+    const token = req.headers['x-dashboard-token'];
+    return typeof token === 'string' && token === dashboardAdminToken;
+  };
+
   return {
     name: 'api-plugin',
     configureServer(server: any) {
@@ -156,7 +339,7 @@ function apiPlugin() {
         req.on('data', (c: Buffer) => { body += c.toString(); });
         req.on('end', async () => {
           try {
-            const { name, email, phone, company, projectType, budget, location, timeline, message } = JSON.parse(body);
+            const { name, email, phone, company, projectType, budget, location, timeline, message, source } = JSON.parse(body);
 
             if (!name || !phone || !projectType || !message) {
               res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -216,6 +399,19 @@ function apiPlugin() {
               }).catch((err: unknown) => console.warn('Confirmation email skipped:', err));
             }
 
+            recordEnquiry({
+              source,
+              name,
+              email: safeEmail || '',
+              phone,
+              company,
+              projectType,
+              budget,
+              location,
+              timeline,
+              message,
+            });
+
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: true, message: 'Your enquiry has been submitted. We will contact you within 2 hours.' }));
           } catch (err) {
@@ -238,10 +434,29 @@ function apiPlugin() {
         req.on('data', (chunk: Buffer) => { body += chunk.toString(); });
         req.on('end', async () => {
           try {
-            const { messages } = JSON.parse(body);
+            const { messages, sessionId } = JSON.parse(body);
             const apiKey = process.env.AI_CHAT_API_KEY;
+            const sessionStore = readStore();
+            const { safeId, session } = ensureLiveSession(sessionStore, sessionId || 'anonymous');
+
+            if (session.takeoverActive) {
+              recordConversationEntry(messages, true, safeId, '');
+              session.updatedAt = new Date().toISOString();
+              writeStore(sessionStore);
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              res.end(
+                JSON.stringify({
+                  success: true,
+                  handover: true,
+                  reply: `You are now connected to a human agent${session.adminName ? ` (${session.adminName})` : ''}. Please wait for their response.`,
+                }),
+              );
+              return;
+            }
 
             if (!apiKey || apiKey === 'your_deepseek_api_key_here') {
+              recordChatActivity(messages, false, safeId);
+              recordConversationEntry(messages, false, safeId, '');
               res.writeHead(500, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify({ success: false, message: 'Chat service is not configured.' }));
               return;
@@ -264,10 +479,14 @@ function apiPlugin() {
               data = JSON.parse(bodyText);
             } catch {
               if (!response.ok) {
+                recordChatActivity(messages, false, sessionId || 'anonymous');
+                recordConversationEntry(messages, false, safeId, '');
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: false, message: parseDeepSeekHttpError(bodyText) }));
                 return;
               }
+              recordChatActivity(messages, false, safeId);
+              recordConversationEntry(messages, false, safeId, '');
               res.writeHead(500, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify({ success: false, message: 'Invalid JSON from assistant service.' }));
               return;
@@ -275,6 +494,8 @@ function apiPlugin() {
 
             if (!response.ok) {
               console.error('DeepSeek HTTP', response.status, bodyText.slice(0, 500));
+              recordChatActivity(messages, false, safeId);
+              recordConversationEntry(messages, false, safeId, '');
               res.writeHead(500, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify({ success: false, message: parseDeepSeekHttpError(bodyText) }));
               return;
@@ -283,17 +504,204 @@ function apiPlugin() {
             const extracted = extractAssistantReply(data);
             if (!extracted.ok) {
               console.error('DeepSeek completion:', extracted.message, bodyText.slice(0, 400));
+              recordChatActivity(messages, false, safeId);
+              recordConversationEntry(messages, false, safeId, '');
               res.writeHead(500, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify({ success: false, message: extracted.message }));
               return;
             }
 
+            recordChatActivity(messages, true, safeId);
+            recordConversationEntry(messages, true, safeId, extracted.reply);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: true, reply: extracted.reply }));
           } catch (err) {
             console.error('Chat API error:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: false, message: 'Internal server error' }));
+          }
+        });
+      });
+
+      /* ── /api/dashboard ── */
+      server.middlewares.use('/api/dashboard', (req: IncomingMessage, res: ServerResponse) => {
+        if (req.method !== 'GET') {
+          res.writeHead(405, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Method Not Allowed' }));
+          return;
+        }
+
+        try {
+          const store = readStore();
+          const recentChatActivity = store.chatActivity.slice(0, 200);
+          const successfulSessions = recentChatActivity.filter((entry: any) => entry.success).length;
+          const failedSessions = recentChatActivity.length - successfulSessions;
+          const averageUserMessagesPerSession = recentChatActivity.length
+            ? Number(
+              (
+                recentChatActivity.reduce((sum: number, entry: any) => sum + Number(entry.userMessageCount || 0), 0) /
+                recentChatActivity.length
+              ).toFixed(2),
+            )
+            : 0;
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(
+            JSON.stringify({
+              success: true,
+              stats: {
+                ...store.totals,
+                successfulSessions,
+                failedSessions,
+                averageUserMessagesPerSession,
+                lastUpdatedAt: store.meta?.updatedAt || new Date().toISOString(),
+              },
+              leads: {
+                total: store.totals.enquiries,
+                chatbot: store.totals.chatbotLeads,
+                websiteForm: store.totals.websiteLeads,
+              },
+              formEnquiries: store.enquiries.slice(0, 100),
+              chatbotContacts: store.chatbotContacts.slice(0, 100),
+              chatActivity: recentChatActivity,
+              conversations: store.conversations.slice(0, 500),
+              liveSessions: store.liveSessions || {},
+            }),
+          );
+        } catch (error) {
+          console.error('/api/dashboard error:', error);
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Internal server error.' }));
+        }
+      });
+
+      server.middlewares.use('/api/dashboard/auth', (req: IncomingMessage, res: ServerResponse) => {
+        if (req.method !== 'GET') {
+          res.writeHead(405, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Method Not Allowed' }));
+          return;
+        }
+        if (!isAuthorizedDashboardRequest(req)) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Unauthorized dashboard action' }));
+          return;
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      });
+
+      server.middlewares.use('/api/chat/session/', (req: IncomingMessage, res: ServerResponse) => {
+        if (req.method !== 'GET') {
+          res.writeHead(405, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Method Not Allowed' }));
+          return;
+        }
+        const sessionId = decodeURIComponent((req.url || '/').replace(/^\//, '')) || 'anonymous';
+        const store = readStore();
+        const { safeId, session } = ensureLiveSession(store, sessionId);
+        const conversations = store.conversations.filter((entry: any) => entry.sessionId === safeId).slice(0, 30);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(
+          JSON.stringify({
+            success: true,
+            sessionId: safeId,
+            takeoverActive: Boolean(session.takeoverActive),
+            adminName: session.adminName || '',
+            adminMessages: Array.isArray(session.adminMessages) ? session.adminMessages : [],
+            conversations,
+          }),
+        );
+      });
+
+      server.middlewares.use('/api/dashboard/takeover', (req: IncomingMessage, res: ServerResponse) => {
+        if (req.method !== 'POST') {
+          res.writeHead(405, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Method Not Allowed' }));
+          return;
+        }
+        if (!isAuthorizedDashboardRequest(req)) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Unauthorized dashboard action' }));
+          return;
+        }
+        let body = '';
+        req.on('data', (chunk: Buffer) => { body += chunk.toString(); });
+        req.on('end', () => {
+          try {
+            const { sessionId, active, adminName } = JSON.parse(body || '{}');
+            if (!sessionId || typeof sessionId !== 'string') {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: 'sessionId is required' }));
+              return;
+            }
+            const store = readStore();
+            const { session } = ensureLiveSession(store, sessionId);
+            session.takeoverActive = Boolean(active);
+            session.adminName = adminName || session.adminName || 'Agent';
+            session.lastAdminActivityAt = new Date().toISOString();
+            session.updatedAt = new Date().toISOString();
+            writeStore(store);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true, sessionId, takeoverActive: session.takeoverActive }));
+          } catch (error) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Internal server error.' }));
+          }
+        });
+      });
+
+      server.middlewares.use('/api/dashboard/reply', (req: IncomingMessage, res: ServerResponse) => {
+        if (req.method !== 'POST') {
+          res.writeHead(405, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Method Not Allowed' }));
+          return;
+        }
+        if (!isAuthorizedDashboardRequest(req)) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, message: 'Unauthorized dashboard action' }));
+          return;
+        }
+        let body = '';
+        req.on('data', (chunk: Buffer) => { body += chunk.toString(); });
+        req.on('end', () => {
+          try {
+            const { sessionId, message, adminName } = JSON.parse(body || '{}');
+            if (!sessionId || typeof sessionId !== 'string' || !message || typeof message !== 'string') {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: 'sessionId and message are required' }));
+              return;
+            }
+            const store = readStore();
+            const { session } = ensureLiveSession(store, sessionId);
+            session.takeoverActive = true;
+            session.adminName = adminName || session.adminName || 'Agent';
+            session.lastAdminActivityAt = new Date().toISOString();
+            session.adminMessages = Array.isArray(session.adminMessages) ? session.adminMessages : [];
+            session.adminMessages.unshift({
+              id: `adm_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+              message: message.trim(),
+              adminName: session.adminName,
+              createdAt: new Date().toISOString(),
+            });
+            session.adminMessages = session.adminMessages.slice(0, 100);
+            session.updatedAt = new Date().toISOString();
+            store.conversations.unshift({
+              id: `conv_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+              sessionId,
+              userMessage: '',
+              assistantReply: message.trim(),
+              success: true,
+              byAdmin: true,
+              adminName: session.adminName,
+              createdAt: new Date().toISOString(),
+            });
+            store.conversations = store.conversations.slice(0, 2000);
+            writeStore(store);
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true }));
+          } catch (error) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, message: 'Internal server error.' }));
           }
         });
       });

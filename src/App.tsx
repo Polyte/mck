@@ -39,6 +39,9 @@ const ProjectsPage = lazy(() =>
 const ContactPage = lazy(() =>
   import("./components/pages/ContactPage").then((module) => ({ default: module.ContactPage })),
 );
+const DashboardPage = lazy(() =>
+  import("./components/pages/DashboardPage").then((module) => ({ default: module.DashboardPage })),
+);
 
 const AppContent = memo(() => {
   const { currentPage, setCurrentPage } = useRouter();
@@ -93,6 +96,8 @@ const AppContent = memo(() => {
         return <ServicesPage />;
       case "contact":
         return <ContactPage />;
+      case "dashboard":
+        return <DashboardPage />;
       default:
         return <HomePage />;
     }

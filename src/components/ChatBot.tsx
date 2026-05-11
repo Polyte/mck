@@ -18,8 +18,20 @@ interface LeadForm {
 }
 
 const WHATSAPP_NUMBER = '27823169297';
+const CHAT_SESSION_KEY = 'mck_chat_session_id';
 
 const getTime = () => new Date().toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' });
+const getOrCreateSessionId = () => {
+  try {
+    const existing = window.localStorage.getItem(CHAT_SESSION_KEY);
+    if (existing) return existing;
+    const created = `sess_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    window.localStorage.setItem(CHAT_SESSION_KEY, created);
+    return created;
+  } catch {
+    return `sess_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  }
+};
 
 const WhatsAppIcon = ({ size = 16 }: { size?: number }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
@@ -43,6 +55,8 @@ const ChatBot = memo(() => {
   const [leadStatus, setLeadStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const seenAdminIdsRef = useRef<Set<string>>(new Set());
+  const [handoverActive, setHandoverActive] = useState(false);
 
   useEffect(() => {
     if (isOpen && tab === 'chat') {
@@ -55,6 +69,40 @@ const ChatBot = memo(() => {
       setTimeout(() => inputRef.current?.focus(), 400);
     }
   }, [isOpen, tab]);
+
+  useEffect(() => {
+    const pollSession = async () => {
+      const sessionId = getOrCreateSessionId();
+      try {
+        const response = await fetch(`/api/chat/session/${encodeURIComponent(sessionId)}`);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (!data?.success) return;
+        setHandoverActive(Boolean(data.takeoverActive));
+        const adminMessages = Array.isArray(data.adminMessages) ? data.adminMessages : [];
+        const unseen = adminMessages
+          .slice()
+          .reverse()
+          .filter((entry: any) => entry?.id && !seenAdminIdsRef.current.has(entry.id));
+        if (unseen.length > 0) {
+          setMessages((prev) => [
+            ...prev,
+            ...unseen.map((entry: any) => ({
+              role: 'assistant' as const,
+              content: `${entry.adminName || 'Agent'}: ${entry.message}`,
+              time: getTime(),
+            })),
+          ]);
+          unseen.forEach((entry: any) => seenAdminIdsRef.current.add(entry.id));
+        }
+      } catch {
+        // Ignore polling errors to avoid disrupting chat UX
+      }
+    };
+    pollSession();
+    const timer = window.setInterval(pollSession, 3000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const sendMessage = async (text?: string) => {
     const content = (text ?? input).trim();
@@ -69,7 +117,9 @@ const ChatBot = memo(() => {
         updated[0]?.role === 'assistant' ? updated.slice(1) : updated;
       const data = await postToApi<{ success: boolean; reply?: string; message?: string }>('chat', {
         messages: forApi.map(({ role, content: c }) => ({ role, content: c })),
+        sessionId: getOrCreateSessionId(),
       });
+      if ((data as any).handover) setHandoverActive(true);
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: data.success ? (data.reply || 'Sorry, something went wrong.') : (data.message || 'Sorry, something went wrong.'), time: getTime() },
@@ -116,6 +166,7 @@ const ChatBot = memo(() => {
         phone: lead.phone.trim(),
         projectType: 'General Enquiry',
         message: lead.message.trim(),
+        source: 'chatbot',
       });
       if (data.success) { setLeadStatus('sent'); setLead({ name: '', phone: '', email: '', message: '' }); }
       else setLeadStatus('error');
@@ -213,6 +264,11 @@ const ChatBot = memo(() => {
 
       {tab === 'chat' ? (
         <div style={{ position: 'relative', zIndex: 2, marginTop: 'auto', padding: '0 32px 30px' }}>
+          {handoverActive && (
+            <div style={{ marginBottom: '10px', padding: '10px 12px', borderRadius: '10px', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.45)', fontSize: '12px', color: 'white' }}>
+              A human agent has joined this chat. Bot replies are paused while takeover is active.
+            </div>
+          )}
           {messages.length === 1 ? (
             <>
               <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: '13px', fontWeight: 800, marginBottom: '10px' }}>Remi</div>

@@ -76,6 +76,7 @@
     "build:prod": "NODE_ENV=production vite build",
     "build:clean": "rm -rf build && npm run build",
     "server": "node server.js",
+    "migrate:dashboard-json-to-sqlite": "node scripts/migrate-dashboard-json-to-sqlite.cjs",
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
     "security-scan": "./scripts/security-scan.sh",
     "security-audit": "npm audit --audit-level=moderate",

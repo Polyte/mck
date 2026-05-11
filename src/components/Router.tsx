@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
 
-type Page = 'home' | 'about' | 'services' | 'projects' | 'contact'
+type Page = 'home' | 'about' | 'services' | 'projects' | 'contact' | 'dashboard'
 
 interface RouterContextType {
   currentPage: Page
@@ -25,6 +25,7 @@ export function RouterProvider({ children }: { children: ReactNode }) {
       if (path === '/services') return 'services';
       if (path === '/contact') return 'contact';
       if (path === '/projects') return 'projects';
+      if (path === '/dashboard') return 'dashboard';
       return 'home';
     };
 
@@ -62,6 +63,7 @@ export function RouterProvider({ children }: { children: ReactNode }) {
         if (path === '/services') return 'services';
         if (path === '/contact') return 'contact';
         if (path === '/projects') return 'projects';
+        if (path === '/dashboard') return 'dashboard';
         return 'home';
       })();
       setCurrentPage(pageFromUrl);

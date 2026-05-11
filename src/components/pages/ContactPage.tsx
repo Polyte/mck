@@ -138,7 +138,10 @@ const ContactPage = memo(() => {
 
     const toastId = toast.loading("Submitting your enquiry…");
     try {
-      const data = await postToApi<{ success: boolean; message?: string }>("contact", formData);
+      const data = await postToApi<{ success: boolean; message?: string }>("contact", {
+        ...formData,
+        source: "website-form",
+      });
 
       if (data.success) {
         toast.success(data.message || "Enquiry submitted successfully.", { id: toastId });

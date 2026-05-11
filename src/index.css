@@ -5567,3 +5567,8 @@ nav.sticky.top-0.z-50.transition-all.duration-300.font-\[\'Josefin_Sans\'\].bg-w
 .page-header-services{
   background-attachment: fixed;
 }
+
+.min-h-screen.bg-slate-50 section.section-padding,
+.min-h-screen.bg-slate-50 section.section-padding * {
+  color: #555 !important;
+}
