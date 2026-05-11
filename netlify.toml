@@ -10,7 +10,8 @@
 
 [build.environment]
   NPM_VERSION = "8"
-  NODE_VERSION = "18"
+  # node:sqlite (lib/sqliteState.cjs) is required by vite.config.ts — available from Node 22+
+  NODE_VERSION = "22"
   NODE_OPTIONS = "--max-old-space-size=4096"
   VITE_NODE_OPTIONS = "--max-old-space-size=4096"
 
